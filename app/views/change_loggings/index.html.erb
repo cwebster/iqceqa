@@ -1,0 +1,25 @@
+<h1>Listing change_loggings</h1>
+
+<table>
+  <tr>
+    <th>Datetime</th>
+    <th>Logrecord</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @change_loggings.each do |change_logging| %>
+  <tr>
+    <td><%= change_logging.dateTime %></td>
+    <td><%= change_logging.logRecord %></td>
+    <td><%= link_to 'Show', change_logging %></td>
+    <td><%= link_to 'Edit', edit_change_logging_path(change_logging) %></td>
+    <td><%= link_to 'Destroy', change_logging, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Change logging', new_change_logging_path %>

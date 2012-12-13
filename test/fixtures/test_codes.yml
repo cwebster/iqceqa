@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  testCode: 
+  testExpansion: MyString
+  notes: MyString
+  active: 
+
+two:
+  testCode: 
+  testExpansion: MyString
+  notes: MyString
+  active: 

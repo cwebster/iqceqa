@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  testCode: 
+  dataID: 
+  notes: MyString
+  dateTime: 2012-12-10 08:55:49
+  result: MyString
+
+two:
+  testCode: 
+  dataID: 
+  notes: MyString
+  dateTime: 2012-12-10 08:55:49
+  result: MyString

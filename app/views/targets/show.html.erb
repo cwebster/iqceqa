@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Iqcid:</b>
+  <%= @target.IQCID %>
+</p>
+
+<p>
+  <b>Datetimevalid:</b>
+  <%= @target.dateTimeValid %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @target.notes %>
+</p>
+
+<p>
+  <b>Testcode:</b>
+  <%= @target.testCode %>
+</p>
+
+
+<%= link_to 'Edit', edit_target_path(@target) %> |
+<%= link_to 'Back', targets_path %>

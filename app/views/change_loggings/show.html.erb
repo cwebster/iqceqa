@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Datetime:</b>
+  <%= @change_logging.dateTime %>
+</p>
+
+<p>
+  <b>Logrecord:</b>
+  <%= @change_logging.logRecord %>
+</p>
+
+
+<%= link_to 'Edit', edit_change_logging_path(@change_logging) %> |
+<%= link_to 'Back', change_loggings_path %>

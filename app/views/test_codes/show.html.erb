@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Test Code (Int):</b>
+  <%= @test_code.testCode %>
+</p>
+
+<p>
+  <b>Test Code (Telepath):</b>
+  <%= @test_code.testCodeText %>
+</p>
+
+<p>
+  <b>Full name:</b>
+  <%= @test_code.testExpansion %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @test_code.notes %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%= @test_code.active %>
+</p>
+
+<%= link_to 'Edit', edit_test_code_path(@test_code) %> |
+<%= link_to 'Back', test_codes_path %>

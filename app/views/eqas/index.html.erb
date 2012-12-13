@@ -1,0 +1,31 @@
+<h1>Listing eqas</h1>
+
+<table>
+  <tr>
+    <th>Testcode</th>
+    <th>Scheme</th>
+    <th>Bias</th>
+    <th>Notes</th>
+    <th>Datetime</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @eqas.each do |eqa| %>
+  <tr>
+    <td><%= eqa.testCode %></td>
+    <td><%= eqa.scheme %></td>
+    <td><%= eqa.bias %></td>
+    <td><%= eqa.notes %></td>
+    <td><%= eqa.dateTime %></td>
+    <td><%= link_to 'Show', eqa %></td>
+    <td><%= link_to 'Edit', edit_eqa_path(eqa) %></td>
+    <td><%= link_to 'Destroy', eqa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Eqa', new_eqa_path %>

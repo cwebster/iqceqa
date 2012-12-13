@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Iqcid:</b>
+  <%= @iqc.IQCID %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @iqc.name %>
+</p>
+
+<p>
+  <b>Manufacturer:</b>
+  <%= @iqc.manufacturer %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @iqc.notes %>
+</p>
+
+<p>
+  <b>Assigned:</b>
+  <%= @iqc.assigned %>
+</p>
+
+<p>
+  <b>Datetime:</b>
+  <%= @iqc.datetime %>
+</p>
+
+
+<%= link_to 'Edit', edit_iqc_path(@iqc) %> |
+<%= link_to 'Back', iqcs_path %>

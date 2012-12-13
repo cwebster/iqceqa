@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Testcode:</b>
+  <%= @eqa.testCode %>
+</p>
+
+<p>
+  <b>Scheme:</b>
+  <%= @eqa.scheme %>
+</p>
+
+<p>
+  <b>Bias:</b>
+  <%= @eqa.bias %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @eqa.notes %>
+</p>
+
+<p>
+  <b>Datetime:</b>
+  <%= @eqa.dateTime %>
+</p>
+
+
+<%= link_to 'Edit', edit_eqa_path(@eqa) %> |
+<%= link_to 'Back', eqas_path %>

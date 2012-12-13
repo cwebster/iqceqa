@@ -1,0 +1,28 @@
+<%= form_for(@quality_specification) do |f| %>
+  <% if @quality_specification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@quality_specification.errors.count, "error") %> prohibited this quality_specification from being saved:</h2>
+
+      <ul>
+      <% @quality_specification.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= collection_select(:quality_specification, :testCode, @test_codes, :testCode, :testExpansion) %>
+
+
+  <div class="field">
+    <%= f.label :bias %><br />
+    <%= f.text_field :bias %>
+  </div>
+  <div class="field">
+    <%= f.label :imprecision %><br />
+    <%= f.text_field :imprecision %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

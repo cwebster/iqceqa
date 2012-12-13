@@ -1,0 +1,2 @@
+class IqcsController < ApplicationController
+end

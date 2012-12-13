@@ -1,0 +1,25 @@
+<%= form_for(@change_logging) do |f| %>
+  <% if @change_logging.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@change_logging.errors.count, "error") %> prohibited this change_logging from being saved:</h2>
+
+      <ul>
+      <% @change_logging.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dateTime %><br />
+    <%= f.datetime_select :dateTime %>
+  </div>
+  <div class="field">
+    <%= f.label :logRecord %><br />
+    <%= f.text_field :logRecord %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Testcode:</b>
+  <%= @quality_specification.testCode %>
+</p>
+
+<p>
+  <b>Bias:</b>
+  <%= @quality_specification.bias %>
+</p>
+
+<p>
+  <b>Imprecision:</b>
+  <%= @quality_specification.imprecision %>
+</p>
+
+
+<%= link_to 'Edit', edit_quality_specification_path(@quality_specification) %> |
+<%= link_to 'Back', quality_specifications_path %>

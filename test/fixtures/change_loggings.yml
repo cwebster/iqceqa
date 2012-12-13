@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dateTime: 2012-12-10 08:59:46
+  logRecord: MyString
+
+two:
+  dateTime: 2012-12-10 08:59:46
+  logRecord: MyString

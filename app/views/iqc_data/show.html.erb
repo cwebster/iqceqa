@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Testcode:</b>
+  <%= @iqc_datum.testCode %>
+</p>
+
+<p>
+  <b>Dataid:</b>
+  <%= @iqc_datum.dataID %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @iqc_datum.notes %>
+</p>
+
+<p>
+  <b>Datetime:</b>
+  <%= @iqc_datum.dateTime %>
+</p>
+
+<p>
+  <b>Result:</b>
+  <%= @iqc_datum.result %>
+</p>
+
+
+<%= link_to 'Edit', edit_iqc_datum_path(@iqc_datum) %> |
+<%= link_to 'Back', iqc_data_path %>

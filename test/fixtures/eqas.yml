@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  testCode: MyString
+  scheme: MyString
+  bias: 
+  notes: MyString
+  dateTime: 2012-12-10 08:59:00
+
+two:
+  testCode: MyString
+  scheme: MyString
+  bias: 
+  notes: MyString
+  dateTime: 2012-12-10 08:59:00

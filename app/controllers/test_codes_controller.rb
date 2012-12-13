@@ -1,0 +1,83 @@
+class TestCodesController < ApplicationController
+  # GET /test_codes
+  # GET /test_codes.json
+  def index
+    @test_codes = TestCode.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @test_codes }
+    end
+  end
+
+  # GET /test_codes/1
+  # GET /test_codes/1.json
+  def show
+    @test_code = TestCode.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @test_code }
+    end
+  end
+
+  # GET /test_codes/new
+  # GET /test_codes/new.json
+  def new
+    @test_code = TestCode.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @test_code }
+    end
+  end
+
+  # GET /test_codes/1/edit
+  def edit
+    @test_code = TestCode.find(params[:id])
+  end
+
+  # POST /test_codes
+  # POST /test_codes.json
+  def create
+    @test_code = TestCode.new(params[:test_code])
+
+    respond_to do |format|
+      if @test_code.save
+        format.html { redirect_to @test_code, notice: 'Test code was successfully created.' }
+        format.json { render json: @test_code, status: :created, location: @test_code }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @test_code.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PUT /test_codes/1
+  # PUT /test_codes/1.json
+  def update
+    @test_code = TestCode.find(params[:id])
+
+    respond_to do |format|
+      if @test_code.update_attributes(params[:test_code])
+        format.html { redirect_to @test_code, notice: 'Test code was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @test_code.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /test_codes/1
+  # DELETE /test_codes/1.json
+  def destroy
+    @test_code = TestCode.find(params[:id])
+    @test_code.destroy
+
+    respond_to do |format|
+      format.html { redirect_to test_codes_url }
+      format.json { head :no_content }
+    end
+  end
+end
