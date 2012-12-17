@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210085946) do
+ActiveRecord::Schema.define(:version => 20121213154637) do
 
   create_table "change_loggings", :force => true do |t|
     t.datetime "dateTimeLogged"
@@ -59,15 +59,12 @@ ActiveRecord::Schema.define(:version => 20121210085946) do
   end
 
   create_table "quality_specifications", :force => true do |t|
-    t.string   "testCode"
     t.float    "bias"
     t.float    "imprecision"
     t.integer  "test_code_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
-
-  add_index "quality_specifications", ["testCode"], :name => "index_quality_specifications_on_testCode"
 
   create_table "sigmas", :force => true do |t|
     t.string   "testCode"
