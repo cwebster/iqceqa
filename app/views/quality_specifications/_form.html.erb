@@ -11,7 +11,8 @@
     </div>
   <% end %>
 
-<%= collection_select(:quality_specification, :test_code_id, @test_codes, :testCode, :testExpansion) %>
+
+<%= select("quality_specification", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
 
 
   <div class="field">

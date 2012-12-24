@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213154637) do
+ActiveRecord::Schema.define(:version => 20121224162640) do
 
   create_table "change_loggings", :force => true do |t|
     t.datetime "dateTimeLogged"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20121213154637) do
   add_index "eqas", ["testCode"], :name => "index_eqas_on_testCode"
 
   create_table "iqc_data", :force => true do |t|
-    t.string   "testCode"
     t.integer  "dataID"
     t.string   "notes"
     t.datetime "dateTimeCreated"
@@ -44,8 +43,6 @@ ActiveRecord::Schema.define(:version => 20121213154637) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
-
-  add_index "iqc_data", ["testCode"], :name => "index_iqc_data_on_testCode"
 
   create_table "iqcs", :force => true do |t|
     t.integer  "IQCID"

@@ -11,8 +11,14 @@
   </tr>
 
 <% @quality_specifications.each do |quality_specification| %>
+
+<%
+linktestCode = TestCode.find(quality_specification.test_code_id)
+%>
+
+
   <tr>
-    <td><%= quality_specification.testCode %></td>
+    <td><%= linktestCode.testExpansion %></td>
     <td><%= quality_specification.bias %></td>
     <td><%= quality_specification.imprecision %></td>
     <td><%= link_to 'Show', quality_specification %></td>

@@ -1,9 +1,17 @@
 <p id="notice"><%= notice %></p>
-
+<%
+linktestCode = TestCode.find(@quality_specification.test_code_id)
+%>
 <p>
   <b>Testcode:</b>
-  <%= @quality_specification.testCode %>
+  <%= linktestCode.testExpansion %>
 </p>
+
+<p>
+  <b>Testcode ID:</b>
+  <%= linktestCode.id %>
+</p>
+
 
 <p>
   <b>Bias:</b>

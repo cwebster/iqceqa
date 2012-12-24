@@ -12,9 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :testCode %><br />
-    <%= f.text_field :testCode %>
+  <%= select("iqc_datum", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+
   </div>
+  
+  <div class="field">
+  <%= select("iqc_datum", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
+
+  </div>
+  
   <div class="field">
     <%= f.label :dataID %><br />
     <%= f.text_field :dataID %>
@@ -24,8 +30,8 @@
     <%= f.text_field :notes %>
   </div>
   <div class="field">
-    <%= f.label :dateTime %><br />
-    <%= f.datetime_select :dateTime %>
+    <%= f.label :dateTimeCreated %><br />
+    <%= f.datetime_select :dateTimeCreated %>
   </div>
   <div class="field">
     <%= f.label :result %><br />
