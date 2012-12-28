@@ -13,12 +13,13 @@
   </tr>
 
 <% @eqas.each do |eqa| %>
+
   <tr>
-    <td><%= eqa.testCode %></td>
-    <td><%= eqa.scheme %></td>
+    <td><%= render 'common/test_code_id', :object => eqa.test_code_id %></td>
+    <td><%= render 'common/eqascheme', :object => eqa.eqa_scheme_id %></td>
     <td><%= eqa.bias %></td>
     <td><%= eqa.notes %></td>
-    <td><%= eqa.dateTime %></td>
+    <td><%= eqa.created_at %></td>
     <td><%= link_to 'Show', eqa %></td>
     <td><%= link_to 'Edit', edit_eqa_path(eqa) %></td>
     <td><%= link_to 'Destroy', eqa, method: :delete, data: { confirm: 'Are you sure?' } %></td>

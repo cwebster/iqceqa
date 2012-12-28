@@ -2,22 +2,24 @@
 
 <table>
   <tr>
-    <th>Testcode</th>
-    <th>Dataid</th>
+    <th>Test Name</th>
     <th>Notes</th>
-    <th>Datetime</th>
+    <th>IQC Material</th>
+    <th>Analyser</th>
+    <th>Date record created</th>
     <th>Result</th>
-    <th></th>
-    <th></th>
-    <th></th>
+
   </tr>
 
 <% @iqc_data.each do |iqc_datum| %>
   <tr>
-    <td><%= iqc_datum.testCode %></td>
-    <td><%= iqc_datum.dataID %></td>
+    <td><%= render 'common/test_code_id', :object => iqc_datum.test_code_id %></td>
     <td><%= iqc_datum.notes %></td>
-    <td><%= iqc_datum.dateTimeCreated %></td>
+    
+    <td><%= render 'common/iqcmaterial', :object => iqc_datum.iqc_id %></td>
+    <td><%= render 'common/analyser', :object => iqc_datum.analyser_id  %></td>
+    
+    <td><%= iqc_datum.created_at %></td>
     <td><%= iqc_datum.result %></td>
     <td><%= link_to 'Show', iqc_datum %></td>
     <td><%= link_to 'Edit', edit_iqc_datum_path(iqc_datum) %></td>

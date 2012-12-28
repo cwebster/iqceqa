@@ -25,7 +25,7 @@ class QualitySpecificationsController < ApplicationController
   # GET /quality_specifications/new.json
   def new
     @quality_specification = QualitySpecification.new
-    @test_codes = TestCode.all
+
 
     respond_to do |format|
       format.html # new.html.erb

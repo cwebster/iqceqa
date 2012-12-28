@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    Assigned ID<br />
-    <%= f.text_field :IQCID %>
-  </div>
-  <div class="field">
     IQC Material Name<br />
     <%= f.text_field :name %>
   </div>
@@ -31,10 +27,7 @@
     <%= f.label :assigned %><br />
     <%= f.text_field :assigned %>
   </div>
-  <div class="field">
-    Date Active<br />
-    <%= f.date_select :dateTimeCreated %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

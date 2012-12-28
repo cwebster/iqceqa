@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Analyser Name:</b>
+  <%= @analysers.AnalyserName %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @analysers.AnalyserNote %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @analysers.AnalyserLocation %>
+</p>
+
+<p>
+  <b>Created At:</b>
+  <%= @analysers.created_at %>
+</p>
+
+<p>
+  <b>Updated At:</b>
+  <%= @analysers.updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_analyser_path(@analysers) %> |
+<%= link_to 'Back', analysers_path %>

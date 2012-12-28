@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121224162640) do
+ActiveRecord::Schema.define(:version => 20121228162251) do
+
+  create_table "analysers", :force => true do |t|
+    t.string   "AnalyserName"
+    t.text     "AnalyserNote"
+    t.string   "AnalyserLocation"
+    t.integer  "iqc_data_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "analysers", ["id"], :name => "index_analysers_on_id"
+  add_index "analysers", ["iqc_data_id"], :name => "index_analysers_on_iqc_data_id"
 
   create_table "change_loggings", :force => true do |t|
     t.datetime "dateTimeLogged"
@@ -20,21 +32,27 @@ ActiveRecord::Schema.define(:version => 20121224162640) do
     t.datetime "updated_at",     :null => false
   end
 
-  create_table "eqas", :force => true do |t|
-    t.string   "testCode"
-    t.string   "scheme"
-    t.float    "bias"
-    t.string   "notes"
-    t.datetime "dateTimeCreated"
-    t.integer  "test_code_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "eqa_schemes", :force => true do |t|
+    t.string   "name"
+    t.text     "address"
+    t.text     "contact"
+    t.string   "website"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "eqas", ["testCode"], :name => "index_eqas_on_testCode"
+  create_table "eqas", :force => true do |t|
+    t.float    "bias"
+    t.string   "notes"
+    t.integer  "test_code_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "eqa_scheme_id"
+  end
+
+  add_index "eqas", ["id"], :name => "index_eqas_on_id"
 
   create_table "iqc_data", :force => true do |t|
-    t.integer  "dataID"
     t.string   "notes"
     t.datetime "dateTimeCreated"
     t.string   "result"
@@ -42,17 +60,18 @@ ActiveRecord::Schema.define(:version => 20121224162640) do
     t.integer  "test_code_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "analyser_id"
   end
 
+  add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"
+
   create_table "iqcs", :force => true do |t|
-    t.integer  "IQCID"
     t.string   "name"
     t.string   "manufacturer"
     t.string   "notes"
     t.boolean  "assigned"
-    t.datetime "dateTimeCreated"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "quality_specifications", :force => true do |t|

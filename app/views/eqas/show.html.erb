@@ -2,12 +2,12 @@
 
 <p>
   <b>Testcode:</b>
-  <%= @eqa.testCode %>
+  <%= render 'common/test_code_id', :object => @eqa.test_code_id %>
 </p>
 
 <p>
   <b>Scheme:</b>
-  <%= @eqa.scheme %>
+  <%= render 'common/eqascheme', :object => @eqa.eqa_scheme_id %>
 </p>
 
 <p>
@@ -20,10 +20,6 @@
   <%= @eqa.notes %>
 </p>
 
-<p>
-  <b>Datetime:</b>
-  <%= @eqa.dateTime %>
-</p>
 
 
 <%= link_to 'Edit', edit_eqa_path(@eqa) %> |

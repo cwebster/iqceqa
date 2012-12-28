@@ -12,13 +12,10 @@
 
 <% @quality_specifications.each do |quality_specification| %>
 
-<%
-linktestCode = TestCode.find(quality_specification.test_code_id)
-%>
-
+</td>
 
   <tr>
-    <td><%= linktestCode.testExpansion %></td>
+    <td><%= render  'common/test_code_id', :object => quality_specification.test_code_id %></td>
     <td><%= quality_specification.bias %></td>
     <td><%= quality_specification.imprecision %></td>
     <td><%= link_to 'Show', quality_specification %></td>

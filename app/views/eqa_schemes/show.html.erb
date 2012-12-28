@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @eqa_scheme.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @eqa_scheme.address %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @eqa_scheme.contact %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @eqa_scheme.website %>
+</p>
+
+
+<%= link_to 'Edit', edit_eqa_scheme_path(@eqa_scheme) %> |
+<%= link_to 'Back', eqa_schemes_path %>

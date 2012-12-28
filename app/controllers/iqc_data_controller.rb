@@ -15,6 +15,7 @@ class IqcDataController < ApplicationController
   def show
     @iqc_datum = IqcDatum.find(params[:id])
 
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @iqc_datum }

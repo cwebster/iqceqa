@@ -1,23 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Testcode:</b>
-  <%= @iqc_datum.testCode %>
+<%= render :partial => 'common/test_code_id', :object => @iqc_datum.test_code_id %></td>
 </p>
-
 <p>
-  <b>Dataid:</b>
-  <%= @iqc_datum.dataID %>
-</p>
-
-<p>
-  <b>Notes:</b>
+<b>Notes:</b>
   <%= @iqc_datum.notes %>
 </p>
 
 <p>
-  <b>Datetime:</b>
-  <%= @iqc_datum.dateTimeCreated %>
+  <b>Created at:</b>
+  <%= @iqc_datum.created_at %>
 </p>
 
 <p>

@@ -1,6 +1,7 @@
 class IqcDatum < ActiveRecord::Base
-  attr_accessible :dataID, :dateTimeCreated, :notes, :result, :iqc_id, :test_code_id
+  attr_accessible :dataID, :notes, :result, :iqc_id, :test_code_id, :analyser_id
   
-  belongs_to :testCode
+  has_many :TestCodes
   belongs_to :iqc
+  belongs_to :analyser
 end

@@ -1,0 +1,29 @@
+<h1>Listing eqa_schemes</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Contact</th>
+    <th>Website</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @eqa_schemes.each do |eqa_scheme| %>
+  <tr>
+    <td><%= eqa_scheme.name %></td>
+    <td><%= eqa_scheme.address %></td>
+    <td><%= eqa_scheme.contact %></td>
+    <td><%= eqa_scheme.website %></td>
+    <td><%= link_to 'Show', eqa_scheme %></td>
+    <td><%= link_to 'Edit', edit_eqa_scheme_path(eqa_scheme) %></td>
+    <td><%= link_to 'Destroy', eqa_scheme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Eqa scheme', new_eqa_scheme_path %>

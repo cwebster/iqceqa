@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :testCode %><br />
-    <%= f.text_field :testCode %>
+    Test Name<br />
+ <%= select("eqa", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
   </div>
   <div class="field">
     <%= f.label :scheme %><br />
-    <%= f.text_field :scheme %>
+<%= select("eqa", "eqa_scheme_id", EqaScheme.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
   </div>
   <div class="field">
     <%= f.label :bias %><br />
@@ -27,10 +27,7 @@
     <%= f.label :notes %><br />
     <%= f.text_field :notes %>
   </div>
-  <div class="field">
-    <%= f.label :dateTime %><br />
-    <%= f.datetime_select :dateTimeCreated %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

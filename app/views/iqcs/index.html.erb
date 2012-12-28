@@ -2,25 +2,25 @@
 
 <table>
   <tr>
-    <th>Iqcid</th>
     <th>Name</th>
     <th>Manufacturer</th>
     <th>Notes</th>
     <th>Assigned</th>
-    <th>Datetime</th>
+    <th>Created</th>
+    <th>Updated</th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
 
-<% @iqcs.each do |iqc| %>
+<% @iqc.each do |iqc| %>
   <tr>
-    <td><%= iqc.IQCID %></td>
     <td><%= iqc.name %></td>
     <td><%= iqc.manufacturer %></td>
     <td><%= iqc.notes %></td>
     <td><%= iqc.assigned %></td>
-    <td><%= iqc.datetimecreated %></td>
+    <td><%= iqc.created_at %></td>
+    <td><%= iqc.updated_at %></td>
     <td><%= link_to 'Show', iqc %></td>
     <td><%= link_to 'Edit', edit_iqc_path(iqc) %></td>
     <td><%= link_to 'Destroy', iqc, method: :delete, data: { confirm: 'Are you sure?' } %></td>

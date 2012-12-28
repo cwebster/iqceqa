@@ -1,17 +1,9 @@
 <p id="notice"><%= notice %></p>
-<%
-linktestCode = TestCode.find(@quality_specification.test_code_id)
-%>
+
 <p>
   <b>Testcode:</b>
-  <%= linktestCode.testExpansion %>
+  <td><%= render  'common/test_code_id', :object => @quality_specification.test_code_id %></td>
 </p>
-
-<p>
-  <b>Testcode ID:</b>
-  <%= linktestCode.id %>
-</p>
-
 
 <p>
   <b>Bias:</b>

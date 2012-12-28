@@ -1,0 +1,25 @@
+<h1>Listing analysers</h1>
+
+<table>
+  <tr>
+    <th>Analyser Name</th>
+    <th>Analyser Notes</th>
+    <th>Analyser Location</th>
+  </tr>
+
+<% @analysers.each do |analyser| %>
+  <tr>
+    <td><%= analyser.AnalyserName %></td>
+    <td><%= analyser.AnalyserNote %></td>
+    <td><%= analyser.AnalyserLocation %></td>
+    <td><%= analyser.created_at %></td>
+    <td><%= link_to 'Show', analyser %></td>
+    <td><%= link_to 'Edit', edit_analyser_path(analyser) %></td>
+    <td><%= link_to 'Destroy', analyser, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New analyser', new_analyser_path %>

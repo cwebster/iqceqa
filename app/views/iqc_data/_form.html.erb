@@ -11,28 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field">Test Name:
   <%= select("iqc_datum", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
 
   </div>
   
-  <div class="field">
+  <div class="field">IQC Material:
   <%= select("iqc_datum", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
 
   </div>
   
-  <div class="field">
-    <%= f.label :dataID %><br />
-    <%= f.text_field :dataID %>
+  <div class="field">Analyser:
+  <%= select("iqc_datum", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
+
   </div>
+  
+
   <div class="field">
     <%= f.label :notes %><br />
     <%= f.text_field :notes %>
   </div>
-  <div class="field">
-    <%= f.label :dateTimeCreated %><br />
-    <%= f.datetime_select :dateTimeCreated %>
-  </div>
+
   <div class="field">
     <%= f.label :result %><br />
     <%= f.text_field :result %>

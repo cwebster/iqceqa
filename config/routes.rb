@@ -1,4 +1,7 @@
 Performance::Application.routes.draw do
+  resources :eqa_schemes
+
+
   get "test_codes/new"
 
   get "test_codes/create"
@@ -25,7 +28,10 @@ Performance::Application.routes.draw do
 
 
   resources :iqcs
+  
+  resources :analysers
 
+  resources :eqa_schemes
 
   get "home/index"
   
