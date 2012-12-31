@@ -1,15 +1,16 @@
-<h1>Listing eqas</h1>
+<h2>Listing EQAS Datapoints</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th>Testcode</th>
-    <th>Scheme</th>
-    <th>Bias</th>
-    <th>Notes</th>
-    <th>Datetime</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col" class="rounded-company">Test Name</th>
+    <th scope="col" class="rounded-company">EQA Scheme</th>
+    <th scope="col" class="rounded-company">Bias</th>
+    <th scope="col" class="rounded-company">Notes</th>
+    <th scope="col" class="rounded-company">Date time created</th>
+    <th scope="col" class="rounded-company"></th>
+    <th scope="col" class="rounded-company"></th>
+    <th scope="col" class="rounded-company"></th>
   </tr>
 
 <% @eqas.each do |eqa| %>

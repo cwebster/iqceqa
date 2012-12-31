@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Testcode:</b>
-  <%= @sigma.testCode %>
+  <b>Test Name:</b>
+  <td><%= render  'common/test_code_id', :object => @sigma.test_code_id %></td>
 </p>
 
 <p>
-  <b>Datetime:</b>
-  <%= @sigma.dateTime %>
+  <b>Sigma Score:</b>
+  <%= @sigma.sigma %>
 </p>
 
 

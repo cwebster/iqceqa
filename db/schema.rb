@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228162251) do
+ActiveRecord::Schema.define(:version => 20121231151819) do
 
   create_table "analysers", :force => true do |t|
     t.string   "AnalyserName"
@@ -83,15 +83,11 @@ ActiveRecord::Schema.define(:version => 20121228162251) do
   end
 
   create_table "sigmas", :force => true do |t|
-    t.string   "testCode"
-    t.datetime "dateTimeCreated"
     t.float    "sigma"
     t.integer  "test_code_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
-
-  add_index "sigmas", ["testCode"], :name => "index_sigmas_on_testCode"
 
   create_table "targets", :force => true do |t|
     t.integer  "IQCID"

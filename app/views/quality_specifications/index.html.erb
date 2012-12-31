@@ -1,14 +1,22 @@
-<h1>Listing quality_specifications</h1>
+<h2>Listing quality specifications currently configured</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th>Testcode</th>
-    <th>Bias</th>
-    <th>Imprecision</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col" class="rounded-company">Test Name</th>
+    <th scope="col" class="rounded-q1">Bias Target</th>
+    <th scope="col" class="rounded-q1">Imprecision Target</th>
+    <th scope="col" class="rounded-q1">Editing</th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
   </tr>
+</thead>
+<tfoot>
+    	<tr>
+        	<td colspan="5" class="rounded-foot-left"><em>Quality specification management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+ </tfoot>
 
 <% @quality_specifications.each do |quality_specification| %>
 
@@ -26,5 +34,5 @@
 </table>
 
 <br />
+<%= button_to "New Quality specification", {:action => "new"}, {:method => :get } %>
 
-<%= link_to 'New Quality specification', new_quality_specification_path %>

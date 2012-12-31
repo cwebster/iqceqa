@@ -1,16 +1,10 @@
-<h1>Quality Metrics</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
 <p>
   <b>Select test code to view performance:</b>
+  	<%= form_tag("/search", :method => "get") do %>
+		<%= collection_select(:testCode, :testCode, @test_codes, :testCode, :testExpansion) %>
+		<%= submit_tag("View Performance") %>
+	<% end %>
 
-<%= collection_select(:testCode, :testCode, @test_codes, :testCode, :testExpansion) %>
-
-<%= button_to 'New IQC data point', { :action => 'new', :controller =>"iqc_data"}, :method => :get %>
-<%= button_to 'New EQA data point', { :action => 'new', :controller =>"eqas"}, :method => :get %>
-<%= button_to 'New IQC Material', { :action => 'new', :controller =>"iqcs"}, :method => :get %>
-
-<hr>
 <h2>Quality Specifications Management</h2>
 <%= link_to "List Quality Specifications", quality_specifications_path%>
 </p>

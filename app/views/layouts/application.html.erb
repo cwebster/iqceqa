@@ -1,14 +1,202 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-  <title>Performance</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+
+	<!-- Basic Page Needs
+  	================================================== -->
+	<meta charset="utf-8" />
+	<title>Performance Monitoring for IQC and EQA</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!--[if lt IE 9]>  
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- Mobile Specific Metas
+  	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+	
+	<!-- CSS
+  	================================================== -->
+  	<%= stylesheet_link_tag    "application", :media => "all" %>
+  	<%= javascript_include_tag "application" %>
+  	<%= csrf_meta_tags %>
+	
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png" />
+	
 </head>
 <body>
 
-<%= yield %>
 
-</body>
-</html>
+<!-- Super Container for entire site -->
+<div class="super-container full-width" id="section-tophat">
+
+	<!-- 960 Container -->
+	<div class="container">			
+		
+		<div class="sixteen columns">
+			<span class="tagline">HEFT IQC/EQA/Performance Dashboard</span>
+		</div>
+		
+	</div>
+	
+</div>
+<!-- Super Container for entire site -->
+<div class="super-container full-width" id="section-header">
+
+	<!-- 960 Container -->
+	<div class="container">			
+		
+		<!-- Header -->
+		<header>
+		<div class="sixteen columns">
+			
+			<!-- Branding -->
+			<div class="six columns alpha">
+				<a href="/">
+					<h1 id="logo" style="margin-top: 40px; margin-bottom: 30px;">
+						Quality Metrics
+					</h1>
+				</a>
+			</div>
+			<!-- /End Branding -->
+			
+			
+			<hr class="remove-bottom"/>
+		</div>
+		
+		<!-- Menu -->
+		<div class="sixteen columns" id="menu">
+			
+			<div class="twelve columns alpha navigation">
+				
+				<!-- Default Superfish Nav (add/remove "light" class to toggle visual styling) -->
+				<ul class="sf-menu light">
+					<li><a href="/sigmas"><strong>Sigma Scores</strong> <span>View Sigma Scores</span></a></li>
+					<li><a href="/iqc_data/new?"><strong>New IQC</strong> <span>Create a new IQC data point</span></a></li>
+					<li><a href="/eqas/new?"><strong>New EQA</strong> <span>Create a new EQA data point</span></a></li>
+					<li><a href="/iqcs/new?"><strong>New IQC Material</strong> <span>Create a new IQC Material</span></a></li>
+					<li><a href="/quality_specifications"><strong>Setup</strong> <span>Set up parameters</span></a>
+					 			<ul>
+									<li><a href="/quality_specifications">Quality Specifications Management</a>
+										<ul><a href="sans-serif.html">Import Quality Specifications</a>
+										</ul>
+									</li>
+									<li><a href="/eqa_schemes">EQA Scheme Management</a></li>
+									<li><a href="/analysers">List and Maintain Analyser on System</a></li>
+									<li><a href="/test_codes">Test Code Maintenance</a>
+									<ul><a href="/sans-serif.html">Import Test Codes</a>
+									</ul>
+									
+									</li>
+								</ul> 
+					
+					</li>
+				</ul>
+				<!-- /End Default Superfish Nav-->
+				
+				<!-- Responsive Nav - Displays when screen gets small enough -->
+				<form id="responsive-nav" action="insert_action" method="post">
+					<select class="chzn-select">
+						<option value="/">Home</option>
+						<option value="about.html">About</option>
+					</select>
+				</form>
+				<!-- /End Responsive Nav -->	
+				
+							
+			</div>	
+
+			<div class="four columns omega align-right" id="tagline">
+
+			</div>			
+			
+			<hr class="remove-top"/>
+		</div>	
+		 
+		<!-- /End Menu -->
+		
+		</header>
+		<!-- /End Header -->
+	
+	</div>
+	<!-- End 960 Container -->
+	
+</div>
+<!-- End SuperContainer -->
+
+
+<!-- ============================================== -->
+
+
+
+
+<!-- ============================================== -->
+
+
+<!-- Super Container -->
+<div class="super-container full-width" id="section-thirds">
+
+	<!-- 960 Container -->
+	<div class="container">
+
+		<!-- 1/2 Columns -->
+		<div class="Sixteen columns">
+			<%= yield %>	
+		</div>						
+	
+	</div>
+	<!-- /End 960 Container -->
+
+</div>
+<!-- /End Super Container -->
+
+
+<!-- ============================================== -->
+
+
+<!-- Super Container -->
+<div class="super-container full-width" id="section-footer">		
+
+	<!-- 960 Container -->
+	<div class="container">
+	
+		<!-- footer -->
+		<footer>
+		<div class="sixteen columns" id="header">
+			
+						
+		</div>
+		</footer>
+		<!-- /End Footer -->		
+
+	</div>
+	<!-- /End 960 Container -->
+	
+</div>
+<!-- /End Super Container -->
+
+
+<!-- Super Container -->
+<div class="super-container full-width" id="section-sub-footer">		
+
+	<!-- 960 Container -->
+	<div class="container">
+
+		<div class="sixteen columns">	
+				<span class="copyright">&copy; 2012 Craig Webster</span>
+		</div>
+
+	</div>
+	<!-- /End 960 Container -->
+	
+</div>
+<!-- /End Super Container -->		

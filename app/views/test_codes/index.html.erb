@@ -1,15 +1,32 @@
-<h1>Listing test_codes</h1>
+<h2>Listing currently configured Tests</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col" class="rounded-company">Telepath Test Code</th>
+    <th scope="col" class="rounded-q1">Notes</th>
+    <th scope="col" class="rounded-q1">Active</th>
+    <th scope="col" class="rounded-q1">Test Expansion</th>
+    <th scope="col" class="rounded-q1">Internal Test Code</th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
   </tr>
+</thead>
 
+<tfoot>
+    	<tr>
+        	<td colspan="7" class="rounded-foot-left"><em>Test code management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+    </tfoot>
 <% @test_codes.each do |test_code| %>
   <tr>
 	<td><%=test_code.testCodeText %> </td>
+	<td><%=test_code.notes %> </td>
+	<td><%=test_code.active %> </td>
+	<td><%=test_code.testExpansion %> </td>
+	<td><%=test_code.id %> </td>
     <td><%= link_to 'Show', test_code %></td>
     <td><%= link_to 'Edit', edit_test_code_path(test_code) %></td>
     <td><%= link_to 'Destroy', test_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -19,4 +36,4 @@
 
 <br />
 
-<%= link_to 'New Test code', new_test_code_path %>
+<%= button_to "New Test", {:action => "new"}, {:method => :get } %>

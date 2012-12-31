@@ -1,18 +1,33 @@
-<h1>Listing sigmas</h1>
+<h2>Listing Sigma Scores Currently Calculated</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th>Testcode</th>
-    <th>Datetime</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col" class="rounded-company">Test Name</th>
+    <th scope="col" class="rounded-q1">Sigma Score</th>
+    <th scope="col" class="rounded-q1">Date record created</th>
+    <th scope="col" class="rounded-q1">Date record updated</th>
+
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
   </tr>
+</thead>
+
+<tfoot>
+    	<tr>
+        	<td colspan="6" class="rounded-foot-left"><em>IQC management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+    </tfoot>
+
 
 <% @sigmas.each do |sigma| %>
   <tr>
-    <td><%= sigma.testCode %></td>
-    <td><%= sigma.dateTime %></td>
+    <td><%= render  'common/test_code_id', :object => sigma.test_code_id %></td>
+    <td><%= sigma.sigma %></td>
+    <td><%= sigma.created_at %></td>
+    <td><%= sigma.updated_at %></td>
     <td><%= link_to 'Show', sigma %></td>
     <td><%= link_to 'Edit', edit_sigma_path(sigma) %></td>
     <td><%= link_to 'Destroy', sigma, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -22,4 +37,4 @@
 
 <br />
 
-<%= link_to 'New Sigma', new_sigma_path %>
+<%= button_to "New Sigma (Manual Entry)", {:action => "new"}, {:method => :get } %>

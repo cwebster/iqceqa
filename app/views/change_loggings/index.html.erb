@@ -1,13 +1,25 @@
-<h1>Listing change_loggings</h1>
+<h2>Change Log</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th>Datetime</th>
-    <th>Logrecord</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col" class="rounded-company">Log Date/Time</th>
+    <th scope="col" class="rounded-q1">Record</th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
   </tr>
+</thead>
+
+<tfoot>
+    	<tr>
+        	<td colspan="7" class="rounded-foot-left"><em>Test code management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+    </tfoot>
 
 <% @change_loggings.each do |change_logging| %>
   <tr>

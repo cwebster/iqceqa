@@ -1,16 +1,24 @@
-<h1>Listing eqa_schemes</h1>
+<h2>Listing EQA schemes currently configured</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Contact</th>
-    <th>Website</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th scope="col" class="rounded-company">Name</th>
+    <th scope="col" class="rounded-q1">Address</th>
+    <th scope="col" class="rounded-q1">Contact</th>
+    <th scope="col" class="rounded-q1">Website</th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
   </tr>
+</thead>
 
+<tfoot>
+    	<tr>
+        	<td colspan="6" class="rounded-foot-left"><em>EQA management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+    </tfoot>
 <% @eqa_schemes.each do |eqa_scheme| %>
   <tr>
     <td><%= eqa_scheme.name %></td>
@@ -26,4 +34,4 @@
 
 <br />
 
-<%= link_to 'New Eqa scheme', new_eqa_scheme_path %>
+<%= button_to "New EQA Scheme", {:action => "new"}, {:method => :get } %>

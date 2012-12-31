@@ -1,11 +1,24 @@
-<h1>Listing analysers</h1>
+<h2>Listing analysers</h2>
 
-<table>
+<table id="rounded-corner">
+<thead>
   <tr>
-    <th>Analyser Name</th>
-    <th>Analyser Notes</th>
-    <th>Analyser Location</th>
+    <th scope="col" class="rounded-company">Analyser Name</th>
+    <th scope="col" class="rounded-q1">Analyser Notes</th>
+    <th scope="col" class="rounded-q2">Analyser Location</th>
+    <th scope="col" class="rounded-q2">Created Date/Time</th>
+    <th scope="col" class="rounded-q2">Editing</th>
+    <th scope="col" class="rounded-q2"></th>
+    <th scope="col" class="rounded-q2"></th>
   </tr>
+</thead>
+
+<tfoot>
+    	<tr>
+        	<td colspan="6" class="rounded-foot-left"><em>Analyser management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+    </tfoot>
 
 <% @analysers.each do |analyser| %>
   <tr>
@@ -21,5 +34,5 @@
 </table>
 
 <br />
+<%= button_to "New Analyser", {:action => "new"}, {:method => :get } %>
 
-<%= link_to 'New analyser', new_analyser_path %>

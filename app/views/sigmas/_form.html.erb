@@ -12,12 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :testCode %><br />
-    <%= f.text_field :testCode %>
+<%= select("sigma", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
   </div>
   <div class="field">
-    <%= f.label :dateTime %><br />
-    <%= f.datetime_select :dateTime %>
+    Calculated Sigma Score<br />
+    <%= f.text_field :sigma %>
   </div>
   <div class="actions">
     <%= f.submit %>
