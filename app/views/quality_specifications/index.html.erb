@@ -36,3 +36,10 @@
 <br />
 <%= button_to "New Quality specification", {:action => "new"}, {:method => :get } %>
 
+<h2>Import Quality Specifications</h2>
+
+<%= form_tag import_quality_specifications_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+

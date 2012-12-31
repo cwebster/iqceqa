@@ -12,9 +12,13 @@ Performance::Application.routes.draw do
   resources :eqas
 
 
-  resources :quality_specifications
+  resources :quality_specifications do
+  	collection { post :import }
+  end
 
-
+  resources :quality_specification_imports
+  
+  
   resources :test_codes
 
 
