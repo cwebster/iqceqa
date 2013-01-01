@@ -32,14 +32,16 @@
   </tr>
 <% end %>
 </table>
-
+<p>
+  Download:
+  <%= link_to "CSV", quality_specifications_path(format: "csv") %> |
+  <%= link_to "Excel", quality_specifications_path(format: "xls") %>
+</p>
 <br />
+<h5>New Quality Specifications</h5>
 <%= button_to "New Quality specification", {:action => "new"}, {:method => :get } %>
 
-<h2>Import Quality Specifications</h2>
+<h5>Import Quality Specifications</h5>
+<p><%= link_to "Import Quality Specifications", new_quality_specification_import_path %></p>
 
-<%= form_tag import_quality_specifications_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>
 

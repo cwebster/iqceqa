@@ -7,8 +7,8 @@ class QualitySpecificationsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @quality_specifications }
-      format.csv { send_data @quality_specifications.to_csv }
-      
+      format.csv { send_data QualitySpecification.to_csv }
+      format.xls # { send_data @quality_specifications.to_csv(col_sep: "\t")}
     end
   end
 

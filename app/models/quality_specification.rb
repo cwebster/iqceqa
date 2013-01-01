@@ -10,9 +10,9 @@ class QualitySpecification < ActiveRecord::Base
   		header = spreadsheet.row(1)
   		(2..spreadsheet.last_row).each do |i|
     		row = Hash[[header, spreadsheet.row(i)].transpose]
-    	product = find_by_id(row["id"]) || new
-    	product.attributes = row.to_hash.slice(*accessible_attributes)
-    	product.save!
+    	quality_specification = find_by_id(row["id"]) || new
+    	quality_specification.attributes = row.to_hash.slice(*accessible_attributes)
+    	quality_specification.save!
   end
 end
 
@@ -25,14 +25,14 @@ end
   		end
 	end
   
-  def self.to_csv(options = {})
-    CSV.generate(options) do |csv|
-      csv << column_names
-      all.each do |product|
-        csv << product.attributes.values_at(*column_names)
-      end
+def self.to_csv(options = {})
+  CSV.generate(options) do |csv|
+    csv << column_names
+    all.each do |specificaiton|
+      csv << specificaiton.attributes.values_at(*column_names)
     end
   end
+end
   
   
 end

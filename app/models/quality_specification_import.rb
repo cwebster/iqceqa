@@ -14,13 +14,13 @@ class QualitySpecificationImport
     false
   end
 
-  def save
-    if imported_quality_specificaitons.map(&:valid?).all?
-      imported_quality_specificaitons.each(&:save!)
+ def save
+    if imported_specificaitons.map(&:valid?).all?
+      imported_specificaitons.each(&:save!)
       true
     else
-      imported_quality_specificaitons.each_with_index do |quality_specification, index|
-        quality_specification.errors.full_messages.each do |message|
+      imported_specificaitons.each_with_index do |product, index|
+        product.errors.full_messages.each do |message|
           errors.add :base, "Row #{index+2}: #{message}"
         end
       end
@@ -28,18 +28,18 @@ class QualitySpecificationImport
     end
   end
 
-  def imported_quality_specifications
-    @imported_quality_specifications ||= load_imported_quality_specifications
+  def imported_specificaitons
+    @imported_specificaitons ||= load_imported_specificaiton
   end
 
-  def load_imported_quality_specifications
+  def load_imported_specificaiton
     spreadsheet = open_spreadsheet
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      quality_specification = QualitySpecification.find_by_id(row["id"]) || QualitySpecification.new
-      quality_specification.attributes = row.to_hash.slice(*QualitySpecification.accessible_attributes)
-      quality_specification.save!
+      product = QualitySpecification.find_by_id(row["id"]) || QualitySpecification.new
+      product.attributes = row.to_hash.slice(*QualitySpecification.accessible_attributes)
+      product
     end
   end
 
