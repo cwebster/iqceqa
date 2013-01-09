@@ -80,4 +80,22 @@ class SigmasController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def checkLastCalculationDate
+  	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'QC'])
+  	
+  	@iqcs = IqcDatum.where("dateTimeCreated > ?", @calculationDate.created_at)
+  	
+  	
+  	
+  	respond_to do |format|
+  	  format.html # index.html.erb
+  	  format.json { head :no_content  }
+  	end
+  
+  end
+  
+  
+  
+  
 end

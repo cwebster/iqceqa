@@ -45,6 +45,8 @@ class IqcDataController < ApplicationController
 
     respond_to do |format|
       if @iqc_datum.save
+        changeLogging = ChangeLogging.new(:logRecord => 'QC')
+        changeLogging.save
         format.html { redirect_to @iqc_datum, notice: 'Iqc datum was successfully created.' }
         format.json { render json: @iqc_datum, status: :created, location: @iqc_datum }
       else

@@ -1,0 +1,21 @@
+<h2>Debugging Sigma Calculations :::: to be deleted in completed application</h2>
+
+
+
+<%= @calculationDate.created_at %>, <%= @calculationDate.logRecord %><br>
+
+
+<table id="rounded-corner">
+<thead>
+  <tr>
+    <th scope="col" class="rounded-company">Notes</th>
+    <th scope="col" class="rounded-q1">Date Time Created</th>
+    <th scope="col" class="rounded-q1">Result</th>
+
+<% @iqcs.each do |iqc| %>
+<tr>
+    <td><%= iqc.notes %></td>
+    <td><%= iqc.dateTimeCreated %></td>
+    <td><%= iqc.result %></td>
+</tr>
+<% end %>

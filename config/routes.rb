@@ -21,7 +21,8 @@ Performance::Application.routes.draw do
   
   resources :test_codes
 
-
+  match 'sigmacalc' => 'sigmas#checkLastCalculationDate'
+  
   resources :sigmas
 
 
