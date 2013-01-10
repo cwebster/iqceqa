@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231151819) do
+ActiveRecord::Schema.define(:version => 20130110134946) do
 
   create_table "analysers", :force => true do |t|
     t.string   "AnalyserName"
@@ -26,10 +26,9 @@ ActiveRecord::Schema.define(:version => 20121231151819) do
   add_index "analysers", ["iqc_data_id"], :name => "index_analysers_on_iqc_data_id"
 
   create_table "change_loggings", :force => true do |t|
-    t.datetime "dateTimeLogged"
     t.string   "logRecord"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "eqa_schemes", :force => true do |t|
@@ -48,19 +47,22 @@ ActiveRecord::Schema.define(:version => 20121231151819) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "eqa_scheme_id"
+    t.date     "dateOfEQA"
+    t.integer  "analyser_id"
   end
 
+  add_index "eqas", ["analyser_id"], :name => "index_eqas_on_analyser_id"
   add_index "eqas", ["id"], :name => "index_eqas_on_id"
 
   create_table "iqc_data", :force => true do |t|
     t.string   "notes"
-    t.datetime "dateTimeCreated"
     t.string   "result"
     t.integer  "iqc_id"
     t.integer  "test_code_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "analyser_id"
+    t.datetime "dateOfIQC"
   end
 
   add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"
@@ -80,6 +82,9 @@ ActiveRecord::Schema.define(:version => 20121231151819) do
     t.integer  "test_code_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.float    "cvi"
+    t.float    "cvw"
+    t.string   "goaltype"
   end
 
   create_table "sigmas", :force => true do |t|

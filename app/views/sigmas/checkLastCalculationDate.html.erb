@@ -15,7 +15,25 @@
 <% @iqcs.each do |iqc| %>
 <tr>
     <td><%= iqc.notes %></td>
-    <td><%= iqc.dateTimeCreated %></td>
+    <td><%= iqc.dateOfIQC %></td>
     <td><%= iqc.result %></td>
 </tr>
 <% end %>
+</table>
+
+
+<table id="rounded-corner">
+<thead>
+  <tr>
+    <th scope="col" class="rounded-company">Notes</th>
+    <th scope="col" class="rounded-q1">Date Time Created</th>
+    <th scope="col" class="rounded-q1">Result</th>
+
+<% @eqas.each do |eqa| %>
+<tr>
+    <td><%= eqa.notes %></td>
+    <td><%= eqa.dateOfEQA %></td>
+    <td><%= eqa.bias %></td>
+</tr>
+<% end %>
+</table>

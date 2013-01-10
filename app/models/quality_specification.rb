@@ -1,9 +1,9 @@
 class QualitySpecification < ActiveRecord::Base
-  attr_accessible :bias, :imprecision, :test_code_id
+  attr_accessible :bias, :imprecision, :test_code_id, :cvi, :cvw, :goaltype
   
   belongs_to :testCode
   
-  validates_presence_of :bias, :imprecision, :test_code_id
+  validates_presence_of :goaltype, :test_code_id
   
 	def self.import(file)
   		spreadsheet = open_spreadsheet(file)

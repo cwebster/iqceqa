@@ -82,11 +82,42 @@ class SigmasController < ApplicationController
   end
   
   def checkLastCalculationDate
-  	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'QC'])
+  	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'SIGMA'])
   	
-  	@iqcs = IqcDatum.where("dateTimeCreated > ?", @calculationDate.created_at)
+  	# @iqcs = IqcDatum.where("dateOfIQC > ?", @calculationDate.created_at.to_date)
+  	@eqas = Eqa.where("dateOfEQA > ?", @calculationDate.created_at.to_date)
   	
+  	@results = Array.new
   	
+  	@eqas.each do |eqa| 
+  	
+  		@iqcs = IqcDatum.by_month(eqa.dateOfEQA.month, :year => eqa.dateOfEQA.year).where("test_code_id = ? and analyser_id = ?", eqa.test_code_id, eqa.analyser_id).order("dateOfIQC ASC")
+			
+			@iqcs.each do |iqc| 
+			
+				@testname = TestCode.find(iqc.test_code_id).testExpansion
+				
+				@qualitySpecification = QualitySpecification.where("test_code_id = ?", iqc.test_code_id)
+				
+				@allowableCVoptimal = @qualitySpecification.cvi * 0.25
+				@allowableCVdesirable = @qualitySpecification.cvi * 0.5
+				@allowableCVminimum = @qualitySpecification.cvi * 0.75
+				
+				@allowableBIASoptimal =0.125*(@allowableCVoptimal^2+@qualitySpecification.cvw^2)^0.5
+				@allowableBIASdesirable =0.25*(@allowableCVdesirable^2+@qualitySpecification.cvw^2)^0.5
+				@allowableBIASminimum =0.375*(@allowableCVminimum^2+@qualitySpecification.cvw^2)^0.5
+				
+				@minimumTE =1.65*(0.75*@qualitySpecification.cvi^2)+0.375*(@qualitySpecification.cvi^2+qualitySpecification.cvw^2)^0.5
+				@desirableTE =1.65*(0.5*@qualitySpecification.cvi^2)+0.25*(@qualitySpecification.cvi^2+qualitySpecification.cvw^2)^0.5
+				@optimalTE = 1.65*(0.25*@qualitySpecification.cvi^2)+0.125*(qualitySpecification.cvi^2+qualitySpecification.cvw^2)^0.5
+			
+				@sigmaScoreOptimal = (@optimalTE - eqa.bias)/iqc.result
+				@sigmaScoreDesirable = (@desirableTE - eqa.bias)/iqc.result
+				@sigmaScoreMinimum = (@minimumTE - eqa.bias)/iqc.result
+				
+				@results.push(@testName, @allowableCVoptimal, @allowableCVdesirable, @allowableCVminimum, @allowableBIASoptimal, @allowableBIASdesirable,@allowableBIASminimum, @optimalTE, @desirableTE, @minimumTE, @sigmaScoreOptimal, @sigmaScoreDesirable, @sigmaScoreMinimum)
+			end
+	end
   	
   	respond_to do |format|
   	  format.html # index.html.erb

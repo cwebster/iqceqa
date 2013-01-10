@@ -23,6 +23,22 @@
     <%= f.label :imprecision %><br />
     <%= f.text_field :imprecision %>
   </div>
+  
+    <div class="field">
+    <%= f.label :cvi %><br />
+    <%= f.text_field :cvi %>
+  </div>
+  
+    <div class="field">
+    <%= f.label :cvw %><br />
+    <%= f.text_field :cvw %>
+  </div>
+  
+  <div class="field">
+  <%= select("quality_specification", "goaltype", [ "Biological", "Clinical", "For Future Use" ], {:include_blank => 'None'}) %>
+ 
+  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

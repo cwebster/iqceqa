@@ -5,8 +5,10 @@
   <tr>
     <th scope="col" class="rounded-company">Test Name</th>
     <th scope="col" class="rounded-company">EQA Scheme</th>
+    <th scope="col" class="rounded-q1">Analyser</th>
     <th scope="col" class="rounded-company">Bias</th>
     <th scope="col" class="rounded-company">Notes</th>
+    <th scope="col" class="rounded-company">Date of EQA</th>
     <th scope="col" class="rounded-company">Date time created</th>
     <th scope="col" class="rounded-company"></th>
     <th scope="col" class="rounded-company"></th>
@@ -18,8 +20,10 @@
   <tr>
     <td><%= render 'common/test_code_id', :object => eqa.test_code_id %></td>
     <td><%= render 'common/eqascheme', :object => eqa.eqa_scheme_id %></td>
+    <td><%= render 'common/analyser', :object => eqa.analyser_id  %></td>
     <td><%= eqa.bias %></td>
     <td><%= eqa.notes %></td>
+    <td><%= eqa.dateOfEQA %></td>
     <td><%= eqa.created_at %></td>
     <td><%= link_to 'Show', eqa %></td>
     <td><%= link_to 'Edit', edit_eqa_path(eqa) %></td>

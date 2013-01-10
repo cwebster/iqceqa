@@ -1,6 +1,8 @@
 class IqcDatum < ActiveRecord::Base
-  by_star_field :dateTimeCreated
-  attr_accessible :dateTimeCreated, :notes, :result, :iqc_id, :test_code_id, :analyser_id
+  by_star_field :dateOfIQC
+  attr_accessible :dateOfIQC, :notes, :result, :iqc_id, :test_code_id, :analyser_id
+  
+  validates :dateOfIQC, :result, :iqc_id, :test_code_id, :analyser_id, :presence => true
   
   has_many :TestCodes
   belongs_to :iqc

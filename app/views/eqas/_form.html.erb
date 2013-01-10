@@ -19,9 +19,19 @@
     <%= f.label :scheme %><br />
 <%= select("eqa", "eqa_scheme_id", EqaScheme.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
   </div>
+  
+  <div class="field">
+    Analyser <br />
+<%= select("eqa", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
+  </div>
+  
   <div class="field">
     <%= f.label :bias %><br />
     <%= f.text_field :bias %>
+  </div>
+  <div class="field">
+    <%= f.label :dateOfEQA %><br />
+    <%= f.date_select :dateOfEQA %>
   </div>
   <div class="field">
     <%= f.label :notes %><br />
