@@ -86,36 +86,55 @@ class SigmasController < ApplicationController
   	
   	# @iqcs = IqcDatum.where("dateOfIQC > ?", @calculationDate.created_at.to_date)
   	@eqas = Eqa.where("dateOfEQA > ?", @calculationDate.created_at.to_date)
+  
+  	@calcsigmas = Array.new
   	
-  	@results = Array.new
   	
   	@eqas.each do |eqa| 
   	
   		@iqcs = IqcDatum.by_month(eqa.dateOfEQA.month, :year => eqa.dateOfEQA.year).where("test_code_id = ? and analyser_id = ?", eqa.test_code_id, eqa.analyser_id).order("dateOfIQC ASC")
 			
 			@iqcs.each do |iqc| 
-			
+				@results = Hash.new
+				
 				@testname = TestCode.find(iqc.test_code_id).testExpansion
 				
-				@qualitySpecification = QualitySpecification.where("test_code_id = ?", iqc.test_code_id)
+				@qs = QualitySpecification.where("test_code_id = ?", iqc.test_code_id).first
 				
-				@allowableCVoptimal = @qualitySpecification.cvi * 0.25
-				@allowableCVdesirable = @qualitySpecification.cvi * 0.5
-				@allowableCVminimum = @qualitySpecification.cvi * 0.75
+				@allowableCVoptimal = @qs.cvi * 0.25
+				@allowableCVdesirable = @qs.cvi * 0.5
+				@allowableCVminimum = @qs.cvi * 0.75
 				
-				@allowableBIASoptimal =0.125*(@allowableCVoptimal^2+@qualitySpecification.cvw^2)^0.5
-				@allowableBIASdesirable =0.25*(@allowableCVdesirable^2+@qualitySpecification.cvw^2)^0.5
-				@allowableBIASminimum =0.375*(@allowableCVminimum^2+@qualitySpecification.cvw^2)^0.5
+				@allowableBIASoptimal =0.125*(@allowableCVoptimal**2+@qs.cvw**2)**0.5
+				@allowableBIASdesirable =0.25*(@allowableCVdesirable**2+@qs.cvw**2)**0.5
+				@allowableBIASminimum =0.375*(@allowableCVminimum**2+@qs.cvw**2)**0.5
 				
-				@minimumTE =1.65*(0.75*@qualitySpecification.cvi^2)+0.375*(@qualitySpecification.cvi^2+qualitySpecification.cvw^2)^0.5
-				@desirableTE =1.65*(0.5*@qualitySpecification.cvi^2)+0.25*(@qualitySpecification.cvi^2+qualitySpecification.cvw^2)^0.5
-				@optimalTE = 1.65*(0.25*@qualitySpecification.cvi^2)+0.125*(qualitySpecification.cvi^2+qualitySpecification.cvw^2)^0.5
+				@minimumTE =1.65*(0.75*@qs.cvi**2)+0.375*(@qs.cvi**2+@qs.cvw**2)**0.5
+				@desirableTE =1.65*(0.5*@qs.cvi**2)+0.25*(@qs.cvi**2+@qs.cvw**2)**0.5
+				@optimalTE = 1.65*(0.25*@qs.cvi**2)+0.125*(@qs.cvi**2+@qs.cvw**2)**0.5
 			
-				@sigmaScoreOptimal = (@optimalTE - eqa.bias)/iqc.result
-				@sigmaScoreDesirable = (@desirableTE - eqa.bias)/iqc.result
-				@sigmaScoreMinimum = (@minimumTE - eqa.bias)/iqc.result
+				@sigmaScoreOptimal = (@optimalTE.to_f - eqa.bias.to_f)/iqc.result.to_f
+				@sigmaScoreDesirable = (@desirableTE.to_f - eqa.bias.to_f)/iqc.result.to_f
+				@sigmaScoreMinimum = (@minimumTE.to_f - eqa.bias.to_f)/iqc.result.to_f
 				
-				@results.push(@testName, @allowableCVoptimal, @allowableCVdesirable, @allowableCVminimum, @allowableBIASoptimal, @allowableBIASdesirable,@allowableBIASminimum, @optimalTE, @desirableTE, @minimumTE, @sigmaScoreOptimal, @sigmaScoreDesirable, @sigmaScoreMinimum)
+				@results["testname"] = @testname
+				@results["dateOfQC"] = iqc.dateOfIQC
+				@results["qcresult"] = iqc.result
+				@results["eqaresult"] = eqa.bias
+				@results["dateOfEQA"] = eqa.dateOfEQA
+				@results["allowableCVoptimal"] = @allowableCVoptimal
+				@results["allowableCVdesirable"] = @allowableCVdesirable
+				@results["allowableCVminimum"] = @allowableCVminimum
+				@results["allowableBIASoptimal"] = @allowableBIASoptimal
+				@results["allowableBIASdesirable"] = @allowableBIASdesirable
+				@results["allowableBIASminimum"] = @allowableBIASminimum
+				@results["optimalTE"] = @optimalTE
+				@results["desirableTE"] = @desirableTE
+				@results["minimumTE"] = @minimumTE
+				@results["sigmaScoreOptimal"] = @sigmaScoreOptimal
+				@results["sigmaScoreDesirable"] = @sigmaScoreDesirable
+				@results["sigmaScoreMinimum"] = @sigmaScoreMinimum
+				@calcsigmas.push(@results)
 			end
 	end
   	
