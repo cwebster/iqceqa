@@ -82,6 +82,9 @@ class SigmasController < ApplicationController
   end
   
   def checkLastCalculationDate
+  
+  # check when last sigma calculation was done and then get the IQC and EQA records after this date
+  
   	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'SIGMA'])
   	
   	# @iqcs = IqcDatum.where("dateOfIQC > ?", @calculationDate.created_at.to_date)
@@ -89,10 +92,11 @@ class SigmasController < ApplicationController
   
   	@calcsigmas = Array.new
   	
+  # For each EQA record found, find, IQC and analyser and calculate a sigma score
   	
   	@eqas.each do |eqa| 
   	
-  		@iqcs = IqcDatum.by_month(eqa.dateOfEQA.month, :year => eqa.dateOfEQA.year).where("test_code_id = ? and analyser_id = ?", eqa.test_code_id, eqa.analyser_id).order("dateOfIQC ASC")
+  		@iqcs = IqcDatum.by_month(eqa.dateOfEQA.month, :year => eqa.dateOfEQA.year).where("test_code_id = ? and analyser_id = ? and usedInCalculation =0", eqa.test_code_id, eqa.analyser_id).order("dateOfIQC ASC")
 			
 			@iqcs.each do |iqc| 
 				@results = Hash.new
@@ -117,6 +121,7 @@ class SigmasController < ApplicationController
 				@sigmaScoreDesirable = (@desirableTE.to_f - eqa.bias.to_f)/iqc.result.to_f
 				@sigmaScoreMinimum = (@minimumTE.to_f - eqa.bias.to_f)/iqc.result.to_f
 				
+				@results["test_code_id"] = iqc.test_code_id
 				@results["testname"] = @testname
 				@results["dateOfQC"] = iqc.dateOfIQC
 				@results["qcresult"] = iqc.result
@@ -135,8 +140,25 @@ class SigmasController < ApplicationController
 				@results["sigmaScoreDesirable"] = @sigmaScoreDesirable
 				@results["sigmaScoreMinimum"] = @sigmaScoreMinimum
 				@calcsigmas.push(@results)
+				
+				iqc.usedInCalculation = 1
+				iqc.usedInCalculationDate = Date.today
+				iqc.save
 			end
 	end
+	
+	# add all calculated sigma scores to database
+	
+	@calcsigmas.each do |eqa| 
+		Sigma.create(eqa)
+	end
+	
+	
+	
+	# mark all EQA and IQCs used as used in calculations
+	
+	
+	
   	
   	respond_to do |format|
   	  format.html # index.html.erb

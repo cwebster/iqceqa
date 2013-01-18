@@ -1,6 +1,6 @@
 class IqcDatum < ActiveRecord::Base
   by_star_field :dateOfIQC
-  attr_accessible :dateOfIQC, :notes, :result, :iqc_id, :test_code_id, :analyser_id
+  attr_accessible :dateOfIQC, :notes, :result, :iqc_id, :test_code_id, :analyser_id, :usedInCalculation, :usedInCalculationDate
   
   validates :dateOfIQC, :result, :iqc_id, :test_code_id, :analyser_id, :presence => true
   

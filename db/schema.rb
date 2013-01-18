@@ -11,7 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110134946) do
+ActiveRecord::Schema.define(:version => 20130118144202) do
+
+# Could not dump table "_sigmas_old_20130118" because of following StandardError
+#   Unknown type 'bool' for column 'sigmaScoreDesirable'
 
   create_table "analysers", :force => true do |t|
     t.string   "AnalyserName"
@@ -54,18 +57,8 @@ ActiveRecord::Schema.define(:version => 20130110134946) do
   add_index "eqas", ["analyser_id"], :name => "index_eqas_on_analyser_id"
   add_index "eqas", ["id"], :name => "index_eqas_on_id"
 
-  create_table "iqc_data", :force => true do |t|
-    t.string   "notes"
-    t.string   "result"
-    t.integer  "iqc_id"
-    t.integer  "test_code_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "analyser_id"
-    t.datetime "dateOfIQC"
-  end
-
-  add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"
+# Could not dump table "iqc_data" because of following StandardError
+#   Unknown type 'bool' for column 'usedInCalculation'
 
   create_table "iqcs", :force => true do |t|
     t.string   "name"
@@ -88,10 +81,26 @@ ActiveRecord::Schema.define(:version => 20130110134946) do
   end
 
   create_table "sigmas", :force => true do |t|
-    t.float    "sigma"
     t.integer  "test_code_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.date     "dateOfQC"
+    t.float    "qcresult"
+    t.float    "eqaresult"
+    t.date     "dateOfEQA"
+    t.float    "allowableCVoptimal"
+    t.float    "allowableCVdesirable"
+    t.float    "allowableCVminimum"
+    t.float    "allowableBIASoptimal"
+    t.float    "allowableBIASdesirable"
+    t.float    "allowableBIASminimum"
+    t.float    "optimalTE"
+    t.float    "desirableTE"
+    t.float    "minimumTE"
+    t.float    "sigmaScoreOptimal"
+    t.float    "sigmaScoreDesirable"
+    t.float    "sigmaScoreMinimum"
+    t.string   "testname"
   end
 
   create_table "targets", :force => true do |t|
