@@ -4,10 +4,22 @@
 <thead>
   <tr>
     <th scope="col" class="rounded-company">Test Name</th>
-    <th scope="col" class="rounded-q1">Sigma Score</th>
-    <th scope="col" class="rounded-q1">Date record created</th>
-    <th scope="col" class="rounded-q1">Date record updated</th>
-
+    <th scope="col" class="rounded-q1">Date of QC used</th>
+    <th scope="col" class="rounded-q1">QC CV Used</th>
+    <th scope="col" class="rounded-q1">EQA BIAS Result</th>
+	<th scope="col" class="rounded-q1">Date of EQA Result</th>
+	<th scope="col" class="rounded-q1">Allowable Optimal CV</th>
+	<th scope="col" class="rounded-q1">Allowable Desirable CV</th>
+	<th scope="col" class="rounded-q1">Allowable Minimum CV</th>
+	<th scope="col" class="rounded-q1">Allowable Optimal BIAS</th>
+	<th scope="col" class="rounded-q1">Allowable Desirable BIAS</th>
+	<th scope="col" class="rounded-q1">Allowable Minimum BIAS</th>
+	<th scope="col" class="rounded-q1">Optimal TE</th>
+	<th scope="col" class="rounded-q1">Desirable TE</th>
+	<th scope="col" class="rounded-q1">Minimum TE</th>
+	<th scope="col" class="rounded-q1">Sigma Optimal</th>
+	<th scope="col" class="rounded-q1">Sigma Desirable</th>
+	<th scope="col" class="rounded-q1">Sigma Minimum</th>
     <th scope="col" class="rounded-q1"></th>
     <th scope="col" class="rounded-q1"></th>
     <th scope="col" class="rounded-q1"></th>
@@ -24,10 +36,24 @@
 
 <% @sigmas.each do |sigma| %>
   <tr>
-    <td><%= render  'common/test_code_id', :object => sigma.test_code_id %></td>
-    <td><%= sigma.sigma %></td>
-    <td><%= sigma.created_at %></td>
-    <td><%= sigma.updated_at %></td>
+    <td><%= sigma.testname %></td>
+    <td><%= sigma.dateOfQC %></td>
+    <td><%= sigma.qcresult %></td>
+    <td><%= sigma.eqaresult %></td>
+    <td><%= sigma.dateOfEQA %></td>
+    <td><%= sigma.allowableCVoptimal %></td>
+    <td><%= sigma.allowableCVdesirable %></td>
+    <td><%= sigma.allowableCVminimum %></td>
+    <td><%= sigma.allowableBIASoptimal %></td>
+    <td><%= sigma.allowableBIASdesirable %></td>
+    <td><%= sigma.allowableBIASminimum %></td>
+    <td><%= sigma.optimalTE %></td>
+    <td><%= sigma.desirableTE %></td>
+    <td><%= sigma.minimumTE %></td>
+    <td><%= sigma.sigmaScoreOptimal %></td>
+    <td><%= sigma.sigmaScoreDesirable %></td>
+    <td><%= sigma.sigmaScoreMinimum %></td>
+
     <td><%= link_to 'Show', sigma %></td>
     <td><%= link_to 'Edit', edit_sigma_path(sigma) %></td>
     <td><%= link_to 'Destroy', sigma, method: :delete, data: { confirm: 'Are you sure?' } %></td>

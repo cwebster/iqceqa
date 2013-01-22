@@ -81,7 +81,8 @@ class SigmasController < ApplicationController
     end
   end
   
-  def checkLastCalculationDate
+  
+  def self.calculateSigmas
   
   # check when last sigma calculation was done and then get the IQC and EQA records after this date
   
@@ -101,10 +102,13 @@ class SigmasController < ApplicationController
 			@iqcs.each do |iqc| 
 				@results = Hash.new
 				
+				#Get Testname
 				@testname = TestCode.find(iqc.test_code_id).testExpansion
 				
+				#Get QualitySpecification for Test
 				@qs = QualitySpecification.where("test_code_id = ?", iqc.test_code_id).first
 				
+				#Calculate various quality metrics
 				@allowableCVoptimal = @qs.cvi * 0.25
 				@allowableCVdesirable = @qs.cvi * 0.5
 				@allowableCVminimum = @qs.cvi * 0.75
@@ -121,6 +125,8 @@ class SigmasController < ApplicationController
 				@sigmaScoreDesirable = (@desirableTE.to_f - eqa.bias.to_f)/iqc.result.to_f
 				@sigmaScoreMinimum = (@minimumTE.to_f - eqa.bias.to_f)/iqc.result.to_f
 				
+				
+				#Build hash of sigma results
 				@results["test_code_id"] = iqc.test_code_id
 				@results["testname"] = @testname
 				@results["dateOfQC"] = iqc.dateOfIQC
@@ -141,6 +147,7 @@ class SigmasController < ApplicationController
 				@results["sigmaScoreMinimum"] = @sigmaScoreMinimum
 				@calcsigmas.push(@results)
 				
+				# mark all EQA and IQCs used as used in calculations
 				iqc.usedInCalculation = 1
 				iqc.usedInCalculationDate = Date.today
 				iqc.save
@@ -152,18 +159,6 @@ class SigmasController < ApplicationController
 	@calcsigmas.each do |eqa| 
 		Sigma.create(eqa)
 	end
-	
-	
-	
-	# mark all EQA and IQCs used as used in calculations
-	
-	
-	
-  	
-  	respond_to do |format|
-  	  format.html # index.html.erb
-  	  format.json { head :no_content  }
-  	end
   
   end
   
