@@ -6,10 +6,9 @@
     <th scope="col" class="rounded-company">Test Name</th>
     <th scope="col" class="rounded-company">EQA Scheme</th>
     <th scope="col" class="rounded-q1">Analyser</th>
-    <th scope="col" class="rounded-company">Bias</th>
+    <th scope="col" class="rounded-company">% Bias</th>
     <th scope="col" class="rounded-company">Notes</th>
     <th scope="col" class="rounded-company">Date of EQA</th>
-    <th scope="col" class="rounded-company">Date time created</th>
     <th scope="col" class="rounded-company"></th>
     <th scope="col" class="rounded-company"></th>
     <th scope="col" class="rounded-company"></th>
@@ -23,8 +22,7 @@
     <td><%= render 'common/analyser', :object => eqa.analyser_id  %></td>
     <td><%= eqa.bias %></td>
     <td><%= eqa.notes %></td>
-    <td><%= eqa.dateOfEQA %></td>
-    <td><%= eqa.created_at %></td>
+    <td><%= eqa.dateOfEQA.to_formatted_s(:long) %></td>
     <td><%= link_to 'Show', eqa %></td>
     <td><%= link_to 'Edit', edit_eqa_path(eqa) %></td>
     <td><%= link_to 'Destroy', eqa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -34,4 +32,4 @@
 
 <br />
 
-<%= link_to 'New Eqa', new_eqa_path %>
+<%= button_to "New EQA Record", {:action => "new"}, {:method => :get } %>

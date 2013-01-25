@@ -9,7 +9,7 @@
     <th scope="col" class="rounded-q1">Analyser</th>
     <th scope="col" class="rounded-q1">Date /Time of IQC</th>
     <th scope="col" class="rounded-q1">Result</th>
-    <th scope="col" class="rounded-q1">Date record created</th>
+	<th scope="col" class="rounded-q1">Used in Calculation of Sigma?</th>
     <th scope="col" class="rounded-q1"></th>
     <th scope="col" class="rounded-q1"></th>
     <th scope="col" class="rounded-q1"></th>
@@ -31,9 +31,13 @@
     <td><%= render 'common/iqcmaterial', :object => iqc_datum.iqc_id %></td>
     <td><%= render 'common/analyser', :object => iqc_datum.analyser_id  %></td>
     
-    <td><%= iqc_datum.dateOfIQC %></td>
+    <td><%= iqc_datum.dateOfIQC.to_formatted_s(:long) %></td>
     <td><%= iqc_datum.result %></td>
-    <td><%= iqc_datum.created_at %></td>
+	<td><% if iqc_datum.usedInCalculation == 1%>
+			Yes	</td>
+		<% else %>
+			No	</td>
+		<% end%>
     <td><%= link_to 'Show', iqc_datum %></td>
     <td><%= link_to 'Edit', edit_iqc_datum_path(iqc_datum) %></td>
     <td><%= link_to 'Destroy', iqc_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -43,4 +47,4 @@
 
 <br />
 
-<%= link_to 'New Iqc datum', new_iqc_datum_path %>
+<%= button_to "New IQC Point", {:action => "new"}, {:method => :get } %>
