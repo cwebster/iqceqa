@@ -1,7 +1,11 @@
+<div id='chart'></div>
+<%= render_chart(@chart, 'chart') %>
+
 <p>
   <b>Select test code to view performance:</b>
-  	<%= form_tag("/search", :method => "get") do %>
-		<%= collection_select(:testCode, :testCode, @test_codes, :testCode, :testExpansion) %>
+  	<%= form_tag("sigmaplot", :method => "post") do %>		
+		<%= 	select("test_code_id", "id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:prompt => 'Select Test'}) %>
+
 		<%= submit_tag("View Performance") %>
 	<% end %>
 

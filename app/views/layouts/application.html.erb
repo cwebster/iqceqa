@@ -4,7 +4,7 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
-
+    <script src='http://www.google.com/jsapi'></script>
 	<!-- Basic Page Needs
   	================================================== -->
 	<meta charset="utf-8" />
@@ -80,15 +80,24 @@
 				
 				<!-- Default Superfish Nav (add/remove "light" class to toggle visual styling) -->
 				<ul class="sf-menu light">
-					<li><a href="/sigmas"><strong>Sigma Scores</strong> <span>View Sigma Scores</span></a></li>
-					<li><a href="/iqc_data/new?"><strong>New IQC</strong> <span>Create a new IQC data point</span></a></li>
-					<li><a href="/eqas/new?"><strong>New EQA</strong> <span>Create a new EQA data point</span></a></li>
+					<li><a href="/sigmas"><strong>Sigma Scores</strong> <span>View Sigma Scores</span></a>
+						<ul>
+							<li><a href="alltestssigma">Plot all sigma scores</a>
+						</li></li></ul>
+					
+					<li><a href="/iqc_data/new?"><strong>New IQC</strong> <span>Create a new IQC data point</span></a>
+						<ul>
+							<li><a href="/iqc_data/">List all IQC Values</a>
+						</li></li></ul>
+					<li><a href="/eqas/new?"><strong>New EQA</strong> <span>Create a new EQA data point</span></a>
+						<ul>
+							<li><a href="/eqas/">List all EQA Values</a>
+						</li></li></ul>
 					<li><a href="/iqcs/new?"><strong>New IQC Material</strong> <span>Create a new IQC Material</span></a></li>
 					<li><a href="/quality_specifications"><strong>Setup</strong> <span>Set up parameters</span></a>
 					 			<ul>
 									<li><a href="/quality_specifications">Quality Specifications Management</a>
-										<ul><a href="sans-serif.html">Import Quality Specifications</a>
-										</ul>
+										<ul><a href="sans-serif.html">Import Quality Specifications</a></ul>
 									</li>
 									<li><a href="/eqa_schemes">EQA Scheme Management</a></li>
 									<li><a href="/analysers">List and Maintain Analyser on System</a></li>

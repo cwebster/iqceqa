@@ -1,5 +1,44 @@
 <h2>Listing quality specifications currently configured</h2>
 
+<table id="rounded-corner">
+<thead>
+  <tr>
+    <th scope="col" class="rounded-company">Test Name</th>
+    <th scope="col" class="rounded-q1">Bias Target</th>
+    <th scope="col" class="rounded-q1">Imprecision Target</th>
+	<th scope="col" class="rounded-q1">Intra Individual %CV</th>
+	<th scope="col" class="rounded-q1">Inter Individual %CV</th>
+	<th scope="col" class="rounded-q1">Specification Type</th>
+    <th scope="col" class="rounded-q1">Editing</th>
+    <th scope="col" class="rounded-q1"></th>
+    <th scope="col" class="rounded-q1"></th>
+  </tr>
+</thead>
+<tfoot>
+    	<tr>
+        	<td colspan="8" class="rounded-foot-left"><em>Quality specification management functions</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+        </tr>
+ </tfoot>
+
+<% @quality_specifications.each do |quality_specification| %>
+
+</td>
+
+  <tr>
+    <td><%= render  'common/test_code_id', :object => quality_specification.test_code_id %></td>
+    <td><%= quality_specification.bias %></td>
+    <td><%= quality_specification.imprecision %></td>
+	<td><%= quality_specification.cvi %></td>
+	<td><%= quality_specification.cvw %></td>
+	<td><%= quality_specification.goaltype %></td>
+    <td><%= link_to 'Show', quality_specification %></td>
+    <td><%= link_to 'Edit', edit_quality_specification_path(quality_specification) %></td>
+    <td><%= link_to 'Destroy', quality_specification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
 <p>How good does a test need to be? Answering this question will help determine the total allowable error (TEa); the amount of error a test has and is still considered "in control." The laboratory can use several models to determine quality requirements:</p>
 
 <p>Medical usefulness requirements based on the effect of analytical performance on clinical decisions such as:</p>
@@ -20,38 +59,6 @@
 
 <p>The preceding hierarchy is based on the consensus agreement published in the Scandinavian Journal of Clinical and Laboratory Investigation 1999; 59: 585.</p>
 
-<table id="rounded-corner">
-<thead>
-  <tr>
-    <th scope="col" class="rounded-company">Test Name</th>
-    <th scope="col" class="rounded-q1">Bias Target</th>
-    <th scope="col" class="rounded-q1">Imprecision Target</th>
-    <th scope="col" class="rounded-q1">Editing</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
-  </tr>
-</thead>
-<tfoot>
-    	<tr>
-        	<td colspan="5" class="rounded-foot-left"><em>Quality specification management functions</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
-        </tr>
- </tfoot>
-
-<% @quality_specifications.each do |quality_specification| %>
-
-</td>
-
-  <tr>
-    <td><%= render  'common/test_code_id', :object => quality_specification.test_code_id %></td>
-    <td><%= quality_specification.bias %></td>
-    <td><%= quality_specification.imprecision %></td>
-    <td><%= link_to 'Show', quality_specification %></td>
-    <td><%= link_to 'Edit', edit_quality_specification_path(quality_specification) %></td>
-    <td><%= link_to 'Destroy', quality_specification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
 <p>
   Download:
   <%= link_to "CSV", quality_specifications_path(format: "csv") %> |

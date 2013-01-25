@@ -22,6 +22,8 @@ Performance::Application.routes.draw do
   resources :test_codes
 
   match 'sigmacalc' => 'sigmas#calculateSigmas'
+  match 'sigmaplot' => 'sigmas#plotSigmas'
+  match 'alltestssigma' => 'sigmas#allTestsSigmaPlot'
   
   resources :sigmas
 

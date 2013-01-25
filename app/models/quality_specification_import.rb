@@ -1,11 +1,11 @@
-class QualitySpecificationImport
+class QualitySpecificationImport 
   # switch to ActiveModel::Model in Rails 4
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
   attr_accessor :file
-
+ 
   def initialize(attributes = {})
     attributes.each { |name, value| send("#{name}=", value) }
   end
@@ -50,5 +50,5 @@ class QualitySpecificationImport
     when ".xlsx" then Excelx.new(file.path, nil, :ignore)
     else raise "Unknown file type: #{file.original_filename}"
     end
-  end
+  end  
 end

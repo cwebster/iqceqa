@@ -10,12 +10,16 @@
         <Cell><Data ss:Type="String">ID</Data></Cell>
         <Cell><Data ss:Type="String">BIAS Target</Data></Cell>
         <Cell><Data ss:Type="String">Imprecision Target</Data></Cell>
+		<Cell><Data ss:Type="String">Intra Individual %CV</Data></Cell>
+		<Cell><Data ss:Type="String">Inter Individual %CV</Data></Cell>
       </Row>
 	<% @quality_specifications.each do |quality_specification| %>
       <Row>
         <Cell><Data ss:Type="Number"><%= quality_specification.test_code_id %></Data></Cell>
         <Cell><Data ss:Type="Number"><%= quality_specification.bias %></Data></Cell>
         <Cell><Data ss:Type="Number"><%= quality_specification.imprecision %></Data></Cell>
+		<Cell><Data ss:Type="Number"><%= quality_specification.cvi %></Data></Cell>
+		<Cell><Data ss:Type="Number"><%= quality_specification.cvw %></Data></Cell>
       </Row>
     <% end %>
     </Table>

@@ -11,7 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118144202) do
+ActiveRecord::Schema.define(:version => 20130125095240) do
+
+# Could not dump table "_iqc_data_old_20130118" because of following StandardError
+#   Unknown type 'bool' for column 'usedInCalculation'
 
 # Could not dump table "_sigmas_old_20130118" because of following StandardError
 #   Unknown type 'bool' for column 'sigmaScoreDesirable'
@@ -57,8 +60,20 @@ ActiveRecord::Schema.define(:version => 20130118144202) do
   add_index "eqas", ["analyser_id"], :name => "index_eqas_on_analyser_id"
   add_index "eqas", ["id"], :name => "index_eqas_on_id"
 
-# Could not dump table "iqc_data" because of following StandardError
-#   Unknown type 'bool' for column 'usedInCalculation'
+  create_table "iqc_data", :force => true do |t|
+    t.string   "notes"
+    t.string   "result"
+    t.integer  "iqc_id"
+    t.integer  "test_code_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "analyser_id"
+    t.datetime "dateOfIQC"
+    t.integer  "usedInCalculation",     :default => 0
+    t.date     "usedInCalculationDate"
+  end
+
+  add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"
 
   create_table "iqcs", :force => true do |t|
     t.string   "name"
@@ -73,11 +88,20 @@ ActiveRecord::Schema.define(:version => 20130118144202) do
     t.float    "bias"
     t.float    "imprecision"
     t.integer  "test_code_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.float    "cvi"
     t.float    "cvw"
     t.string   "goaltype"
+    t.float    "allowableCVoptimal"
+    t.float    "allowableCVdesirable"
+    t.float    "allowableCVminimum"
+    t.float    "allowableBIASoptimal"
+    t.float    "allowableBIASdesirable"
+    t.float    "allowableBIASminimum"
+    t.float    "minimumTE"
+    t.float    "desirableTE"
+    t.float    "optimalTE"
   end
 
   create_table "sigmas", :force => true do |t|
@@ -101,6 +125,7 @@ ActiveRecord::Schema.define(:version => 20130118144202) do
     t.float    "sigmaScoreDesirable"
     t.float    "sigmaScoreMinimum"
     t.string   "testname"
+    t.string   "analyser"
   end
 
   create_table "targets", :force => true do |t|

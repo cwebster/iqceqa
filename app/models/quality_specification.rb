@@ -5,6 +5,8 @@ class QualitySpecification < ActiveRecord::Base
   
   validates_presence_of :goaltype, :test_code_id
   
+  before_save :calculate_metrics
+  
 	def self.import(file)
   		spreadsheet = open_spreadsheet(file)
   		header = spreadsheet.row(1)
@@ -34,5 +36,23 @@ def self.to_csv(options = {})
   end
 end
   
-  
+  # If we have a biological specification then calculate quality metrics on this basis
+  def calculate_metrics
+    if self.goaltype == "Biological"
+      unless self.cvi.blank? || self.cvw.blank?
+        #Calculate various quality metrics
+        self.allowableCVoptimal = self.cvi * 0.25
+        self.allowableCVdesirable = self.cvi * 0.5
+        self.allowableCVminimum = self.cvi * 0.75
+
+        self.allowableBIASoptimal =0.125*(self.allowableCVoptimal**2+self.cvw**2)**0.5
+        self.allowableBIASdesirable =0.25*(self.allowableCVdesirable**2+self.cvw**2)**0.5
+        self.allowableBIASminimum =0.375*(self.allowableCVminimum**2+self.cvw**2)**0.5
+
+        self.minimumTE =1.65*(0.75*self.cvi**2)+0.375*(self.cvi**2+self.cvw**2)**0.5
+        self.desirableTE =1.65*(0.5*self.cvi**2)+0.25*(self.cvi**2+self.cvw**2)**0.5
+        self.optimalTE = 1.65*(0.25*self.cvi**2)+0.125*(self.cvi**2+self.cvw**2)**0.5
+      end
+    end
+  end
 end
