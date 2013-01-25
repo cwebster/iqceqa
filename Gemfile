@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'roo'
 gem 'by_star'
 gem "google_visualr", "~> 2.1.0"
+gem 'simple_form'
 
 # gem 'by_star', :git => "git://github.com/radar/by_star"
 

@@ -11,24 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    IQC Material Name<br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :manufacturer %><br />
-    <%= f.text_field :manufacturer %>
-  </div>
-  <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_field :notes %>
-  </div>
-  <div class="field">
-    <%= f.label :assigned %><br />
-    <%= f.text_field :assigned %>
-  </div>
+<%= simple_form_for @iqc do |f| %>
+  <%= f.input :name, :label => 'IQC Material Name'%>
+  <%= f.input :manufacturer, :label => 'Manufacturer'%>
+  <%= f.input :notes, :label => 'Notes'%>
+  <%= f.input :assigned, :label => 'Does this QC come with assigned values'%>
+  <%= f.input :code, :label => 'IQC Code'%>
+  <%= f.input :lotno, :label => 'Lot Number of material'%>
+  <%= f.input :expirydate, :label => 'Expiry date'%>
+  <%= f.input :dateinuse, :label => 'Date in use'%>
+  <%= f.input :datereconstituted, :label => 'Date reconstituted' %>
+  <%= f.input :numberofaliquots, :label => 'Number of aliquots made' %>
+  <%= f.input :storagelocation, :label => 'Storage location'%>
+  <%= f.input :storagetemp, :label => 'Storage temperature'%>
+  <%= f.button :submit %>
+<% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
