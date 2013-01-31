@@ -18,6 +18,8 @@ Performance::Application.routes.draw do
 
   resources :quality_specification_imports
   
+  resources :test_code_imports
+  
   
   resources :test_codes
 

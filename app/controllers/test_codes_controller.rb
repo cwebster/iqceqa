@@ -7,6 +7,8 @@ class TestCodesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @test_codes }
+      format.csv { send_data TestCode.to_csv }
+      format.xls # { send_data @TestCode.to_csv(col_sep: "\t")}
     end
   end
 

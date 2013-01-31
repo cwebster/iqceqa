@@ -37,3 +37,10 @@
 <br />
 
 <%= button_to "New Test", {:action => "new"}, {:method => :get } %>
+
+<p>
+  Download:
+  <%= link_to "CSV", test_codes_path(format: "csv") %> |
+  <%= link_to "Excel", test_codes_path(format: "xls") %>
+</p>
+<br />
