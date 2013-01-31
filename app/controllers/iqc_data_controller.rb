@@ -3,7 +3,11 @@ class IqcDataController < ApplicationController
   # GET /iqc_data.json
   def index
     @iqc_data = IqcDatum.all
-
+    @iqc_by_date = @iqc_data.group_by{ |item| item.dateOfIQC.to_date }
+    
+    
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @iqc_data }

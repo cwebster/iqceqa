@@ -1,5 +1,24 @@
 <h1>Listing IQC Data Points</h1>
 
+
+
+<div id="articles">
+  <h2 id="month">
+    <%= link_to "<", date: @date.prev_month %>
+    <%= @date.strftime("%B %Y") %>
+    <%= link_to ">", date: @date.next_month %>
+  </h2>
+  <%= calendar @date do |date| %>
+    <%= date.day %>
+</br>
+	<% if @iqc_by_date[date] %>
+        <% @iqc_by_date[date].each do |iqc_datum| %>
+          <small><%= link_to TestCode.find(iqc_datum.test_code_id).testExpansion, iqc_datum %>:</small>
+        <% end %>
+    <% end %>
+  <% end %>
+</div>
+
 <table id="rounded-corner">
 <thead>
   <tr>

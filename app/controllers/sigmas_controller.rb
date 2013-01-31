@@ -5,6 +5,9 @@ class SigmasController < ApplicationController
     # Update the sigma database if new IQC or EQA added
     Sigma.calculateSigmas
     @sigmas = Sigma.all
+    @sigmas_by_date = @sigmas.group_by{ |item| item.dateOfQC.to_date }
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    
 
     respond_to do |format|
       format.html # index.html.erb

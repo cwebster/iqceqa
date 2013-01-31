@@ -1,5 +1,22 @@
 <h2>Listing Sigma Scores Currently Calculated</h2>
 
+<div id="articles">
+  <h2 id="month">
+    <%= link_to "<", date: @date.prev_month %>
+    <%= @date.strftime("%B %Y") %>
+    <%= link_to ">", date: @date.next_month %>
+  </h2>
+  <%= calendar @date do |date| %>
+    <%= date.day %>
+</br>
+	<% if @sigmas_by_date[date] %>
+        <% @sigmas_by_date[date].each do |sigma| %>
+          <small><%= link_to TestCode.find(sigma.test_code_id).testExpansion, sigma %>:</small>
+        <% end %>
+    <% end %>
+  <% end %>
+</div>
+
 <table id="rounded-corner">
 <thead>
   <tr>
@@ -8,15 +25,6 @@
     <th scope="col" class="rounded-q1">QC CV Used</th>
     <th scope="col" class="rounded-q1">EQA BIAS Result</th>
 	<th scope="col" class="rounded-q1">Date of EQA Result</th>
-	<th scope="col" class="rounded-q1">Allowable Optimal CV</th>
-	<th scope="col" class="rounded-q1">Allowable Desirable CV</th>
-	<th scope="col" class="rounded-q1">Allowable Minimum CV</th>
-	<th scope="col" class="rounded-q1">Allowable Optimal BIAS</th>
-	<th scope="col" class="rounded-q1">Allowable Desirable BIAS</th>
-	<th scope="col" class="rounded-q1">Allowable Minimum BIAS</th>
-	<th scope="col" class="rounded-q1">Optimal TE</th>
-	<th scope="col" class="rounded-q1">Desirable TE</th>
-	<th scope="col" class="rounded-q1">Minimum TE</th>
 	<th scope="col" class="rounded-q1">Sigma Optimal</th>
 	<th scope="col" class="rounded-q1">Sigma Desirable</th>
 	<th scope="col" class="rounded-q1">Sigma Minimum</th>
@@ -41,15 +49,6 @@
     <td><%= sigma.qcresult %></td>
     <td><%= sigma.eqaresult %></td>
     <td><%= sigma.dateOfEQA %></td>
-    <td><%= number_with_precision(sigma.allowableCVoptimal, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.allowableCVdesirable, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.allowableCVminimum, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.allowableBIASoptimal, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.allowableBIASdesirable, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.allowableBIASminimum, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.optimalTE, :precision => 2) %></td>
-    <td><%= number_with_precision(sigma.desirableTE, :precision => 2)%></td>
-    <td><%= number_with_precision(sigma.minimumTE, :precision => 2) %></td>
     <td><%= number_with_precision(sigma.sigmaScoreOptimal, :precision => 2)%></td>
     <td><%= number_with_precision(sigma.sigmaScoreDesirable, :precision => 2)%></td>
     <td><%= number_with_precision(sigma.sigmaScoreMinimum, :precision => 2)%></td>

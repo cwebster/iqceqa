@@ -1,3 +1,5 @@
+
+
 <%= form_for(@iqc_datum) do |f| %>
   <% if @iqc_datum.errors.any? %>
     <div id="error_explanation">
@@ -15,7 +17,7 @@
   <%= select("iqc_datum", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
 
   </div>
-  
+
   <div class="field">IQC Material:
   <%= select("iqc_datum", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
 
@@ -27,8 +29,8 @@
   </div>
   
   <div class="field">
-    <%= f.label :dateOfIQC %><br />
-    <%= f.datetime_select :dateOfIQC %>
+    Date and Time of IQC<br />
+    <%= f.text_field :dateOfIQC %>
   </div>
   
   <div class="field">

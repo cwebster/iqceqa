@@ -3,6 +3,9 @@ class EqasController < ApplicationController
   # GET /eqas.json
   def index
     @eqas = Eqa.all
+    @eqas_by_date = @eqas.group_by{ |item| item.dateOfEQA.to_date }
+    
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
 
     respond_to do |format|
       format.html # index.html.erb
