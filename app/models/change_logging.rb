@@ -1,3 +1,3 @@
 class ChangeLogging < ActiveRecord::Base
-  attr_accessible :dateTimeLogged, :logRecord
+  attr_accessible :logRecord
 end

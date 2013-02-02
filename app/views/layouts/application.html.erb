@@ -23,6 +23,7 @@
   	================================================== -->
   	<%= stylesheet_link_tag    "application", :media => "all" %>
   	<%= javascript_include_tag "application" %>
+    <%= javascript_include_tag 'rails' %>
   	<%= csrf_meta_tags %>
 	
 	<!-- Favicons
@@ -97,14 +98,13 @@
 					<li><a href="/quality_specifications"><strong>Setup</strong> <span>Set up parameters</span></a>
 					 			<ul>
 									<li><a href="/quality_specifications">Quality Specifications Management</a>
-										<ul><a href="sans-serif.html">Import Quality Specifications</a></ul>
+										<ul><a href="/quality_specification_imports/new">Import Quality Specifications</a></ul>
 									</li>
 									<li><a href="/eqa_schemes">EQA Scheme Management</a></li>
 									<li><a href="/analysers">List and Maintain Analyser on System</a></li>
 									<li><a href="/test_codes">Test Code Maintenance</a>
-									<ul><a href="/sans-serif.html">Import Test Codes</a>
-									</ul>
-									
+									<ul><a href="/test_code_imports/new">Import Test Codes</a></ul>
+									<li><a href="/change_loggings">View Log</a></li>
 									</li>
 								</ul> 
 					

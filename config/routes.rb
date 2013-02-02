@@ -6,15 +6,14 @@ Performance::Application.routes.draw do
 
   get "test_codes/create"
 
-  resources :change_loggings
-
+  resources :change_loggings 
+  match 'change_loggings_deleteall' => 'change_loggings#deleteall'
 
   resources :eqas
 
 
-  resources :quality_specifications do
-  	collection { post :import }
-  end
+  resources :quality_specifications 
+  
 
   resources :quality_specification_imports
   

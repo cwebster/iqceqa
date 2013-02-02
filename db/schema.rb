@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131172018) do
+ActiveRecord::Schema.define(:version => 20130202074450) do
 
 # Could not dump table "_iqc_data_old_20130118" because of following StandardError
 #   Unknown type 'bool' for column 'usedInCalculation'
@@ -111,6 +111,21 @@ ActiveRecord::Schema.define(:version => 20130131172018) do
     t.float    "desirableTE"
     t.float    "optimalTE"
   end
+
+  create_table "reportable_cache", :force => true do |t|
+    t.string   "model_name",                        :null => false
+    t.string   "report_name",                       :null => false
+    t.string   "grouping",                          :null => false
+    t.string   "aggregation",                       :null => false
+    t.string   "conditions",                        :null => false
+    t.float    "value",            :default => 0.0, :null => false
+    t.datetime "reporting_period",                  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "reportable_cache", ["model_name", "report_name", "grouping", "aggregation", "conditions", "reporting_period"], :name => "name_model_grouping_aggregation_period", :unique => true
+  add_index "reportable_cache", ["model_name", "report_name", "grouping", "aggregation", "conditions"], :name => "name_model_grouping_agregation"
 
   create_table "sigmas", :force => true do |t|
     t.integer  "test_code_id"

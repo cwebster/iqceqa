@@ -111,11 +111,15 @@ class SigmasController < ApplicationController
   end
   
   def plotSigmas
+    
+    @sigmas_optimal = Sigma.avg_sigma_optimal_week_report(:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
+    
+     @sigmas_desirable = Sigma.avg_sigma_desirable_week_report(:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
+     
+      @sigmas_minimum = Sigma.avg_sigma_minimum_week_report(:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
   
-    @sigmas = Sigma.by_month.where("test_code_id = ?", params[:test_code_id][:id]).order("dateOfQC")
-    
     data_table = GoogleVisualr::DataTable.new
-    
+  
     # Add Column Headers 
     data_table.new_column('date', 'Date' ) 
     data_table.new_column('number', 'Sigma Score Optimal') 
@@ -124,18 +128,41 @@ class SigmasController < ApplicationController
 
     # Add Rows and Values 
     
-    @sigmas.each do |sigma| 
+    data_table.add_rows(@sigmas_minimum.size)
     
-      data_table.add_rows([ 
-        [sigma.dateOfQC, sigma.sigmaScoreOptimal, sigma.sigmaScoreDesirable, sigma.sigmaScoreMinimum]
-        ])
+    count=0
+    @sigmas_optimal.each do |x,y|
+      data_table.set_cell( count, 0, x  )
+      data_table.set_cell( count, 1, y  )
+      count+=1
     end
     
-    option = { width: 640, height: 360, title: 'Average Sigma Performance per day' }
-    @chart = GoogleVisualr::Interactive::AreaChart.new(data_table, option)
+    count=0
+    @sigmas_desirable.each do |x,y|
+      data_table.set_cell( count, 2, y  )
+      count+=1
+    end
+    
+    count=0
+    @sigmas_minimum.each do |x,y|
+      data_table.set_cell( count, 3, y  )
+      count+=1
+    end
+    
+    opts   = { :width => 640, :height => 360, :title => 'Avg Sigma Performance for ',
+                 :hAxis => { :title => 'Date' },
+                 :vAxis => { :title => 'Sigma Score' },
+                 :legend => 'none' , 
+                 :lineWidth => 2 , 
+                 :pointSize => 1}
+    
+    
+    @chart = GoogleVisualr::Interactive::ScatterChart.new(data_table, opts)
   
+
     
   end
+  
   
   
   

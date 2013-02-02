@@ -2,7 +2,7 @@ class ChangeLoggingsController < ApplicationController
   # GET /change_loggings
   # GET /change_loggings.json
   def index
-    @change_loggings = ChangeLogging.all
+    @change_loggings = ChangeLogging.order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -80,4 +80,10 @@ class ChangeLoggingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def deleteall
+    
+    ChangeLogging.delete_all
+  end
+  
 end

@@ -13,7 +13,7 @@ gem 'simple_form'
 gem 'thin'
 gem 'jquery-rails'
 gem 'activesupport'
-
+gem 'reportable', :require => 'saulabs/reportable'
 
 
 # gem 'by_star', :git => "git://github.com/radar/by_star"

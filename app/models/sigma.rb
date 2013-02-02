@@ -3,15 +3,36 @@ class Sigma < ActiveRecord::Base
   
   belongs_to :testCode
   
+  reportable :avg_sigma_optimal_week, :aggregation => :average, :grouping => :week, :date_column => :dateOfQC, :value_column => :sigmaScoreOptimal, :limit => 50
+  
+  reportable :avg_sigma_desirable_week, :aggregation => :average, :grouping => :week, :date_column => :dateOfQC, :value_column => :sigmaScoreDesirable, :limit => 50
+  
+  reportable :avg_sigma_minimum_week, :aggregation => :average, :grouping => :week, :date_column => :dateOfQC, :value_column => :sigmaScoreMinimum, :limit => 50
+  
+  reportable :sigma_records, :aggregation => :count
+
+  
+  def week
+    self.created_at.strftime("%W")
+  end
+
+  def month
+    self.created_at.strftime("%y%m")
+  end
+  
+  
   def self.calculateSigmas
   
   # check when last sigma calculation was done and then get the IQC and EQA records after this date
-  
   	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'SIGMA'])
   	
   	# @iqcs = IqcDatum.where("dateOfIQC > ?", @calculationDate.created_at.to_date)
-  	@eqas = Eqa.where("dateOfEQA > ?", @calculationDate.created_at.to_date)
-  
+  	
+  	 # get all EQA instead or do by date
+  	# @eqas = Eqa.where("dateOfEQA > ?", @calculationDate.created_at.to_date)
+  	
+  	@eqas = Eqa.all
+  	 
   	@calcsigmas = Array.new
   	
   # For each EQA record found, find, IQC and analyser and calculate a sigma score
@@ -85,6 +106,10 @@ class Sigma < ActiveRecord::Base
 	@calcsigmas.each do |eqa| 
 		Sigma.create(eqa)
 	end
+	
+	#Log sigma calculation
+	changeLogging = ChangeLogging.new(:logRecord => 'SIGMA')
+  changeLogging.save
   
   end
 
