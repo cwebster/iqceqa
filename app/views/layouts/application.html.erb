@@ -77,7 +77,7 @@
 		<!-- Menu -->
 		<div class="sixteen columns" id="menu">
 			
-			<div class="twelve columns alpha navigation">
+			<div class="sixteen columns alpha navigation">
 				
 				<!-- Default Superfish Nav (add/remove "light" class to toggle visual styling) -->
 				<ul class="sf-menu light">
@@ -106,8 +106,22 @@
 									<ul><a href="/test_code_imports/new">Import Test Codes</a></ul>
 									<li><a href="/change_loggings">View Log</a></li>
 									</li>
-								</ul> 
-					
+								</ul>  
+								
+					</li>
+					<li>
+						
+					<li>
+						
+					<% if user_signed_in? %>
+						<%= link_to('<strong>Logout</strong><span>log out of system</span>'.html_safe, destroy_user_session_path, :method => :delete, :class => "strong") %>      
+					  </li>
+						 <%= render 'devise/menu/registration_items' %>
+						  
+						<% else %>
+					    <%= link_to('<strong>Login</strong>'.html_safe, new_user_session_path, :class => "strong")  %>
+					<%= render 'devise/menu/registration_items' %>
+					<% end %>
 					</li>
 				</ul>
 				<!-- /End Default Superfish Nav-->
@@ -156,7 +170,8 @@
 
 	<!-- 960 Container -->
 	<div class="container">
-
+		<p class="notice"><%= notice %></p>
+		       <p class="alert"><%= alert %></p>
 		<!-- 1/2 Columns -->
 		<div class="Sixteen columns">
 			<%= yield %>	

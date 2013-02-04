@@ -1,0 +1,9 @@
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('<strong>Edit registration</strong> <span>Edit your details</span>'.html_safe, edit_user_registration_path) %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('<strong>Register</strong><span>Register for Access</span>'.html_safe, new_user_registration_path)  %>
+  </li>
+<% end %>

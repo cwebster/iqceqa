@@ -1,4 +1,7 @@
 class ChangeLoggingsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /change_loggings
   # GET /change_loggings.json
   def index
