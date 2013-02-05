@@ -1,4 +1,7 @@
 class TestCodeImportsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   def new
     @test_code_import = TestCodeImport.new
   end

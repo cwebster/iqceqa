@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204155450) do
+ActiveRecord::Schema.define(:version => 20130205084936) do
 
 # Could not dump table "_iqc_data_old_20130118" because of following StandardError
 #   Unknown type 'bool' for column 'usedInCalculation'
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.integer  "iqc_data_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "users_id"
   end
 
   add_index "analysers", ["id"], :name => "index_analysers_on_id"
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.string   "logRecord"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "users_id"
   end
 
   create_table "eqa_schemes", :force => true do |t|
@@ -84,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.integer  "eqa_scheme_id"
     t.date     "dateOfEQA"
     t.integer  "analyser_id"
+    t.integer  "users_id"
   end
 
   add_index "eqas", ["analyser_id"], :name => "index_eqas_on_analyser_id"
@@ -100,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.datetime "dateOfIQC"
     t.integer  "usedInCalculation",     :default => 0
     t.date     "usedInCalculationDate"
+    t.integer  "users_id"
   end
 
   add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"
@@ -119,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.date     "dateinuse"
     t.date     "datereconstituted"
     t.integer  "numberofaliquots"
+    t.integer  "users_id"
   end
 
   create_table "quality_specifications", :force => true do |t|
@@ -139,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.float    "minimumTE"
     t.float    "desirableTE"
     t.float    "optimalTE"
+    t.integer  "users_id"
   end
 
   create_table "reportable_cache", :force => true do |t|
@@ -178,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.float    "sigmaScoreMinimum"
     t.string   "testname"
     t.string   "analyser"
+    t.integer  "users_id"
   end
 
   create_table "targets", :force => true do |t|
@@ -202,6 +209,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.string   "readcode"
+    t.integer  "users_id"
   end
 
   create_table "users", :force => true do |t|
@@ -232,6 +240,7 @@ ActiveRecord::Schema.define(:version => 20130204155450) do
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["id"], :name => "index_users_on_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 

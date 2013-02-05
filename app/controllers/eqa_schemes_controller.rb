@@ -1,4 +1,7 @@
 class EqaSchemesController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /eqa_schemes
   # GET /eqa_schemes.json
   def index
@@ -44,6 +47,11 @@ class EqaSchemesController < ApplicationController
 
     respond_to do |format|
       if @eqa_scheme.save
+        
+        @eqa_scheme.users_id = current_user.id
+        changeLogging = ChangeLogging.new(:logRecord => 'EQA scheme created', :users_id => current_user.id)
+        changeLogging.save
+        
         format.html { redirect_to @eqa_scheme, notice: 'Eqa scheme was successfully created.' }
         format.json { render json: @eqa_scheme, status: :created, location: @eqa_scheme }
       else

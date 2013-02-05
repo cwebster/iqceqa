@@ -1,4 +1,8 @@
 class SigmasController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
+  
   # GET /sigmas
   # GET /sigmas.json
   def index

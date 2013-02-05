@@ -1,4 +1,7 @@
 class TestCodesController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /test_codes
   # GET /test_codes.json
   def index
@@ -46,6 +49,11 @@ class TestCodesController < ApplicationController
 
     respond_to do |format|
       if @test_code.save
+        
+        @test_code.users_id = current_user.id
+        changeLogging = ChangeLogging.new(:logRecord => 'Test Code Created', :users_id => current_user.id)
+        changeLogging.save
+        
         format.html { redirect_to @test_code, notice: 'Test code was successfully created.' }
         format.json { render json: @test_code, status: :created, location: @test_code }
       else

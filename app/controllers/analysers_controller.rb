@@ -1,4 +1,7 @@
 class AnalysersController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
 	# GET /analysers
   # GET /analysers.json
   def index

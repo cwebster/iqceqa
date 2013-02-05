@@ -1,4 +1,8 @@
 class TargetsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
+  
   # GET /targets
   # GET /targets.json
   def index

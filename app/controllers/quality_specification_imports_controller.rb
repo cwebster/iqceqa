@@ -1,4 +1,7 @@
 class QualitySpecificationImportsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   def new
     @quality_specification_import = QualitySpecificationImport.new
   end

@@ -1,4 +1,8 @@
 class IqcsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
+  
 # GET /iqc
   # GET /iqc.json
   def index
@@ -25,7 +29,6 @@ class IqcsController < ApplicationController
   # GET /iqc/new.json
   def new
     @iqc = Iqc.new
-    @test_codes = TestCode.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,6 +48,10 @@ class IqcsController < ApplicationController
 
     respond_to do |format|
       if @iqc.save
+        @iqc.users_id = current_user.id
+        changeLogging = ChangeLogging.new(:logRecord => 'QC Material Created', :users_id => current_user.id)
+        changeLogging.save
+        
         format.html { redirect_to @iqc, notice: 'IQC was successfully created.' }
         format.json { render json: @iqc, status: :created, location: @iqc }
       else

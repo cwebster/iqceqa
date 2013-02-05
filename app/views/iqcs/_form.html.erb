@@ -18,12 +18,13 @@
   <%= f.input :assigned, :label => 'Does this QC come with assigned values'%>
   <%= f.input :code, :label => 'IQC Code'%>
   <%= f.input :lotno, :label => 'Lot Number of material'%>
-  <%= f.input :expirydate, :label => 'Expiry date'%>
-  <%= f.input :dateinuse, :label => 'Date in use'%>
-  <%= f.input :datereconstituted, :label => 'Date reconstituted' %>
+  <%= f.input :expirydate, :label => 'Expiry date', as: :string%>
+  <%= f.input :dateinuse, :label => 'Date in use', as: :string%>
+  <%= f.input :datereconstituted, :label => 'Date reconstituted', as: :string %>
   <%= f.input :numberofaliquots, :label => 'Number of aliquots made' %>
   <%= f.input :storagelocation, :label => 'Storage location'%>
   <%= f.input :storagetemp, :label => 'Storage temperature'%>
+  
   <%= f.button :submit %>
 <% end %>
 

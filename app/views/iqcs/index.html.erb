@@ -8,7 +8,15 @@
     <th scope="col" class="rounded-q1">Notes</th>
     <th scope="col" class="rounded-q1">Assigned or Calculated Values</th>
     <th scope="col" class="rounded-q1">Date record created</th>
-    <th scope="col" class="rounded-q1">Date record updated</th>
+	<th scope="col" class="rounded-q1">Code</th>
+    <th scope="col" class="rounded-q1">Lot Number</th>
+    <th scope="col" class="rounded-q1">Expiry Date</th>
+	<th scope="col" class="rounded-q1">Storage Location</th>
+    <th scope="col" class="rounded-q1">Storage Temperature</th>
+    <th scope="col" class="rounded-q1">Date in Use</th>
+	<th scope="col" class="rounded-q1">Date Reconstituted</th>
+    <th scope="col" class="rounded-q1">Number Of Aliquots</th>
+    <th scope="col" class="rounded-q1">Made Up By</th>
     <th scope="col" class="rounded-q1"></th>
     <th scope="col" class="rounded-q1"></th>
     <th scope="col" class="rounded-q1"></th>
@@ -30,7 +38,15 @@
     <td><%= iqc.notes %></td>
     <td><%= iqc.assigned %></td>
     <td><%= iqc.created_at %></td>
-    <td><%= iqc.updated_at %></td>
+    <td><%= iqc.code %></th>
+    <td><%= iqc.lotno %></th>
+    <td><%= iqc.expirydate %></th>
+	<td><%= iqc.storagelocation %> </th>
+    <td><%= iqc.storagetemp %> </th>
+    <td><%= iqc.dateinuse %></th>
+	<td><%= iqc.datereconstituted %></th>
+    <td><%= iqc.numberofaliquots %></th>
+    <td><%= User.find(iqc.users_id).email %></th>
     <td><%= link_to 'Show', iqc %></td>
     <td><%= link_to 'Edit', edit_iqc_path(iqc) %></td>
     <td><%= link_to 'Destroy', iqc, method: :delete, data: { confirm: 'Are you sure?' } %></td>

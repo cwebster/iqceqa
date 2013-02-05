@@ -1,4 +1,7 @@
 class EqasController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   # GET /eqas
   # GET /eqas.json
   def index
@@ -47,6 +50,11 @@ class EqasController < ApplicationController
 
     respond_to do |format|
       if @eqa.save
+        @eqa.users_id = current_user.id
+        changeLogging = ChangeLogging.new(:logRecord => 'EQA Record Created', :users_id => current_user.id)
+        changeLogging.save
+        
+        
         format.html { redirect_to @eqa, notice: 'Eqa was successfully created.' }
         format.json { render json: @eqa, status: :created, location: @eqa }
       else

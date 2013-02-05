@@ -1,4 +1,8 @@
 class QualitySpecificationsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
+  
   # GET /quality_specifications
   # GET /quality_specifications.json
   def index
@@ -47,6 +51,11 @@ class QualitySpecificationsController < ApplicationController
 
     respond_to do |format|
       if @quality_specification.save
+        @quality_specification.users_id = current_user.id
+        changeLogging = ChangeLogging.new(:logRecord => 'Quality Specification Entered', :users_id => current_user.id)
+        changeLogging.save
+        
+        
         format.html { redirect_to @quality_specification, notice: 'Quality specification was successfully created.' }
         format.json { render json: @quality_specification, status: :created, location: @quality_specification }
       else
@@ -63,6 +72,12 @@ class QualitySpecificationsController < ApplicationController
 
     respond_to do |format|
       if @quality_specification.update_attributes(params[:quality_specification])
+        
+        @quality_specification.users_id = current_user.id
+        changeLogging = ChangeLogging.new(:logRecord => 'Quality Specificaiton Updated', :users_id => current_user.id)
+        changeLogging.save
+        
+        
         format.html { redirect_to @quality_specification, notice: 'Quality specification was successfully updated.' }
         format.json { head :no_content }
       else

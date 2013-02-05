@@ -24,7 +24,7 @@ class Sigma < ActiveRecord::Base
   def self.calculateSigmas
   
   # check when last sigma calculation was done and then get the IQC and EQA records after this date
-  	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'SIGMA'])
+  #	@calculationDate = ChangeLogging.find(:last, :order => "created_at ASC", :conditions => [ "logRecord = ?", 'SIGMA'])
   	
   	# @iqcs = IqcDatum.where("dateOfIQC > ?", @calculationDate.created_at.to_date)
   	
@@ -108,7 +108,7 @@ class Sigma < ActiveRecord::Base
 	end
 	
 	#Log sigma calculation
-	changeLogging = ChangeLogging.new(:logRecord => 'SIGMA')
+	changeLogging = ChangeLogging.new(:logRecord => 'SIGMA', :users_id => '-1')
   changeLogging.save
   
   end
