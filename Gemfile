@@ -15,6 +15,8 @@ gem 'jquery-rails'
 gem 'activesupport'
 gem 'reportable', :require => 'saulabs/reportable'
 gem 'devise'
+gem "therubyracer"
+gem "less-rails"
 
 # gem 'by_star', :git => "git://github.com/radar/by_star"
 
@@ -24,6 +26,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'jquery-ui-rails'
+  gem 'twitter-bootstrap-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

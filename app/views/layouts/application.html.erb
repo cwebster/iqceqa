@@ -1,226 +1,83 @@
-<!doctype html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
-<head>
-    <script src='http://www.google.com/jsapi'></script>
-	<!-- Basic Page Needs
-  	================================================== -->
-	<meta charset="utf-8" />
-	<title>Performance Monitoring for IQC and EQA</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!--[if lt IE 9]>  
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	
-	<!-- Mobile Specific Metas
-  	================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-	
-	<!-- CSS
-  	================================================== -->
-  	<%= stylesheet_link_tag    "application", :media => "all" %>
-  	<%= javascript_include_tag "application" %>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>HEFT Pathology Sigma Quality</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	 <script src='http://www.google.com/jsapi'></script>
+    <!-- Le styles -->
+    <%= stylesheet_link_tag    "application", :media => "all" %>
   	<%= csrf_meta_tags %>
-	
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="favicon.ico" />
-	<link rel="apple-touch-icon" href="apple-touch-icon.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png" />
-	
-</head>
-<body>
 
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-<!-- Super Container for entire site -->
-<div class="super-container full-width" id="section-tophat">
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
 
-	<!-- 960 Container -->
-	<div class="container">			
-		
-		<div class="sixteen columns">
-			<span class="tagline">HEFT IQC/EQA/Performance Dashboard</span>
-		</div>
-		
-	</div>
-	
-</div>
-<!-- Super Container for entire site -->
-<div class="super-container full-width" id="section-header">
+								   <style>
+								      body {
+								        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+								      }
+								    </style>
+  </head>
 
-	<!-- 960 Container -->
-	<div class="container">			
-		
-		<!-- Header -->
-		<header>
-		<div class="sixteen columns">
-			
-			<!-- Branding -->
-			<div class="six columns alpha">
-				<a href="/">
-					<h1 id="logo" style="margin-top: 40px; margin-bottom: 30px;">
-						Quality Metrics
-					</h1>
-				</a>
-			</div>
-			<!-- /End Branding -->
-			
-			
-			<hr class="remove-bottom"/>
-		</div>
-		
-		<!-- Menu -->
-		<div class="sixteen columns" id="menu">
-			
-			<div class="sixteen columns alpha navigation">
-				
-				<!-- Default Superfish Nav (add/remove "light" class to toggle visual styling) -->
-				<ul class="sf-menu light">
-					<li><a href="/sigmas"><strong>Sigma Scores</strong> <span>View Sigma Scores</span></a>
-						<ul>
-							<li><a href="alltestssigma">Plot all sigma scores</a>
-						</li></li></ul>
-					
-					<li><a href="/iqc_data/new?"><strong>New IQC</strong> <span>Create a new IQC data point</span></a>
-						<ul>
-							<li><a href="/iqc_data/">List all IQC Values</a>
-						</li></li></ul>
-					<li><a href="/eqas/new?"><strong>New EQA</strong> <span>Create a new EQA data point</span></a>
-						<ul>
-							<li><a href="/eqas/">List all EQA Values</a>
-						</li></li></ul>
-					<li><a href="/iqcs/new?"><strong>New IQC Material</strong> <span>Create a new IQC Material</span></a></li>
-					<li><a href="/quality_specifications"><strong>Setup</strong> <span>Set up parameters</span></a>
-					 			<ul>
-									<li><a href="/quality_specifications">Quality Specifications Management</a>
-										<ul><a href="/quality_specification_imports/new">Import Quality Specifications</a></ul>
-									</li>
-									<li><a href="/eqa_schemes">EQA Scheme Management</a></li>
-									<li><a href="/analysers">List and Maintain Analyser on System</a></li>
-									<li><a href="/test_codes">Test Code Maintenance</a>
-									<ul><a href="/test_code_imports/new">Import Test Codes</a></ul>
-									<li><a href="/change_loggings">View Log</a></li>
-									</li>
-								</ul>  
-								
-					</li>
-					<li>
-						
-					<li>
-						
-					<% if user_signed_in? %>
-						<%= link_to('<strong>Logout</strong><span>log out of system</span>'.html_safe, destroy_user_session_path, :method => :delete, :class => "strong") %>      
-					  </li>
-						 <%= render 'devise/menu/registration_items' %>
-						  
-						<% else %>
-					    <%= link_to('<strong>Login</strong>'.html_safe, new_user_session_path, :class => "strong")  %>
-					<%= render 'devise/menu/registration_items' %>
-					<% end %>
-					</li>
-				</ul>
-				<!-- /End Default Superfish Nav-->
-				
-				<!-- Responsive Nav - Displays when screen gets small enough -->
-				<form id="responsive-nav" action="insert_action" method="post">
-					<select class="chzn-select">
-						<option value="/">Home</option>
-						<option value="about.html">About</option>
-					</select>
-				</form>
-				<!-- /End Responsive Nav -->	
-				
-							
-			</div>	
+  <body>
 
-			<div class="four columns omega align-right" id="tagline">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">HEFT Pathology Six Sigma</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><%= render 'iqcs/menu/iqc_drop_down' %></li>
+			  <li><%= render 'eqas/menu/eqa_drop_down' %></li>
+              <li><%= render 'sigmas/menu/sigma_drop_down' %></li>
+              <li><%= render 'home/menu/config_drop_down' %></li>
+            
+            <% if user_signed_in? %>
+				<li>	<%= link_to('Logout'.html_safe, destroy_user_session_path, :method => :delete, :class => "strong") %> </li>
+					 <%= render 'devise/menu/registration_items' %>
+					  
+					<% else %>
+				   <li> <%= link_to('Login'.html_safe, new_user_session_path)  %></li>
+				<%= render 'devise/menu/registration_items' %>
+				<% end %>
+			</ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
 
-			</div>			
-			
-			<hr class="remove-top"/>
-		</div>	
-		 
-		<!-- /End Menu -->
-		
-		</header>
-		<!-- /End Header -->
-	
-	</div>
-	<!-- End 960 Container -->
-	
-</div>
-<!-- End SuperContainer -->
+    <div class="container">
 
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span12">
+         <%= yield %>
+        </div>
+      </div>
 
-<!-- ============================================== -->
+      <hr>
 
+      <footer>
+        <p>&copy; Craig Webster 2013</p>
+      </footer>
 
-
-
-<!-- ============================================== -->
-
-
-<!-- Super Container -->
-<div class="super-container full-width" id="section-thirds">
-
-	<!-- 960 Container -->
-	<div class="container">
-		<p class="notice"><%= notice %></p>
-		       <p class="alert"><%= alert %></p>
-		<!-- 1/2 Columns -->
-		<div class="Sixteen columns">
-			<%= yield %>	
-		</div>						
-	
-	</div>
-	<!-- /End 960 Container -->
-
-</div>
-<!-- /End Super Container -->
-
-
-<!-- ============================================== -->
-
-
-<!-- Super Container -->
-<div class="super-container full-width" id="section-footer">		
-
-	<!-- 960 Container -->
-	<div class="container">
-	
-		<!-- footer -->
-		<footer>
-		<div class="sixteen columns" id="header">
-			
-						
-		</div>
-		</footer>
-		<!-- /End Footer -->		
-
-	</div>
-	<!-- /End 960 Container -->
-	
-</div>
-<!-- /End Super Container -->
-
-
-<!-- Super Container -->
-<div class="super-container full-width" id="section-sub-footer">		
-
-	<!-- 960 Container -->
-	<div class="container">
-
-		<div class="sixteen columns">	
-				<span class="copyright">&copy; 2012 Craig Webster</span>
-		</div>
-
-	</div>
-	<!-- /End 960 Container -->
-	
-</div>
-<!-- /End Super Container -->		
+    </div> <!-- /container -->
+  	<%= javascript_include_tag "application" %>
+  </body>
+</html>
