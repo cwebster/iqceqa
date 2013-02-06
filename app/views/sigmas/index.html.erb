@@ -17,31 +17,22 @@
   <% end %>
 </div>
 
-<table id="rounded-corner">
+<table class="table table-bordered table-striped table-hover">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Test Name</th>
-    <th scope="col" class="rounded-q1">Date of QC used</th>
-    <th scope="col" class="rounded-q1">QC CV Used</th>
-    <th scope="col" class="rounded-q1">EQA BIAS Result</th>
-	<th scope="col" class="rounded-q1">Date of EQA Result</th>
-	<th scope="col" class="rounded-q1">Sigma Optimal</th>
-	<th scope="col" class="rounded-q1">Sigma Desirable</th>
-	<th scope="col" class="rounded-q1">Sigma Minimum</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
+    <th>Test Name</th>
+    <th>Date of QC used</th>
+    <th>QC CV Used</th>
+    <th>EQA BIAS Result</th>
+	<th>Date of EQA Result</th>
+	<th>Sigma Optimal</th>
+	<th>Sigma Desirable</th>
+	<th>Sigma Minimum</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 </thead>
-
-<tfoot>
-    	<tr>
-        	<td colspan="6" class="rounded-foot-left"><em>IQC management functions</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
-        </tr>
-    </tfoot>
-
-
 <% @sigmas.each do |sigma| %>
   <tr>
     <td><%= sigma.testname %></td>

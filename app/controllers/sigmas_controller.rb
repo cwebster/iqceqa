@@ -116,11 +116,12 @@ class SigmasController < ApplicationController
   
   def plotSigmas
     
-    @sigmas_optimal = Sigma.avg_sigma_optimal_week_report(:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
     
-     @sigmas_desirable = Sigma.avg_sigma_desirable_week_report(:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
+    @sigmas_optimal = Sigma.avg_sigma_optimal_week_report(:live_data => :true, :conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
+    
+     @sigmas_desirable = Sigma.avg_sigma_desirable_week_report(:live_data => :true,:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
      
-      @sigmas_minimum = Sigma.avg_sigma_minimum_week_report(:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
+      @sigmas_minimum = Sigma.avg_sigma_minimum_week_report(:live_data => :true,:conditions => ["test_code_id = ?", params[:test_code_id][:id]]).to_a
   
     data_table = GoogleVisualr::DataTable.new
   

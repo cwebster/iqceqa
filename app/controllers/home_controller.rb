@@ -5,9 +5,9 @@ class HomeController < ApplicationController
     
     @sigmas = Sigma.select("date(dateOfQC) as dateOfQC, avg(sigmaScoreOptimal) as sigmaScoreOptimal, avg(sigmaScoreDesirable) as sigmaScoreDesirable, avg(sigmaScoreMinimum) as sigmaScoreMinimum").group("date(dateOfQC)")
     
-   @sigmas_optimal = Sigma.avg_sigma_optimal_week_report.to_a
-   @sigmas_desirable = Sigma.avg_sigma_desirable_week_report.to_a
-   @sigmas_minimum = Sigma.avg_sigma_minimum_week_report.to_a
+   @sigmas_optimal = Sigma.avg_sigma_optimal_week_report(:live_data => :true).to_a
+   @sigmas_desirable = Sigma.avg_sigma_desirable_week_report(:live_data => :true).to_a
+   @sigmas_minimum = Sigma.avg_sigma_minimum_week_report(:live_data => :true).to_a
     
     data_table = GoogleVisualr::DataTable.new
   

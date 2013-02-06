@@ -31,7 +31,10 @@
   </head>
 
   <body>
+	<div class="container">
 
+
+	</div>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -63,6 +66,25 @@
     </div>
 
     <div class="container">
+
+		<!-- Example row of columns -->
+	      <div class="row">
+	        <div class="span12">
+				
+	         	<% if flash[:error] -%>
+				  <div class="alert alert-error">
+				  <p><%=h flash[:error] %></p>
+				  </div>
+				<% end -%>
+				<% if flash[:notice] -%>
+				  <div class="alert alert-block">
+				  <p class="alert-heading"><%=h flash[:notice] %></p>
+				  </div>
+				<% end -%>
+				
+	        </div>
+	      </div>
+
 
       <!-- Example row of columns -->
       <div class="row">
