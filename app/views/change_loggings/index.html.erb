@@ -4,33 +4,23 @@
 <%= button_to "Clear Log", { :action => "deleteall"},
           :confirm => "Are you sure?", :method => :get %>
 
-<table id="rounded-corner">
+<table class="table table-bordered table-striped table-condensed table-hover">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Log Date/Time</th>
-    <th scope="col" class="rounded-q1">Record</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
+    <th>Log Date/Time</th>
+    <th>Record</th>
+    <th></th>
   </tr>
 </thead>
-
-<tfoot>
-    	<tr>
-        	<td colspan="4" class="rounded-foot-left"><em>Change log</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
-        </tr>
-</tfoot>
-
+<tbody>
 <% @change_loggings.each do |change_logging| %>
   <tr>
     <td><%= change_logging.created_at %></td>
     <td><%= change_logging.logRecord %></td>
-    <td><%= link_to 'Show', change_logging %></td>
-    <td><%= link_to 'Edit', edit_change_logging_path(change_logging) %></td>
     <td><%= link_to 'Destroy', change_logging, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br />

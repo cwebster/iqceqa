@@ -16,21 +16,22 @@
     <% end %>
   <% end %>
 </div>
-
-<table id="rounded-corner">
+<hr>
+<table class="table table-bordered table-striped table-condensed table-hover">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Test Name</th>
-    <th scope="col" class="rounded-company">EQA Scheme</th>
-    <th scope="col" class="rounded-q1">Analyser</th>
-    <th scope="col" class="rounded-company">% Bias</th>
-    <th scope="col" class="rounded-company">Notes</th>
-    <th scope="col" class="rounded-company">Date of EQA</th>
-    <th scope="col" class="rounded-company"></th>
-    <th scope="col" class="rounded-company"></th>
-    <th scope="col" class="rounded-company"></th>
+    <th>Test Name</th>
+    <th>EQA Scheme</th>
+    <th>Analyser</th>
+    <th>% Bias</th>
+    <th>Notes</th>
+    <th>Date of EQA</th>
+    <th></th>	
+    <th></th>
+    <th></th>
   </tr>
-
+</thead>
+<tbody>
 <% @eqas.each do |eqa| %>
 
   <tr>
@@ -45,6 +46,7 @@
     <td><%= link_to 'Destroy', eqa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br />

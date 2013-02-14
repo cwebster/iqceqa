@@ -1,0 +1,30 @@
+<h1>Listing Forms Configured In Application</h1>
+
+<table class="table table-bordered table-striped">
+	<thead>
+  <tr>
+    <th>Form Name</th>
+    <th>Description</th>
+    <th>EQA Scheme</th>
+	<th></th>
+    <th></th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+<% @form_builders.each do |form_builder| %>
+  <tr>
+	<td><%= form_builder.form_name %></td>
+	<td><%= form_builder.description %></td>
+	<td><%= render 'common/eqascheme', :object => form_builder.eqa_scheme_id %></td>
+    <td><%= link_to 'Show', form_builder %></td>
+    <td><%= link_to 'Edit', edit_form_builder_path(form_builder) %></td>
+    <td><%= link_to 'Destroy', form_builder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New Form builder', new_form_builder_path %>

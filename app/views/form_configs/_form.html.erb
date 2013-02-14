@@ -1,0 +1,17 @@
+<%= simple_form_for(@form_config) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+	<% f.label :test_code_id, "Test" %>
+	<%= select("form_config", "test_codes_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+	<%= f.label :order, "Order"%></br>
+	<%= f.text_field :order %></br>
+	
+	
+	
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

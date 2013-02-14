@@ -3,7 +3,7 @@ class EqaResultReferenceAnalyser6 < ActiveRecord::Migration
   	change_table :eqas do |t|
   				t.references :analyser
   			end
-			add_index :eqas, :analyser_id
+			add_index :eqa_schemes, :analyser_id
   end
 
   def down

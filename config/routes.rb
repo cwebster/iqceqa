@@ -1,4 +1,10 @@
 Performance::Application.routes.draw do
+  resources :form_configs
+
+
+  resources :form_builders
+
+
   devise_for :admins
 
   devise_for :users

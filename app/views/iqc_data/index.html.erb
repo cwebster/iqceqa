@@ -18,30 +18,24 @@
     <% end %>
   <% end %>
 </div>
-
-<table id="rounded-corner">
+<hr>
+<table class="table table-bordered table-striped table-condensed table-hover">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Telepath Test Code</th>
-    <th scope="col" class="rounded-q1">Notes</th>
-    <th scope="col" class="rounded-q1">IQC Material</th>
-    <th scope="col" class="rounded-q1">Analyser</th>
-    <th scope="col" class="rounded-q1">Date /Time of IQC</th>
-    <th scope="col" class="rounded-q1">Result</th>
-	<th scope="col" class="rounded-q1">Used in Calculation of Sigma?</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
+    <th>Telepath Test Code</th>
+    <th>Notes</th>
+    <th>IQC Material</th>
+    <th>Analyser</th>
+    <th>Date /Time of IQC</th>
+    <th>Result</th>
+	<th>Used in Calculation of Sigma?</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 </thead>
 
-<tfoot>
-    	<tr>
-        	<td colspan="8" class="rounded-foot-left"><em>IQC management functions</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
-        </tr>
-    </tfoot>
-
+<tbody>
 <% @iqc_data.each do |iqc_datum| %>
   <tr>
     <td><%= render 'common/test_code_id', :object => iqc_datum.test_code_id %></td>
@@ -62,6 +56,7 @@
     <td><%= link_to 'Destroy', iqc_datum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br />

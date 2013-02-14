@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205084936) do
+ActiveRecord::Schema.define(:version => 20130213230341) do
 
 # Could not dump table "_iqc_data_old_20130118" because of following StandardError
 #   Unknown type 'bool' for column 'usedInCalculation'
@@ -92,6 +92,23 @@ ActiveRecord::Schema.define(:version => 20130205084936) do
   add_index "eqas", ["analyser_id"], :name => "index_eqas_on_analyser_id"
   add_index "eqas", ["id"], :name => "index_eqas_on_id"
 
+  create_table "form_builders", :force => true do |t|
+    t.string   "form_name"
+    t.string   "description"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "eqa_scheme_id"
+  end
+
+  create_table "form_configs", :force => true do |t|
+    t.integer  "order"
+    t.integer  "test_codes_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "form_builder_id"
+    t.integer  "eqa_scheme_id"
+  end
+
   create_table "iqc_data", :force => true do |t|
     t.string   "notes"
     t.string   "result"
@@ -161,6 +178,14 @@ ActiveRecord::Schema.define(:version => 20130205084936) do
 
   add_index "reportable_cache", ["model_name", "report_name", "grouping", "aggregation", "conditions", "reporting_period"], :name => "name_model_grouping_aggregation_period", :unique => true
   add_index "reportable_cache", ["model_name", "report_name", "grouping", "aggregation", "conditions"], :name => "name_model_grouping_agregation"
+
+  create_table "return_forms", :force => true do |t|
+    t.string   "form_name"
+    t.string   "description"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "eqa_schemes_id"
+  end
 
   create_table "sigmas", :force => true do |t|
     t.integer  "test_code_id"

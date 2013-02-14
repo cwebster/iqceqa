@@ -1,0 +1,15 @@
+<p class="text-warning"><%= notice %></p>
+	<span class="label label-info"><%= h @form_builder.form_name%></span>
+	<span class="label">Description: <%= h @form_builder.description%></span>
+</br>
+<strong>This form contains the following tests</strong>
+<ol>
+	<% for form_config in @form_builder.form_configs %>
+		<li> <%= TestCode.find(form_config.test_codes_id).testExpansion %></li>
+		
+	<% end %>
+</ol>
+
+<%= link_to 'Edit', edit_form_builder_path(@form_builder) %> |
+<%= link_to 'Destroy', @form_builder, :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to 'View All', form_builders_path %>
