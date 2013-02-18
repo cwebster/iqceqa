@@ -1,0 +1,43 @@
+<%= form_tag({:controller => "eqas", :action => "create_eqa_form"}, :method => "post", :class => "form-horizontal") do %>
+
+	<legend>EQA Return for : <%=@form_builder_details.form_name%></legend>
+	<label class="control-label">EQA Scheme</label>
+		<div class="controls">
+			<%= select("eqa", "eqa_scheme_id", EqaScheme.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+		
+	<label class="control-label">Analyser</label>
+		<div class="controls">
+			<%= select("eqa", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+		
+	<label class="control-label">Date of EQA</label>
+		<div class="controls">	
+			<input type="text" id="eqa_dateOfEQA" name="eqa[dateOfEQA]" placeholder="Date of EQA">
+	  	</div>
+	
+	<label class="control-label">Notes</label>
+		<div class="controls">
+			<input type="text" id="eqa_notes" name="eqa[notes]" placeholder="Notes">
+	  	</div>
+		
+	<hr>
+	<% @form_configs.each do |f| %>
+		<div class="control-group">
+			<input type="hidden" id="eqa_test_code_id" name="eqa[test_code[<%=f.test_codes_id %>]]" placeholder="<%= TestCode.find(f.test_codes_id).testExpansion %>">
+			<label class="control-label" for="inputTestCode"><%= TestCode.find(f.test_codes_id).testExpansion %></label>
+			<div class="controls">
+				<input type="text" id="eqa_bias[<%=f.test_codes_id %>]" name="eqa[bias_test_code[<%=f.test_codes_id %>]]" placeholder="Bias">
+			</div>
+			
+		</div>
+		
+		
+		
+		
+	<% end %>
+
+	<div class="form-actions">
+		<%= link_to 'Save', "#", :onclick=>"$(this).closest('form').submit()", :class =>'btn btn-success' %>
+  	</div>
+<%end%>

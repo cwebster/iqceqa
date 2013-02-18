@@ -1,7 +1,11 @@
 Performance::Application.routes.draw do
   resources :form_configs
-
-
+  match 'eqaform/:form_builder_id' => 'form_configs#create_form'
+  
+  resources :form_configs do
+    resources :form_configs
+  end
+  
   resources :form_builders
 
 
@@ -20,8 +24,8 @@ Performance::Application.routes.draw do
   match 'change_loggings_deleteall' => 'change_loggings#deleteall'
 
   resources :eqas
-
-
+  match 'create_eqa_form' => 'eqas#create_eqa_form'
+  
   resources :quality_specifications 
   
 

@@ -4,7 +4,7 @@ class FormBuilder < ActiveRecord::Base
 
   has_many :form_configs, :dependent => :destroy
   
-  accepts_nested_attributes_for :form_configs, :allow_destroy => true
+  accepts_nested_attributes_for :form_configs, allow_destroy: true
   
   validates_presence_of :form_name, :description, :eqa_scheme_id
 end

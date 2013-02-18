@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213230341) do
+ActiveRecord::Schema.define(:version => 20130214170635) do
 
 # Could not dump table "_iqc_data_old_20130118" because of following StandardError
 #   Unknown type 'bool' for column 'usedInCalculation'
@@ -101,12 +101,11 @@ ActiveRecord::Schema.define(:version => 20130213230341) do
   end
 
   create_table "form_configs", :force => true do |t|
-    t.integer  "order"
+    t.integer  "form_order"
     t.integer  "test_codes_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "form_builder_id"
-    t.integer  "eqa_scheme_id"
   end
 
   create_table "iqc_data", :force => true do |t|

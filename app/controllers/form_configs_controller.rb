@@ -80,4 +80,19 @@ class FormConfigsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def create_form
+    debugger
+    @form_configs = FormConfig.where(:form_builder_id => params[:form_builder_id]).all
+    
+    @form_builder_details = FormBuilder.find(@form_configs[0].form_builder_id)
+    
+     respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @form_config }
+      end
+  
+  end
+  
+  
 end

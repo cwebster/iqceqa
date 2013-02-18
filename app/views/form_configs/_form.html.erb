@@ -5,7 +5,7 @@
 	<% f.label :test_code_id, "Test" %>
 	<%= select("form_config", "test_codes_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
 	<%= f.label :order, "Order"%></br>
-	<%= f.text_field :order %></br>
+	<%= f.text_field :form_order %></br>
 	
 	
 	

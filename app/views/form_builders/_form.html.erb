@@ -1,4 +1,4 @@
-<%= form_for(@form_builder) do |f| %>
+<%= form_for(@form_builder, :html =>{:id => "edit_form"}) do |f| %>
   <% if @form_builder.errors.any? %>
     <div class="alert alert-error"
       <h2><%= pluralize(@form_builder.errors.count, "error") %> prohibited this Form from being saved:</h2>
@@ -19,19 +19,15 @@
 	<%= select("form_builder", "eqa_scheme_id", EqaScheme.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
  
 </br>
-
-<% for form_config in @form_builder.form_configs %>
-	<fieldset>
-		<%= TestCode.find(form_config.test_codes_id).testExpansion %><%= f.hidden_field :_destroy %>
-		<%= link_to "remove", '#', class: "remove_fields" %>
-	</fieldset>
+<%= f.fields_for :form_configs do |builder| %>
+  <%= render 'form_config_fields', f: builder %>
 <% end %>
 
 
 <%= link_to_add_form_configs "Add Test", f, :form_configs%>
  
-<div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+	<div class="form-actions">
+		<%= link_to 'Save', "#", :onclick=>"$(this).closest('form').submit()", :class =>'btn btn-success' %>
+  	</div>
 </div>
 <% end %>

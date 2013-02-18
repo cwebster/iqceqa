@@ -63,6 +63,22 @@ class EqasController < ApplicationController
       end
     end
   end
+  
+  def create_eqa_form
+    @eqa = Eqa.bulk_new(params)
+
+    respond_to do |format|
+      if @eqa 
+        flash[:notice] = 'Eqa was successfully created.'
+        format.html { render 'create_eqa_form'   }
+      else
+        flash[:error] = 'There was a problem, please check and re-try'
+        format.html { render 'create_eqa_form'   }
+       
+      end
+    end
+  end
+  
 
   # PUT /eqas/1
   # PUT /eqas/1.json
