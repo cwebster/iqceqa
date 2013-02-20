@@ -1,5 +1,5 @@
 class QualitySpecification < ActiveRecord::Base
-  attr_accessible :bias, :imprecision, :test_code_id, :cvi, :cvw, :goaltype
+  attr_accessible :bias, :imprecision, :test_code_id, :cvi, :cvw, :goaltype, :desirableTE
   
   belongs_to :testCode
   

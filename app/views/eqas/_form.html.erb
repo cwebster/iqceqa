@@ -1,4 +1,4 @@
-<%= form_for(@eqa) do |f| %>
+<%= form_for @eqa, :html => {:class => "form-horizontal well"}  do |f| %>
   <% if @eqa.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@eqa.errors.count, "error") %> prohibited this eqa from being saved:</h2>
@@ -11,34 +11,52 @@
     </div>
   <% end %>
 
-  <div class="field">
-    Test Name<br />
- <%= select("eqa", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :scheme %><br />
-<%= select("eqa", "eqa_scheme_id", EqaScheme.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
-  </div>
-  
-  <div class="field">
-    Analyser <br />
-<%= select("eqa", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
-  </div>
-  
-  <div class="field">
-    <%= f.label "% BIAS" %><br />
-    <%= f.text_field :bias %>
-  </div>
-  <div class="field">
-    Date of EQA sample<br />
-    <%= f.text_field :dateOfEQA %>
-  </div>
-  <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_field :notes %>
-  </div>
+<legend>Add new EQA Data Point </legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:name, "Test name", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("eqa", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+	<div class="control-group">
+		<%= label_tag(:name, "EQA Scheme", :class =>"control-label") %>
+		<div class="controls">
+		<%= select("eqa", "eqa_scheme_id", EqaScheme.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:name, "Analyser", :class =>"control-label") %>
+		<div class="controls">
+		<%= select("eqa", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
+  
+	<div class="control-group">
+		<%= label_tag(:bias, "Bias", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :bias %>
+		</div>
+	</div>
+  
+	<div class="control-group">
+		<%= label_tag(:dateOfEQA, "Date of EQA", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :dateOfEQA %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:notes, "Notes", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :notes %>
+		</div>
+	</div>
+
+		<div class="form-actions">
+			<%= f.submit :class => "btn-primary" %>
+		</div>
+	<fieldset>
+<% end%>

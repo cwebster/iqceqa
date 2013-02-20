@@ -1,6 +1,6 @@
 <h2>Listing IQC Materials</h2>
 
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped table-hover table-condensed">
 <thead>
   <tr>
     <th>Material Name</th>
@@ -25,26 +25,30 @@
 
 <tfoot>
     	<tr>
-        	<td colspan="8" class="rounded-foot-left"><em>IQC management functions</em></td>
+        	<td colspan="8" class="rounded-foot-left"><em>IQC Materials</em></td>
         	<td class="rounded-foot-right">&nbsp;</td>
         </tr>
-    </tfoot>
+</tfoot>
 
 
 <% @iqc.each do |iqc| %>
+<% if iqc.expirydate.to_formatted_s(:long) > Date.today.to_formatted_s(:long) then%>
+  <tr class='error'>
+<%else%>
   <tr>
+<%end%>
     <td><%= iqc.name %></td>
     <td><%= iqc.manufacturer %></td>
     <td><%= iqc.notes %></td>
     <td><%= iqc.assigned %></td>
-    <td><%= iqc.created_at %></td>
+    <td><%= iqc.created_at.to_formatted_s(:long) %></td>
     <td><%= iqc.code %></th>
     <td><%= iqc.lotno %></th>
-    <td><%= iqc.expirydate %></th>
+	<td><%= iqc.expirydate.to_formatted_s(:long) %></td>
 	<td><%= iqc.storagelocation %> </th>
     <td><%= iqc.storagetemp %> </th>
-    <td><%= iqc.dateinuse %></th>
-	<td><%= iqc.datereconstituted %></th>
+    <td><%= iqc.dateinuse.to_formatted_s(:long) %></th>
+	<td><%= iqc.datereconstituted.to_formatted_s(:long) %></th>
     <td><%= iqc.numberofaliquots %></th>
     <td><%= User.find(iqc.users_id).email %></th>
     <td><%= link_to 'Show', iqc %></td>

@@ -1,23 +1,22 @@
 <h2>Listing quality specifications currently configured</h2>
 
-<table id="rounded-corner">
+<table class="table table-bordered table-striped">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Test Name</th>
-    <th scope="col" class="rounded-q1">Bias Target</th>
-    <th scope="col" class="rounded-q1">Imprecision Target</th>
-	<th scope="col" class="rounded-q1">Intra Individual %CV</th>
-	<th scope="col" class="rounded-q1">Inter Individual %CV</th>
-	<th scope="col" class="rounded-q1">Specification Type</th>
-    <th scope="col" class="rounded-q1">Editing</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
+    <th>Test Name</th>
+    <th>Bias Target</th>
+    <th>Imprecision Target</th>
+	<th>Intra Individual %CV</th>
+	<th>Inter Individual %CV</th>
+	<th>Specification Type</th>
+    <th>Editing</th>
+    <th></th>
+    <th></th>
   </tr>
 </thead>
 <tfoot>
     	<tr>
-        	<td colspan="8" class="rounded-foot-left"><em>Quality specification management functions</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
+        	<td colspan="9"><em>Quality specifications</em></td>
         </tr>
  </tfoot>
 
@@ -59,16 +58,16 @@
 
 <p>The preceding hierarchy is based on the consensus agreement published in the Scandinavian Journal of Clinical and Laboratory Investigation 1999; 59: 585.</p>
 
+<p> Sigma = [(%TEa – %bias)/%CV]</p>
+
 <p>
   Download:
   <%= link_to "CSV", quality_specifications_path(format: "csv") %> |
   <%= link_to "Excel", quality_specifications_path(format: "xls") %>
 </p>
 <br />
-<h5>New Quality Specifications</h5>
-<%= button_to "New Quality specification", {:action => "new"}, {:method => :get } %>
 
-<h5>Import Quality Specifications</h5>
-<p><%= link_to "Import Quality Specifications", new_quality_specification_import_path %></p>
+<p><%= link_to "New Quality Specifications", new_quality_specification_path, :class =>"btn btn-primary" %></p>
+<p><%= link_to "Import Quality Specifications", new_quality_specification_import_path,:class =>"btn btn-primary" %></p>
 
 

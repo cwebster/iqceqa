@@ -47,11 +47,15 @@ class Sigma < ActiveRecord::Base
 				#Get Testname
 				@testname = TestCode.find(iqc.test_code_id).testExpansion
 				
-				#Get QualitySpecification for Test
 				@qs = QualitySpecification.where("test_code_id = ?", iqc.test_code_id).first
 				
+				#Get QualitySpecification for Test if no Quality Spec break from loop
+				if @qs.nil?
+				  break
+				end
+				
 				#If we have a biological quality specification then calcualate sigma
-				if @qs.goaltype ="biological"
+				if @qs.goaltype =="Biological"
 				
           #Calculate various quality metrics
           @allowableCVoptimal = @qs.allowableCVoptimal
@@ -92,12 +96,31 @@ class Sigma < ActiveRecord::Base
           @results["sigmaScoreDesirable"] = @sigmaScoreDesirable
           @results["sigmaScoreMinimum"] = @sigmaScoreMinimum
           @calcsigmas.push(@results)
-
+          
           # mark all EQA and IQCs used as used in calculations
           iqc.usedInCalculation = 1
           iqc.usedInCalculationDate = Date.today
           iqc.save
-        end
+          
+     elsif @qs.goaltype =="TE"
+          @results["test_code_id"] = iqc.test_code_id
+          @results["analyser"] = Analyser.find(iqc.analyser_id).AnalyserName
+          @results["testname"] = @testname
+          @results["dateOfQC"] = iqc.dateOfIQC
+          @results["qcresult"] = iqc.result
+          @results["eqaresult"] = eqa.bias
+          @results["dateOfEQA"] = eqa.dateOfEQA
+          @results["desirableTE"] = @qs.desirableTE
+          @results["sigmaScoreDesirable"] = (@qs.desirableTE.to_f - eqa.bias.to_f)/iqc.result.to_f
+          @calcsigmas.push(@results)
+          
+          # mark all EQA and IQCs used as used in calculations
+          iqc.usedInCalculation = 1
+          iqc.usedInCalculationDate = Date.today
+          iqc.save
+          
+      end
+        
 			end
 	end
 	

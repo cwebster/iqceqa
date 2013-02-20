@@ -1,48 +1,60 @@
+<%= form_for @iqc_datum, :html => {:class => "form-horizontal well"} do |f| %>
+<% if @iqc_datum.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@iqc_datum.errors.count, "error") %> prohibited this iqc_datum from being saved:</h2>
 
+	<ul>
+		<% @iqc_datum.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<legend>Add new IQC Value </legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_test_code_id, "Test Name", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("iqc_datum", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
 
-<%= form_for(@iqc_datum) do |f| %>
-  <% if @iqc_datum.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@iqc_datum.errors.count, "error") %> prohibited this iqc_datum from being saved:</h2>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_iqc_id, "IQC Material", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("iqc_datum", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'})%>
+		</div>
+	</div>
 
-      <ul>
-      <% @iqc_datum.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_analyser_id, "Analyser", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("iqc_datum", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
 
-  <div class="field">Test Name:
-  <%= select("iqc_datum", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_dateOfIQC, "Date of IQC", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :dateOfIQC %>
+		</div>
+	</div>
 
-  </div>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_notes, "Notes", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :notes%>
+		</div>
+	</div>
 
-  <div class="field">IQC Material:
-  <%= select("iqc_datum", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'}) %>
-
-  </div>
-  
-  <div class="field">Analyser:
-  <%= select("iqc_datum", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
-
-  </div>
-  
-  <div class="field">
-    Date and Time of IQC<br />
-    <%= f.text_field :dateOfIQC %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :notes %><br />
-    <%= f.text_field :notes %>
-  </div>
-
-  <div class="field">
-    <%= f.label :result %><br />
-    <%= f.text_field :result %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_result, "%CV", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :result %>
+		</div>
+	</div>
+	<div class="form-actions">
+		<%= f.submit :class => "btn-primary" %>
+	</div>
+	<fieldset>
 <% end %>

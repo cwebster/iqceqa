@@ -3,8 +3,10 @@
 
 <p>
   <b>Select test code to view performance:</b>
-  	<%= form_tag("sigmaplot", :method => "post") do %>		
-		<%= 	select("test_code_id", "id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:prompt => 'Select Test'}) %>
-
-		<%= submit_tag("View Performance") %>
+  	<%= form_tag("sigmaplot", :method => "post", :class => ".form-inline") do %>		
+		
+		<fieldset>
+		<%=select("test_code_id", "id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:prompt => 'Select Test'}) %>
+		</fieldset>
+		<%= submit_tag("View Performance", :class => "btn btn-primary") %>
 	<% end %>

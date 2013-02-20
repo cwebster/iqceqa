@@ -65,7 +65,8 @@ class EqasController < ApplicationController
   end
   
   def create_eqa_form
-    @eqa = Eqa.bulk_new(params)
+    
+    @eqa = Eqa.bulk_new(params, current_user)
 
     respond_to do |format|
       if @eqa 

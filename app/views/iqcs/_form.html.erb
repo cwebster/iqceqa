@@ -1,4 +1,5 @@
-<%= form_for(@iqc) do |f| %>
+<%= form_for @iqc, :html => {:class => "form-horizontal well"} do |f| %>
+
   <% if @iqc.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@iqc.errors.count, "error") %> prohibited this iqc from being saved:</h2>
@@ -10,23 +11,94 @@
       </ul>
     </div>
   <% end %>
+<legend>Add/Edit IQC material </legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:name, "IQC Material Name", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :name%>
+		</div>
+	</div>
 
-<%= simple_form_for @iqc do |f| %>
-  <%= f.input :name, :label => 'IQC Material Name'%>
-  <%= f.input :manufacturer, :label => 'Manufacturer'%>
-  <%= f.input :notes, :label => 'Notes'%>
-  <%= f.input :assigned, :label => 'Does this QC come with assigned values'%>
-  <%= f.input :code, :label => 'IQC Code'%>
-  <%= f.input :lotno, :label => 'Lot Number of material'%>
-  <%= f.input :expirydate, :label => 'Expiry date', as: :string%>
-  <%= f.input :dateinuse, :label => 'Date in use', as: :string%>
-  <%= f.input :datereconstituted, :label => 'Date reconstituted', as: :string %>
-  <%= f.input :numberofaliquots, :label => 'Number of aliquots made' %>
-  <%= f.input :storagelocation, :label => 'Storage location'%>
-  <%= f.input :storagetemp, :label => 'Storage temperature'%>
+	<div class="control-group">
+		<%= label_tag(:manufacturer, "Manufacturer", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :manufacturer%>
+		</div>
+	</div>	
+
+	<div class="control-group">
+		<%= label_tag(:notes, "Notes", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :notes%>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:assigned, "Does this QC come with assigned values", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.check_box :assigned%>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:code, "IQC Code", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :code%>
+		</div>
+	</div> 
+
+	<div class="control-group">
+		<%= label_tag(:lotno, "Lot Number", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :lotno%>
+		</div>
+	</div>
+
+ 	<div class="control-group">
+		<%= label_tag(:expirydate, "Expiry date", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :expirydate%>
+		</div>
+	</div>
+
+ 	<div class="control-group">
+		<%= label_tag(:dateinuse, "Date in Use", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :dateinuse%>
+		</div>
+	</div>
   
-  <%= f.button :submit %>
-<% end %>
+ 	<div class="control-group">
+		<%= label_tag(:datereconstituted, "Date Reconstituted", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :datereconstituted%>
+		</div>
+	</div>
 
+ 	<div class="control-group">
+		<%= label_tag(:numberofaliquots, "Number of Aliquots", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :numberofaliquots%>
+		</div>
+	</div>
+ 
+ 	<div class="control-group">
+		<%= label_tag(:storagelocation, "Storage Location", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :storagelocation%>
+		</div>
+	</div>
 
+ 	<div class="control-group">
+		<%= label_tag(:storagetemp, "Storage Temperature", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :storagetemp%>
+		</div>
+	</div>
+  
+	<div class="form-actions">
+		<%= f.submit :class => "btn-primary" %>
+	</div>
+<fieldset>
 <% end %>

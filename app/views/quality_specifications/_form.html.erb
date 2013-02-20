@@ -1,4 +1,4 @@
-<%= form_for(@quality_specification) do |f| %>
+<%= form_for @quality_specification, :html => {:class => "form-horizontal well"} do |f| %>
   <% if @quality_specification.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@quality_specification.errors.count, "error") %> prohibited this quality_specification from being saved:</h2>
@@ -11,35 +11,63 @@
     </div>
   <% end %>
 
+<legend>Add/Edit Quality Specification</legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:test_code_id, "Test Code", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("quality_specification", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:quality_specification, "Choose Goal Type", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("quality_specification", "goaltype", [ "Biological", "Clinical", "TE" ], {:include_blank => 'None'}) %>
+		 <span class="help-block">For biological specifications enter %Inter and Intra individual %CV <br> %TE and allowable %Bias and %Imprecision will be calculated automatically</span><br>
+		<span class="help-block">For Clinical Specifications enter %Bias and %Imprecision</span><br>
+		<span class="help-block">For %TE Specifications enter %Total Allowable Error</span>
+		</div>
+	</div>
 
-<%= select("quality_specification", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+	<div class="control-group">
+		<%= label_tag(:bias, "Bias", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :bias %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:imprecision, "Imprecision", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :imprecision %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:cvi, "Intra individual %CV", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :cvi %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:cvw, "Inter individual %CV", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :cvw %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:desirableTE, "Desirable %Total Error (%TE)", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :desirableTE %>
+		</div>
+	</div>
 
 
-  <div class="field">
-    <%= f.label :bias %><br />
-    <%= f.text_field :bias %>
-  </div>
-  <div class="field">
-    <%= f.label :imprecision %><br />
-    <%= f.text_field :imprecision %>
-  </div>
-  
-    <div class="field">
-    <%= f.label :cvi %><br />
-    <%= f.text_field :cvi %>
-  </div>
-  
-    <div class="field">
-    <%= f.label :cvw %><br />
-    <%= f.text_field :cvw %>
-  </div>
-  
-  <div class="field">
-  <%= select("quality_specification", "goaltype", [ "Biological", "Clinical", "For Future Use" ], {:include_blank => 'None'}) %>
- 
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="form-actions">
+		<%= f.submit :class => "btn-primary" %>
+	</div>
+<fieldset>
 <% end %>

@@ -8,7 +8,7 @@ class Eqa < ActiveRecord::Base
   belongs_to :analyser
   has_many :form_config
   
-  def self.bulk_new(attributes = {})
+  def self.bulk_new(attributes = {}, current_user)
     eqa = attributes[:eqa]
     
     @errors_array = Array.new
@@ -21,6 +21,7 @@ class Eqa < ActiveRecord::Base
       eqa_record[:bias]= value
       eqa_record[:dateOfEQA]= eqa[:dateOfEQA]
       eqa_record[:analyser_id]= eqa[:analyser_id]
+      eqa_record.users_id = current_user.id
       
       if eqa_record.valid?
         eqa_record.save
@@ -33,6 +34,9 @@ class Eqa < ActiveRecord::Base
         
       
     }
+    
+    changeLogging = ChangeLogging.new(:logRecord => 'EQA Record Created', :users_id => current_user.id)
+    changeLogging.save
     
     return true
   end
