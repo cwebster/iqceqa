@@ -1,22 +1,22 @@
 <h2>Listing EQA schemes currently configured</h2>
 
-<table id="rounded-corner">
+<table class="table table-bordered table-striped table-condensed">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Name</th>
-    <th scope="col" class="rounded-q1">Address</th>
-    <th scope="col" class="rounded-q1">Contact</th>
-    <th scope="col" class="rounded-q1">Website</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Contact</th>
+    <th>Website</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 </thead>
 
 <tfoot>
     	<tr>
-        	<td colspan="6" class="rounded-foot-left"><em>EQA management functions</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
+        	<td colspan="7">EQA Schemes</td>
+        
         </tr>
     </tfoot>
 <% @eqa_schemes.each do |eqa_scheme| %>
@@ -25,13 +25,13 @@
     <td><%= eqa_scheme.address %></td>
     <td><%= eqa_scheme.contact %></td>
     <td><%= eqa_scheme.website %></td>
-    <td><%= link_to 'Show', eqa_scheme %></td>
-    <td><%= link_to 'Edit', edit_eqa_scheme_path(eqa_scheme) %></td>
-    <td><%= link_to 'Destroy', eqa_scheme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', eqa_scheme, :class =>"btn btn-info btn-small" %></td>
+    <td><%= link_to 'Edit', edit_eqa_scheme_path(eqa_scheme), :class => "btn btn-primary btn-small" %></td>
+    <td><%= link_to 'Destroy', eqa_scheme, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= button_to "New EQA Scheme", {:action => "new"}, {:method => :get } %>
+<p><%= link_to "New EQA Scheme", new_eqa_scheme_path, :class =>"btn btn-primary" %></p>

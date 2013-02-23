@@ -1,5 +1,5 @@
 class FormConfig < ActiveRecord::Base
-  attr_accessible :order, :form_builder_id, :test_codes_id
+  attr_accessible :form_order, :form_builder_id, :test_codes_id
   
   belongs_to :form_builder
   has_many :eqas, :foreign_key => 'eqa_scheme_id'

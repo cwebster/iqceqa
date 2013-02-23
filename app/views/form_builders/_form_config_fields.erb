@@ -1,7 +1,7 @@
 <fieldset>
 Test: 
 <%= f.select("test_codes_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
-<%= f.text_field :order,  :placeholder => "Order", :class => "input-mini" %> : 
+<%= f.text_field :form_order,  :placeholder => "Order", :class => "input-mini" %> : 
 <%= f.hidden_field :_destroy %>
 <%= link_to "remove", '#', class: "remove_fields" %>
 </fieldset>

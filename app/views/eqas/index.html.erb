@@ -41,14 +41,12 @@
     <td><%= eqa.bias %></td>
     <td><%= eqa.notes %></td>
     <td><%= eqa.dateOfEQA.to_formatted_s(:long) %></td>
-    <td><%= link_to 'Show', eqa %></td>
-    <td><%= link_to 'Edit', edit_eqa_path(eqa) %></td>
-    <td><%= link_to 'Destroy', eqa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', eqa, :class => "btn btn-info btn-small" %></td>
+    <td><%= link_to 'Edit', edit_eqa_path(eqa), :class => "btn btn-primary btn-small" %></td>
+    <td><%= link_to 'Destroy', eqa, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
   </tr>
 <% end %>
 </tbody>
 </table>
 
-<br />
-
-<%= button_to "New EQA Record", {:action => "new"}, {:method => :get } %>
+<%= link_to 'New EQA Record', new_eqa_path, :class => "btn btn-primary" %></td>

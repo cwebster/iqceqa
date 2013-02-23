@@ -48,7 +48,6 @@ class EqaSchemesController < ApplicationController
     respond_to do |format|
       if @eqa_scheme.save
         
-        @eqa_scheme.users_id = current_user.id
         changeLogging = ChangeLogging.new(:logRecord => 'EQA scheme created', :users_id => current_user.id)
         changeLogging.save
         
@@ -82,7 +81,8 @@ class EqaSchemesController < ApplicationController
   def destroy
     @eqa_scheme = EqaScheme.find(params[:id])
     @eqa_scheme.destroy
-
+    changeLogging = ChangeLogging.new(:logRecord => 'EQA scheme deleted: '+@eqa_scheme.name, :users_id => current_user.id)
+    changeLogging.save
     respond_to do |format|
       format.html { redirect_to eqa_schemes_url }
       format.json { head :no_content }

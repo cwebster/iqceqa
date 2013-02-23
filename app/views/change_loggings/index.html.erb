@@ -1,9 +1,7 @@
 <h2>Change Log</h2>
 
-
-<%= button_to "Clear Log", { :action => "deleteall"},
-          :confirm => "Are you sure?", :method => :get %>
-
+<%= link_to 'Clear Log', {:controller => :change_loggings, :action => :deleteall}, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %>
+<hr>
 <table class="table table-bordered table-striped table-condensed table-hover">
 <thead>
   <tr>
@@ -17,7 +15,7 @@
   <tr>
     <td><%= change_logging.created_at %></td>
     <td><%= change_logging.logRecord %></td>
-    <td><%= link_to 'Destroy', change_logging, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', change_logging, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small"  %></td>
   </tr>
 <% end %>
 </tbody>
@@ -25,4 +23,4 @@
 
 <br />
 
-<%= link_to 'New Change logging', new_change_logging_path %>
+<%= link_to 'New Change logging', new_change_logging_path, :class =>"btn btn-primary" %>

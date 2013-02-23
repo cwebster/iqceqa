@@ -1,23 +1,22 @@
 <h2>Listing currently configured Tests</h2>
 
-<table id="rounded-corner">
+<table class="table table-bordered table-striped table-condensed table-hover">
 <thead>
   <tr>
-    <th scope="col" class="rounded-company">Telepath Test Code</th>
-    <th scope="col" class="rounded-q1">Notes</th>
-    <th scope="col" class="rounded-q1">Active</th>
-    <th scope="col" class="rounded-q1">Test Expansion</th>
-    <th scope="col" class="rounded-q1">Internal Test Code</th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
-    <th scope="col" class="rounded-q1"></th>
+    <th>Telepath Test Code</th>
+    <th>Notes</th>
+    <th>Active</th>
+    <th>Test Expansion</th>
+    <th>Internal Test Code</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 </thead>
 
 <tfoot>
     	<tr>
-        	<td colspan="7" class="rounded-foot-left"><em>Test code management functions</em></td>
-        	<td class="rounded-foot-right">&nbsp;</td>
+        	<td colspan="7"><em>Test code management functions</em></td> 
         </tr>
     </tfoot>
 <% @test_codes.each do |test_code| %>
@@ -27,17 +26,16 @@
 	<td><%=test_code.active %> </td>
 	<td><%=test_code.testExpansion %> </td>
 	<td><%=test_code.id %> </td>
-    <td><%= link_to 'Show', test_code %></td>
-    <td><%= link_to 'Edit', edit_test_code_path(test_code) %></td>
-    <td><%= link_to 'Destroy', test_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', test_code, :class => "btn btn-info btn-small"   %></td>
+    <td><%= link_to 'Edit', edit_test_code_path(test_code), :class => "btn btn-primary btn-small"   %></td>
+    <td><%= link_to 'Destroy', test_code, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small"   %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= button_to "New Test", {:action => "new"}, {:method => :get } %>
-
+<%= link_to 'New Test', new_test_code_path, :class =>"btn btn-primary" %>
+<hr>
 <p>
   Download:
   <%= link_to "CSV", test_codes_path(format: "csv") %> |

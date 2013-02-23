@@ -1,4 +1,4 @@
-<%= form_for(@test_code) do |f| %>
+<%= form_for @test_code, :html => {:class => "form-horizontal well"}  do |f| %>
   <% if @test_code.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@test_code.errors.count, "error") %> prohibited this test_code from being saved:</h2>
@@ -10,24 +10,38 @@
       </ul>
     </div>
   <% end %>
+<legend>Add/Edit Test Code Details</legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:testCodeText, "Telepath Testcode", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :testCodeText%>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:testExpansion, "Test Expansion", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :testExpansion%>
+		</div>
+	</div>
 
-  <div class="field">
-    Telepath Test Code<br />
-    <%= f.text_field :testCodeText %>
-  </div>
-  <div class="field">
-    Test Full Name<br />
-    <%= f.text_field :testExpansion %>
-  </div>
-  <div class="field">
-    Notes<br />
-    <%= f.text_field :notes %>
-  </div>
-  <div class="field">
-    Active<br />
-    <%= f.text_field :active %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+	<div class="control-group">
+		<%= label_tag(:notes, "Notes", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :notes%>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:active, "Active", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :active%>
+		</div>
+	</div>
+
+		<div class="form-actions">
+			<%= f.submit :class => "btn-primary" %>
+		</div>
+	<fieldset>
+	<% end %>

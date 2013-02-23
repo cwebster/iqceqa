@@ -31,9 +31,9 @@
 	<td><%= quality_specification.cvi %></td>
 	<td><%= quality_specification.cvw %></td>
 	<td><%= quality_specification.goaltype %></td>
-    <td><%= link_to 'Show', quality_specification %></td>
-    <td><%= link_to 'Edit', edit_quality_specification_path(quality_specification) %></td>
-    <td><%= link_to 'Destroy', quality_specification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', quality_specification, :class =>"btn btn-info btn-small" %></td>
+    <td><%= link_to 'Edit', edit_quality_specification_path(quality_specification), :class => "btn btn-primary btn-small" %></td>
+    <td><%= link_to 'Destroy', quality_specification, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
   </tr>
 <% end %>
 </table>
