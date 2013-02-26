@@ -1,0 +1,2 @@
+module CreateAnalyserTypesHelper
+end

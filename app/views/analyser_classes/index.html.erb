@@ -1,0 +1,23 @@
+<h1>Listing analyser_classes</h1>
+
+<table>
+  <tr>
+    <th>Class type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @analyser_classes.each do |analyser_class| %>
+  <tr>
+    <td><%= analyser_class.class_type %></td>
+    <td><%= link_to 'Show', analyser_class %></td>
+    <td><%= link_to 'Edit', edit_analyser_class_path(analyser_class) %></td>
+    <td><%= link_to 'Destroy', analyser_class, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Analyser class', new_analyser_class_path %>

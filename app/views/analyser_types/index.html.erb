@@ -1,0 +1,29 @@
+<h1>Analyser Types Currently Configured</h1>
+
+<table class="table table-bordered table-striped table-condensed table-hover">
+  <tr>
+    <th>Analyser Type Name</th>
+    <th>Analyser Type Description</th>
+    <th>Analyser Type Picture</th>
+	<th>Analyser Type Class</th>
+ 	<th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @analyser_types.each do |analyser_type| %>
+  <tr>
+	<td><%= analyser_type.analyser_type_name %> </td>
+	<td><%= analyser_type.analyser_type_description %> </td>
+	<td><%= image_tag analyser_type.analyser_picture.url(:medium) %> </td>
+	<td><%= analyser_type.analyser_type_class %> </td>
+    <td><%= link_to 'Show', analyser_type, :class => "btn btn-primary btn-small" %></td>
+    <td><%= link_to 'Edit', edit_analyser_type_path(analyser_type), :class => "btn btn-info btn-small" %></td>
+    <td><%= link_to 'Destroy', analyser_type, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Analyser type', new_analyser_type_path, :class => "btn btn-primary" %>

@@ -1,0 +1,53 @@
+<%= form_for@analyser_type, :html => {:class => "form-horizontal well"} do |f| %>
+  <% if @analyser_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@analyser_type.errors.count, "error") %> prohibited this analyser from being saved:</h2>
+
+      <ul>
+      <% @analyser_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<legend>Add/Edit Analyser Type</legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:analyser_type_name, "Analyser Name", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :analyser_type_name %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:analyser_type_description, "Analyser Description", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :analyser_type_description %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:analyser_type_class, "Analyser class", :class =>"control-label") %>
+		<div class="controls">
+				<%= select("analyser_type", "analyser_classes_id", AnalyserClass.all.collect {|p| [ p.class_type, p.id ] }, {:include_blank => 'None'})%>
+		
+		</div>
+	</div>
+	
+	
+	<div class="control-group">
+		<%= label_tag(:analyser_picture, "Upload image file", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.file_field :analyser_picture %>
+		</div>
+	</div>
+
+  <div class="form-inputs">
+	 
+  </div>
+		<div class="form-actions">
+			<%= f.submit :class => "btn-primary" %>
+		</div>
+	<fieldset>
+<% end %>

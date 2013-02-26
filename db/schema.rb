@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226081425) do
+ActiveRecord::Schema.define(:version => 20130226224858) do
 
 # Could not dump table "_iqc_data_old_20130118" because of following StandardError
 #   Unknown type 'bool' for column 'usedInCalculation'
@@ -48,14 +48,34 @@ ActiveRecord::Schema.define(:version => 20130226081425) do
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
   add_index "admins", ["unlock_token"], :name => "index_admins_on_unlock_token", :unique => true
 
+  create_table "analyser_classes", :force => true do |t|
+    t.string   "class_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "analyser_types", :force => true do |t|
+    t.string   "analyser_type_name"
+    t.string   "analyser_type_description"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.string   "analyser_picture_file_name"
+    t.string   "analyser_picture_content_type"
+    t.integer  "analyser_picture_file_size"
+    t.datetime "analyser_picture_updated_at"
+    t.integer  "analyser_type_class"
+    t.integer  "analyser_classes_id"
+  end
+
   create_table "analysers", :force => true do |t|
     t.string   "AnalyserName"
     t.text     "AnalyserNote"
     t.string   "AnalyserLocation"
     t.integer  "iqc_data_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "users_id"
+    t.integer  "analyser_types_id"
   end
 
   add_index "analysers", ["id"], :name => "index_analysers_on_id"

@@ -67,7 +67,7 @@ class AnalysersController < ApplicationController
 
     respond_to do |format|
       if @analysers.update_attributes(params[:analyser])
-        changeLogging = ChangeLogging.new(:logRecord => 'Analyser updated' + params[:analyser], :users_id => current_user.id)
+        changeLogging = ChangeLogging.new(:logRecord => 'Analyser updated' + params[:analyser].to_s, :users_id => current_user.id)
         changeLogging.save
         
         format.html { redirect_to @analysers, notice: 'analysers was successfully updated.' }

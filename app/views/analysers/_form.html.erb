@@ -33,6 +33,14 @@
 			<%= f.text_field :AnalyserLocation %>
 		</div>
 	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:analyser_types_id, "Analyser Type", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("analyser", "analyser_types_id", AnalyserType.all.collect {|p| [ p.analyser_type_name, p.id ] }, {:include_blank => 'None'})%>
+		</div>
+	</div>
+
 
 		<div class="form-actions">
 			<%= f.submit :class => "btn-primary" %>

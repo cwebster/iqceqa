@@ -11,10 +11,9 @@
   <%= calendar @date do |date| %>
     <%= date.day %>
 </br>
+	<i class="icon-folder-open"></i>
 	<% if @iqc_by_date[date] %>
-        <% @iqc_by_date[date].each do |iqc_datum| %>
-          <small><%= link_to TestCode.find(iqc_datum.test_code_id).testExpansion, iqc_datum %>:</small>
-        <% end %>
+          <span class="badge badge-success">IQC</span>
     <% end %>
   <% end %>
 </div>

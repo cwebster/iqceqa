@@ -1,4 +1,13 @@
 Performance::Application.routes.draw do
+  resources :analyser_classes
+
+
+  resources :analyser_types
+
+
+  resources :create_analyser_types
+
+
   resources :form_configs
   match 'eqaform/:form_builder_id' => 'form_configs#create_form'
   

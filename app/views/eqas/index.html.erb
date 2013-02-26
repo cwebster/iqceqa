@@ -10,9 +10,7 @@
     <%= date.day %>
 </br>
 	<% if @eqas_by_date[date] %>
-        <% @eqas_by_date[date].each do |eqa| %>
-         <small> <%= link_to TestCode.find(eqa.test_code_id).testExpansion, eqa %>:</small>
-        <% end %>
+         <span class="badge badge-success">EQA</span>
     <% end %>
   <% end %>
 </div>
