@@ -3,8 +3,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Test Code (Int):</b>
-  <%= @test_code.testCode %>
+  <b>Test Code (Read Code):</b>
+  <%= @test_code.readcode %>
 </p>
 
 <p>
@@ -24,7 +24,11 @@
 
 <p>
   <b>Active:</b>
-  <%= @test_code.active %>
+  <% if @test_code.active == TRUE %>
+	Active
+  <% else %>
+	Inactive
+  <% end%>
 </p>
 
 <%= link_to 'Edit', edit_test_code_path(@test_code) %> |

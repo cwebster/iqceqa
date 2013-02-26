@@ -92,6 +92,9 @@ class QualitySpecificationsController < ApplicationController
   def destroy
     @quality_specification = QualitySpecification.find(params[:id])
     @quality_specification.destroy
+    
+    changeLogging = ChangeLogging.new(:logRecord => 'Quality Specification deleted' + params[:id], :users_id => current_user.id)
+    changeLogging.save
 
     respond_to do |format|
       format.html { redirect_to quality_specifications_url }
@@ -101,6 +104,8 @@ class QualitySpecificationsController < ApplicationController
   
   def import
   	QualitySpecification.import(params[:file])
+  	changeLogging = ChangeLogging.new(:logRecord => 'Quality Specifications imported', :users_id => current_user.id)
+    changeLogging.save
   	redirect_to root_url, notice: "Quality specifications imported."
   end
   

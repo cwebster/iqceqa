@@ -1,5 +1,5 @@
 class TestCode < ActiveRecord::Base
-  attr_accessible :active, :notes, :testCode, :testExpansion, :testCodeText
+  attr_accessible :active, :notes, :readcode, :testExpansion, :testCodeText
   has_many :sigmas
   has_many :targets
   has_many :iqc_datums

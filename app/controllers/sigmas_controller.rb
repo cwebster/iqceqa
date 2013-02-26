@@ -69,6 +69,10 @@ class SigmasController < ApplicationController
 
     respond_to do |format|
       if @sigma.update_attributes(params[:sigma])
+        
+        changeLogging = ChangeLogging.new(:logRecord => 'Sigma updated: ' + params[:id] , :users_id => current_user.id)
+        changeLogging.save
+        
         format.html { redirect_to @sigma, notice: 'Sigma was successfully updated.' }
         format.json { head :no_content }
       else
@@ -85,6 +89,9 @@ class SigmasController < ApplicationController
     @sigma.destroy
 
     respond_to do |format|
+      changeLogging = ChangeLogging.new(:logRecord => 'Sigma deleted: ' + params[:id], :users_id => current_user.id)
+      changeLogging.save
+      
       format.html { redirect_to sigmas_url }
       format.json { head :no_content }
     end

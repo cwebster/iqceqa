@@ -70,6 +70,8 @@ class TestCodesController < ApplicationController
 
     respond_to do |format|
       if @test_code.update_attributes(params[:test_code])
+        changeLogging = ChangeLogging.new(:logRecord => 'Test code updated: '+ params[:test_code].to_s, :users_id => current_user.id)
+        changeLogging.save
         format.html { redirect_to @test_code, notice: 'Test code was successfully updated.' }
         format.json { head :no_content }
       else

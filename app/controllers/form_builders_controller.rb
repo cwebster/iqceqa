@@ -27,6 +27,7 @@ class FormBuildersController < ApplicationController
     @form_builder = FormBuilder.new
 
     respond_to do |format|
+ 
       format.html # new.html.erb
       format.json { render json: @form_builder }
     end
@@ -44,6 +45,8 @@ class FormBuildersController < ApplicationController
 
     respond_to do |format|
       if @form_builder.save
+        changeLogging = ChangeLogging.new(:logRecord => 'Form created', :users_id => current_user.id)
+        changeLogging.save
         format.html { redirect_to @form_builder, notice: 'Form builder was successfully created.' }
         format.json { render json: @form_builder, status: :created, location: @form_builder }
       else
@@ -60,6 +63,8 @@ class FormBuildersController < ApplicationController
 
     respond_to do |format|
       if @form_builder.update_attributes(params[:form_builder])
+        changeLogging = ChangeLogging.new(:logRecord => 'Form updated: ' + params[:form_builder], :users_id => current_user.id)
+        changeLogging.save
         format.html { redirect_to @form_builder, notice: 'Form builder was successfully updated.' }
         format.json { head :no_content }
       else
@@ -74,7 +79,8 @@ class FormBuildersController < ApplicationController
   def destroy
     @form_builder = FormBuilder.find(params[:id])
     @form_builder.destroy
-
+    changeLogging = ChangeLogging.new(:logRecord => 'Form deleted: ' + params[:id], :users_id => current_user.id)
+    changeLogging.save
     respond_to do |format|
       format.html { redirect_to form_builders_url }
       format.json { head :no_content }

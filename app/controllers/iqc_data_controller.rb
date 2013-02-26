@@ -73,6 +73,13 @@ class IqcDataController < ApplicationController
 
     respond_to do |format|
       if @iqc_datum.update_attributes(params[:iqc_datum])
+        
+        # If weve updated an IQC we need to recalculate the Sigma
+        @iqc_datum.usedInCalculation = 0
+        Sigma.calculateSigmas
+        
+        changeLogging = ChangeLogging.new(:logRecord => 'QC result updated: ' + params[:iqc_datum].to_s, :users_id => current_user.id)
+        changeLogging.save
         format.html { redirect_to @iqc_datum, notice: 'Iqc datum was successfully updated.' }
         format.json { head :no_content }
       else
@@ -87,6 +94,9 @@ class IqcDataController < ApplicationController
   def destroy
     @iqc_datum = IqcDatum.find(params[:id])
     @iqc_datum.destroy
+    
+    changeLogging = ChangeLogging.new(:logRecord => 'QC result deleted: ' +params[:id], :users_id => current_user.id)
+    changeLogging.save
 
     respond_to do |format|
       format.html { redirect_to iqc_data_url }

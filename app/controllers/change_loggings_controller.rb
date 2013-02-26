@@ -63,6 +63,8 @@ class ChangeLoggingsController < ApplicationController
 
     respond_to do |format|
       if @change_logging.update_attributes(params[:change_logging])
+         changeLogging = ChangeLogging.new(:logRecord => 'Log record updated', :users_id => current_user.id)
+         changeLogging.save
         format.html { redirect_to @change_logging, notice: 'Change logging was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,6 +79,9 @@ class ChangeLoggingsController < ApplicationController
   def destroy
     @change_logging = ChangeLogging.find(params[:id])
     @change_logging.destroy
+    
+    changeLogging = ChangeLogging.new(:logRecord => 'Log record deleted', :users_id => current_user.id)
+    changeLogging.save
 
     respond_to do |format|
       format.html { redirect_to change_loggings_url }
@@ -87,6 +92,8 @@ class ChangeLoggingsController < ApplicationController
   def deleteall
     
     ChangeLogging.delete_all
+    changeLogging = ChangeLogging.new(:logRecord => 'Log cleared', :users_id => current_user.id)
+    changeLogging.save
   end
   
 end

@@ -3,5 +3,11 @@
     <ul class="dropdown-menu">
       <li><a href="/eqas/new?">New EQA</a></li>      
       <li><a href="/eqas/">List all EQA Values</a></li>
+      <li class="divider"></li>
+      <li class="nav-header">Use EQA form to add EQA results</li>
+		<% build_eqa_forms_menu %>
+	 		<% @forms.each do  |form| %>
+				<li><a href="/eqaform/ <%= form.id %>"><%= form.description%></a></li>
+			<%end%>
     </ul>
   </li>

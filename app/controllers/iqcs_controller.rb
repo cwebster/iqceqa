@@ -68,6 +68,9 @@ class IqcsController < ApplicationController
 
     respond_to do |format|
       if @iqc.update_attributes(params[:iqc])
+        
+        changeLogging = ChangeLogging.new(:logRecord => 'IQC Material updated: ' + params[:iqc].to_s, :users_id => current_user.id)
+        changeLogging.save
         format.html { redirect_to @iqc, notice: 'IQC was successfully updated.' }
         format.json { head :no_content }
       else
@@ -82,6 +85,8 @@ class IqcsController < ApplicationController
   def destroy
     @iqc = Iqc.find(params[:id])
     @iqc.destroy
+    changeLogging = ChangeLogging.new(:logRecord => 'IQC Material Deleted: '+ params[:id], :users_id => current_user.id)
+    changeLogging.save
 
     respond_to do |format|
       format.html { redirect_to iqc_url }

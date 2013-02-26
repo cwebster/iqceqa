@@ -48,6 +48,9 @@ class AnalysersController < ApplicationController
 
     respond_to do |format|
       if @analysers.save
+        changeLogging = ChangeLogging.new(:logRecord => 'New analyser created', :users_id => current_user.id)
+        changeLogging.save
+        
         format.html { redirect_to @analysers, notice: 'analysers was successfully created.' }
         format.json { render json: @analysers, status: :created, location: @analysers }
       else
@@ -64,6 +67,9 @@ class AnalysersController < ApplicationController
 
     respond_to do |format|
       if @analysers.update_attributes(params[:analyser])
+        changeLogging = ChangeLogging.new(:logRecord => 'Analyser updated' + params[:analyser], :users_id => current_user.id)
+        changeLogging.save
+        
         format.html { redirect_to @analysers, notice: 'analysers was successfully updated.' }
         format.json { head :no_content }
       else
@@ -78,6 +84,9 @@ class AnalysersController < ApplicationController
   def destroy
     @analysers = Analyser.find(params[:id])
     @analysers.destroy
+    
+    changeLogging = ChangeLogging.new(:logRecord => 'Analyser deleted' + params[:id], :users_id => current_user.id)
+    changeLogging.save
 
     respond_to do |format|
       format.html { redirect_to analysers_url }

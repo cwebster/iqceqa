@@ -70,6 +70,8 @@ class EqasController < ApplicationController
 
     respond_to do |format|
       if @eqa 
+        changeLogging = ChangeLogging.new(:logRecord => 'EQA Added using form', :users_id => current_user.id)
+        changeLogging.save
         flash[:notice] = 'Eqa was successfully created.'
         format.html { render 'create_eqa_form'   }
       else
@@ -88,6 +90,8 @@ class EqasController < ApplicationController
 
     respond_to do |format|
       if @eqa.update_attributes(params[:eqa])
+        changeLogging = ChangeLogging.new(:logRecord => 'EQA Scheme updated: '+ params[:eqa], :users_id => current_user.id)
+        changeLogging.save
         format.html { redirect_to @eqa, notice: 'Eqa was successfully updated.' }
         format.json { head :no_content }
       else
