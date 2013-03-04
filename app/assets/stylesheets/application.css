@@ -9,6 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require jquery.ui.datepicker
+ *= bootstrap_and_overrides.css.less
+ *= general.css.scss
+ *= datepicker.css
+ *= jquery-ui-1.10.1.custom.css
  *= require_tree .
  */
+

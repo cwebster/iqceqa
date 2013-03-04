@@ -1,8 +1,6 @@
 class AlterIqcDatumToIncludeInstrument < ActiveRecord::Migration
   def up
-  	  	change_table :iqc_data do |t|
-  			t.add_column :analyser
-		end
+  	  	add_column :iqc_data, :analyser, :string
   end
 
   def down

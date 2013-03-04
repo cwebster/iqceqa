@@ -3,7 +3,7 @@ class AnalyserAlterations < ActiveRecord::Migration
     change_table :analysers do |t|
   				t.references :analyser_types
   			end
-			add_index :analyser_types_id
+			add_index :analysers, :analyser_types_id
   end
 
   def down

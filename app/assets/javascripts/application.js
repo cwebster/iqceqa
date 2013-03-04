@@ -11,7 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
+//= require jquery-ui
 //= require twitter/bootstrap
-//= require jquery.ui.datepicker
+//= require rails.js
+//= require form_builders.js.coffee
+//= require form_configs.js.coffee
+//= require analyser_types.js.coffee
+//= require eqas.js.coffee
+//= require iqcs.js.coffee
 //= require_tree .
