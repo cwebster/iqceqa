@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226224858) do
+ActiveRecord::Schema.define(:version => 20130304141408) do
+
+# Could not dump table "_iqc_data_old_20130118" because of following StandardError
+#   Unknown type 'bool' for column 'usedInCalculation'
+
+# Could not dump table "_sigmas_old_20130118" because of following StandardError
+#   Unknown type 'bool' for column 'sigmaScoreDesirable'
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -72,7 +78,6 @@ ActiveRecord::Schema.define(:version => 20130226224858) do
     t.integer  "analyser_types_id"
   end
 
-  add_index "analysers", ["analyser_types_id"], :name => "index_analysers_on_analyser_types_id"
   add_index "analysers", ["id"], :name => "index_analysers_on_id"
   add_index "analysers", ["iqc_data_id"], :name => "index_analysers_on_iqc_data_id"
 
@@ -104,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130226224858) do
     t.integer  "users_id"
   end
 
+  add_index "eqas", ["analyser_id"], :name => "index_eqas_on_analyser_id"
   add_index "eqas", ["id"], :name => "index_eqas_on_id"
 
   create_table "form_builders", :force => true do |t|
@@ -122,8 +128,21 @@ ActiveRecord::Schema.define(:version => 20130226224858) do
     t.integer  "form_builder_id"
   end
 
-# Could not dump table "iqc_data" because of following StandardError
-#   Unknown type 'bool' for column 'usedInCalculation'
+  create_table "iqc_data", :force => true do |t|
+    t.string   "notes"
+    t.string   "result"
+    t.integer  "iqc_id"
+    t.integer  "test_code_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "analyser_id"
+    t.datetime "dateOfIQC"
+    t.integer  "usedInCalculation",     :default => 0
+    t.date     "usedInCalculationDate"
+    t.integer  "users_id"
+  end
+
+  add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"
 
   create_table "iqcs", :force => true do |t|
     t.string   "name"
@@ -164,20 +183,13 @@ ActiveRecord::Schema.define(:version => 20130226224858) do
     t.integer  "users_id"
   end
 
-  create_table "reportable_cache", :force => true do |t|
-    t.string   "model_name",                        :null => false
-    t.string   "report_name",                       :null => false
-    t.string   "grouping",                          :null => false
-    t.string   "aggregation",                       :null => false
-    t.string   "conditions",                        :null => false
-    t.float    "value",            :default => 0.0, :null => false
-    t.datetime "reporting_period",                  :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+  create_table "return_forms", :force => true do |t|
+    t.string   "form_name"
+    t.string   "description"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "eqa_schemes_id"
   end
-
-  add_index "reportable_cache", ["model_name", "report_name", "grouping", "aggregation", "conditions", "reporting_period"], :name => "name_model_grouping_aggregation_period", :unique => true
-  add_index "reportable_cache", ["model_name", "report_name", "grouping", "aggregation", "conditions"], :name => "name_model_grouping_agregation"
 
   create_table "sigmas", :force => true do |t|
     t.integer  "test_code_id"

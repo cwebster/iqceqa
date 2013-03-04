@@ -13,12 +13,13 @@ gem 'simple_form'
 gem 'thin'
 gem 'jquery-rails'
 gem 'activesupport'
-gem 'reportable', :require => 'saulabs/reportable'
+# gem 'reportable', :require => 'saulabs/reportable'
 gem 'devise'
 gem "therubyracer"
 gem "less-rails"
 gem "dynamic_form"
 gem "paperclip", "~> 3.0"
+gem "mysql2"
 
 # gem 'by_star', :git => "git://github.com/radar/by_star"
 

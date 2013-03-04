@@ -3,15 +3,6 @@ class Sigma < ActiveRecord::Base
   
   belongs_to :testCode
   
-  reportable :avg_sigma_optimal_week, :aggregation => :average, :grouping => :week, :date_column => :dateOfQC, :value_column => :sigmaScoreOptimal, :limit => 50
-  
-  reportable :avg_sigma_desirable_week, :aggregation => :average, :grouping => :week, :date_column => :dateOfQC, :value_column => :sigmaScoreDesirable, :limit => 50
-  
-  reportable :avg_sigma_minimum_week, :aggregation => :average, :grouping => :week, :date_column => :dateOfQC, :value_column => :sigmaScoreMinimum, :limit => 50
-  
-  reportable :sigma_records, :aggregation => :count
-
-  
   def week
     self.created_at.strftime("%W")
   end
