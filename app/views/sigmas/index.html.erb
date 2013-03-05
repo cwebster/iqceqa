@@ -44,9 +44,9 @@
     <td><%= number_with_precision(sigma.sigmaScoreDesirable, :precision => 2)%></td>
     <td><%= number_with_precision(sigma.sigmaScoreMinimum, :precision => 2)%></td>
 
-    <td><%= link_to 'Show', sigma %></td>
-    <td><%= link_to 'Edit', edit_sigma_path(sigma) %></td>
-    <td><%= link_to 'Destroy', sigma, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', sigma, :class=>"btn btn-primary" %></td>
+    <td><%= link_to 'Edit', edit_sigma_path(sigma), :class=>"btn btn-success" %></td>
+    <td><%= link_to 'Destroy', sigma, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></td>
   </tr>
 <% end %>
 </table>
