@@ -43,7 +43,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">HEFT Pathology Six Sigma</a>
+          <%= link_to('HEFT Pathology Six Sigma'.html_safe, home_index_path, :class=>'brand')  %>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><%= render 'iqcs/menu/iqc_drop_down' %></li>

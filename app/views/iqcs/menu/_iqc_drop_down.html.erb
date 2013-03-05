@@ -1,11 +1,11 @@
 <li class="dropdown">
     <a href="/iqcs" class="dropdown-toggle" data-toggle="dropdown">IQC <b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li> <a href="/iqc_data/new?">New IQC Data</a></li>
-      <li><a href="/iqc_data/">List all IQC Values</a></li>
+      <li> <%= link_to('New IQC Value'.html_safe, new_iqc_datum_path)  %></li>
+      <li><%= link_to('List All IQC Values'.html_safe, iqc_data_path)  %></li>
       <li class="divider"></li>
       <li class="nav-header">IQC Materials</li>
-      <li><a href="/iqcs/new?">New IQC Material</a></li>
-      <li><a href="/iqcs/">List all configured IQC materials</a></li>
+      <li><%= link_to('New IQC Material'.html_safe, new_iqc_path)  %></li>
+      <li><%= link_to('List all IQC materials'.html_safe, iqcs_path)  %></li>
     </ul>
   </li>
