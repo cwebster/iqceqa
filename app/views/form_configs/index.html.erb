@@ -9,9 +9,9 @@
 
 <% @form_configs.each do |form_config| %>
   <tr>
-    <td><%= link_to 'Show', form_config %></td>
-    <td><%= link_to 'Edit', edit_form_config_path(form_config) %></td>
-    <td><%= link_to 'Destroy', form_config, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', form_config, :class=>"btn btn-primary" %></td>
+    <td><%= link_to 'Edit', edit_form_config_path(form_config), , :class=>"btn btn-success" %></td>
+    <td><%= link_to 'Destroy', form_config, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %></td>
   </tr>
 <% end %>
 </table>

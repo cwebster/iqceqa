@@ -10,6 +10,6 @@
 	<% end %>
 </ol>
 
-<%= link_to 'Edit', edit_form_builder_path(@form_builder) %> |
-<%= link_to 'Destroy', @form_builder, :confirm => 'Are you sure?', :method => :delete %> |
-<%= link_to 'View All', form_builders_path %>
+<%= link_to 'Edit', edit_form_builder_path(@form_builder), :class=>"btn btn-success" %> |
+<%= link_to 'Destroy', @form_builder, :confirm => 'Are you sure?', :method => :delete, :class=>"btn btn-danger" %> |
+<%= link_to 'View All', form_builders_path, :class=>"btn btn-primary" %>
