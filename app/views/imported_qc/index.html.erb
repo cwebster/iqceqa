@@ -1,0 +1,21 @@
+<table class="table table-bordered table-striped table-condensed table-hover">
+  <tr>
+    <th>Testname</th>
+    <th>Analyser</th>
+    <th>QC Lot</th>
+	<th>QC Date</th>
+	<th>QC Time</th>
+	<th>Result</th>
+  </tr>
+
+<% @imported_qcs.each do |qc| %>
+  <tr>
+	<td><%= qc.testname %> </td>
+	<td><%= qc.analyser %> </td>
+	<td><%= qc.qclot %> </td>
+	<td><%= qc.qcdate %> </td>
+	<td><%= qc.qctime %> </td>
+	<td><%= qc.result %> </td>
+  </tr>
+<% end %>
+</table>

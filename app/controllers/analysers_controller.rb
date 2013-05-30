@@ -24,6 +24,14 @@ class AnalysersController < ApplicationController
     end
   end
 
+  def generate
+    @generated_analysers = Analyser.generate
+  
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+  end
+
   # GET /analysers/new
   # GET /analysers/new.json
   def new

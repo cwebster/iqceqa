@@ -11,7 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery-ui
+
 //= require twitter/bootstrap
 //= require rails.js
 //= require form_builders.js.coffee

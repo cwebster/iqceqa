@@ -1,6 +1,24 @@
-<div id='chart'></div>
+	<div id='amsqc'>
+		<p>
+	<table class="table table-bordered table-striped table-condensed table-hover">
+  		<tr>
+    		<th>AMS QC Import Status</th>
+  		</tr>
+  		<tr>
+			<td>There are: <%= @not_imported.count %> qc records to import 
+				
+				<% if (@not_imported.count) > 0 %>
+				<%= link_to "Import Them Now", transfer_qc_url %>
+				
+				</td>
+				<% else %>
+				</td>
+				<% end%>
+  		</tr>
+	</table>
+</div>
 <%= render_chart(@chart, 'chart') %>
-
+<div id='chart'></div>
 <p>
   <b>Select test code to view performance:</b>
   	<%= form_tag("sigmaplot", :method => "post", :class => ".form-inline") do %>		

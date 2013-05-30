@@ -1,13 +1,17 @@
 class HomeController < ApplicationController
   def index
-    
+    #get test codes
     @test_codes = TestCode.all
     
-    @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "strftime('%W%Y', dateOfEQA)", :order => ('dateOfEQA ASC'))
+    #get qc records not imported from AMS
+    @not_imported = ImportedQc.where("transferred IS NULL or transferred = 0")
+    
+    #calculate sigma scores
+    @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
-      @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "strftime('%W%Y', dateOfEQA)", :order => ('dateOfEQA ASC'))
+      @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
-       @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "strftime('%W%Y', dateOfEQA)", :order => ('dateOfEQA ASC'))
+       @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
      data_table = GoogleVisualr::DataTable.new
 

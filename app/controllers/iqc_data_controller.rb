@@ -16,6 +16,10 @@ class IqcDataController < ApplicationController
       format.json { render json: @iqc_data }
     end
   end
+  
+  def transfer
+    @transferred = IqcDatum.transfer_ams_qc
+  end
 
   # GET /iqc_data/1
   # GET /iqc_data/1.json

@@ -14,12 +14,21 @@ gem 'thin'
 gem 'jquery-rails'
 gem 'activesupport'
 # gem 'reportable', :require => 'saulabs/reportable'
-gem 'devise'
 gem "therubyracer"
 gem "less-rails"
 gem "dynamic_form"
 gem "paperclip", "~> 3.0"
 gem "mysql2"
+gem "stathat"
+gem "oa-openid", :require => "omniauth/openid"
+
+#gem 'omniauth-twitter'
+#gem 'omniauth-facebook'
+
+
+gem 'devise', '1.4.5'
+# gem 'omniauth',  :tag => 'v0.3.0.rc3'
+
 
 # gem 'by_star', :git => "git://github.com/radar/by_star"
 

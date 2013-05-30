@@ -99,11 +99,11 @@ class SigmasController < ApplicationController
   
   def allTestsSigmaPlot
      Sigma.calculateSigmas
-     @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "strftime('%W%Y', dateOfEQA)", :order => ('dateOfEQA ASC'))
+     @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
-      @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "strftime('%W%Y', dateOfEQA)", :order => ('dateOfEQA ASC'))
+       @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
-       @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "strftime('%W%Y', dateOfEQA)", :order => ('dateOfEQA ASC'))
+        @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
      data_table = GoogleVisualr::DataTable.new
 
@@ -147,11 +147,11 @@ class SigmasController < ApplicationController
      Sigma.calculateSigmas
      
      
-    @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "strftime('%W%Y', dateOfEQA)", :conditions => ['test_code_id = ?', params[:test_code_id][:id]], :order => ('dateOfEQA ASC'))
+    @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "YEARWEEK(dateOfEQA)", :conditions => ['test_code_id = ?', params[:test_code_id][:id]], :order => ('dateOfEQA ASC'))
     
-     @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "strftime('%W%Y', dateOfEQA)", :conditions => ['test_code_id = ?', params[:test_code_id][:id]], :order => ('dateOfEQA ASC'))
+     @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "YEARWEEK(dateOfEQA)", :conditions => ['test_code_id = ?', params[:test_code_id][:id]], :order => ('dateOfEQA ASC'))
      
-      @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "strftime('%W%Y', dateOfEQA)", :conditions => ['test_code_id = ?', params[:test_code_id][:id]], :order => ('dateOfEQA ASC'))
+      @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "YEARWEEK(dateOfEQA)", :conditions => ['test_code_id = ?', params[:test_code_id][:id]], :order => ('dateOfEQA ASC'))
   
     data_table = GoogleVisualr::DataTable.new
   

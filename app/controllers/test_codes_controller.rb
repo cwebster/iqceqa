@@ -37,6 +37,17 @@ class TestCodesController < ApplicationController
     end
   end
 
+  def generate
+    @gentest = TestCode.generate_test_codes_from_ams_data
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @test_code }
+    end
+    
+  end
+
+
   # GET /test_codes/1/edit
   def edit
     @test_code = TestCode.find(params[:id])

@@ -3,4 +3,15 @@ class Iqc < ActiveRecord::Base
   
   belongs_to :testCode
   has_many :iqcDatums
+  
+  def self.generate
+    @generated_qc_lots= ImportedQc.all(:group => :qclot)
+    
+    @generated_qc_lots.each do |qc|
+      qc = Iqc.new(:name => qc.qclot, :notes => "Auto generated", :lotno => qc.qclot) 
+      qc.save
+    end
+    
+  end
+  
 end

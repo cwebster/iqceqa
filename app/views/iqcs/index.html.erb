@@ -32,10 +32,12 @@
 
 
 <% @iqc.each do |iqc| %>
+<% unless iqc.expirydate.nil? %>
 <% if iqc.expirydate.to_formatted_s(:long) > Date.today.to_formatted_s(:long) then%>
   <tr class='error'>
 <%else%>
   <tr>
+<%end%>
 <%end%>
     <td><%= iqc.name %></td>
     <td><%= iqc.manufacturer %></td>
@@ -44,13 +46,21 @@
     <td><%= iqc.created_at.to_formatted_s(:long) %></td>
     <td><%= iqc.code %></th>
     <td><%= iqc.lotno %></th>
-	<td><%= iqc.expirydate.to_formatted_s(:long) %></td>
+	<td><% unless iqc.expirydate.nil? 
+				iqc.expirydate.to_formatted_s(:long) 
+		   end %> </td>
 	<td><%= iqc.storagelocation %> </th>
     <td><%= iqc.storagetemp %> </th>
-    <td><%= iqc.dateinuse.to_formatted_s(:long) %></th>
-	<td><%= iqc.datereconstituted.to_formatted_s(:long) %></th>
+    <td><% 	unless iqc.expirydate.nil? 
+	 			iqc.dateinuse.to_formatted_s(:long) 
+			end %></th>
+	<td><% 	unless iqc.expirydate.nil? 
+				iqc.datereconstituted.to_formatted_s(:long) 
+			end %></th>
     <td><%= iqc.numberofaliquots %></th>
-    <td><%= User.find(iqc.users_id).email %></th>
+    <td><% 	unless iqc.expirydate.nil? 
+				User.find(iqc.users_id).email 
+			end %></th>
     <td><%= link_to 'Show', iqc, :class => "btn btn-info btn-small" %></td>
     <td><%= link_to 'Edit', edit_iqc_path(iqc), :class => "btn btn-primary btn-small" %></td>
     <td><%= link_to 'Destroy', iqc, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>

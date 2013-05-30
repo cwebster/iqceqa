@@ -53,10 +53,10 @@
             
             <% if user_signed_in? %>
 				<li>	<%= link_to('Logout'.html_safe, destroy_user_session_path, :method => :delete, :class => "strong") %> </li>
-					 <%= render 'devise/menu/registration_items' %>
+					
 					  
 					<% else %>
-				   <li> <%= link_to('Login'.html_safe, new_user_session_path)  %></li>
+				  <%= link_to "Sign in with Google", user_omniauth_authorize_path(:open_id, :openid_url => "https://www.google.com/accounts/o8/id") %>
 				<%= render 'devise/menu/registration_items' %>
 				<% end %>
 			</ul>

@@ -1,13 +1,7 @@
 Performance::Application.routes.draw do
   resources :analyser_classes
-
-
   resources :analyser_types
-
-
   resources :create_analyser_types
-
-
   resources :form_configs
   match 'eqaform/:form_builder_id' => 'form_configs#create_form'
   
@@ -16,53 +10,33 @@ Performance::Application.routes.draw do
   end
   
   resources :form_builders
-
-
   devise_for :admins
-
-  devise_for :users
-
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :eqa_schemes
-
-
   get "test_codes/new"
-
   get "test_codes/create"
-
   resources :change_loggings 
   match 'change_loggings_deleteall' => 'change_loggings#deleteall'
-
   resources :eqas
   match 'create_eqa_form' => 'eqas#create_eqa_form'
-  
   resources :quality_specifications 
-  
-
   resources :quality_specification_imports
-  
+  match 'test_generate' => 'test_codes#generate'
   resources :test_code_imports
-  
-  
   resources :test_codes
-
   match 'sigmacalc' => 'sigmas#calculateSigmas'
   match 'sigmaplot' => 'sigmas#plotSigmas'
   match 'alltestssigma' => 'sigmas#allTestsSigmaPlot'
-  
   resources :sigmas
-
-
+  match 'transfer_qc' => 'iqc_data#transfer'
   resources :iqc_data
-
-
   resources :targets
-
-
+  match 'qc_generate' => 'iqcs#generate'
   resources :iqcs
-  
+  match 'analyser_generate' => 'analysers#generate'
   resources :analysers
-
-  resources :eqa_schemes
+  resources :imported_file
+  resources :imported_qc
 
   get "home/index"
   

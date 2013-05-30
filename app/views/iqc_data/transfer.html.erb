@@ -1,0 +1,12 @@
+Imported the following IQC Datapoints:<br>
+<table class="table table-bordered table-striped table-condensed table-hover">
+  <tr>
+    <th>IQC</th>
+  </tr>
+
+<% @transferred.each do |qc| %>
+  <tr>
+	<td><%= qc.qcdate %> </td>
+  </tr>
+<% end %>
+</table>

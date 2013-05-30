@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  testname: MyString
+  analyser: MyString
+  qclot: MyString
+  qcdate: MyString
+  qctime: MyString
+  result: MyString
+
+two:
+  testname: MyString
+  analyser: MyString
+  qclot: MyString
+  qcdate: MyString
+  qctime: MyString
+  result: MyString

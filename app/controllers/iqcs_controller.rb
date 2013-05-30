@@ -24,6 +24,15 @@ class IqcsController < ApplicationController
       format.json { render json: @iqc }
     end
   end
+  
+  def generate
+    @geniqc = Iqc.generate
+    
+    respond_to do |format|
+      format.html # new.html.erb
+    end
+    
+  end
 
   # GET /iqc/new
   # GET /iqc/new.json

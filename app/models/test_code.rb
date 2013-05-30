@@ -15,4 +15,13 @@ class TestCode < ActiveRecord::Base
     end
   end
   
+  def self.generate_test_codes_from_ams_data
+    @generated_testcodes= ImportedQc.all(:group => :testname)
+    
+    @generated_testcodes.each do |testcode|
+      tc = TestCode.new(:testCodeText => testcode.testname, :notes => "Auto generated", :active => 1, :testExpansion => testcode.testname) 
+      tc.save
+    end
+  end
+  
 end

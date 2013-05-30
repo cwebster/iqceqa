@@ -11,13 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304141408) do
-
-# Could not dump table "_iqc_data_old_20130118" because of following StandardError
-#   Unknown type 'bool' for column 'usedInCalculation'
-
-# Could not dump table "_sigmas_old_20130118" because of following StandardError
-#   Unknown type 'bool' for column 'sigmaScoreDesirable'
+ActiveRecord::Schema.define(:version => 20130529211353) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -126,6 +120,25 @@ ActiveRecord::Schema.define(:version => 20130304141408) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "form_builder_id"
+  end
+
+  create_table "imported_files", :force => true do |t|
+    t.string    "filename"
+    t.timestamp "created_at"
+    t.integer   "transferred"
+  end
+
+  create_table "imported_qcs", :force => true do |t|
+    t.string   "testname"
+    t.string   "analyser"
+    t.string   "qclot"
+    t.string   "qcdate"
+    t.string   "qctime"
+    t.string   "result"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "level"
+    t.integer  "transferred"
   end
 
   create_table "iqc_data", :force => true do |t|
