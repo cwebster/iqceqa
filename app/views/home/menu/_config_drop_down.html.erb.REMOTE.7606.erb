@@ -1,0 +1,24 @@
+<li class="dropdown">
+    <a href="" class="dropdown-toggle" data-toggle="dropdown">Configuration<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+	  <li class="nav-header">Quality Specifications</li>
+      <li><%= link_to "List Quality Specifications", quality_specifications_path%></li>
+      <li><%= link_to('New Quality Specification'.html_safe, new_quality_specification_path)  %></li>
+      <li class="divider"></li>
+      <li class="nav-header">EQA</li>
+	  <li><%= link_to('EQA Scheme Management'.html_safe, eqa_schemes_path)  %></li>
+	  <li class="divider"></li>
+	  <li class="nav-header">Analysers</li>
+	  <li><%= link_to('List and Maintain Analysers'.html_safe, analysers_path)  %></li>
+	  <li><%= link_to('List and Maintain Analyser Types'.html_safe, analyser_types_path)  %></li>
+	<li><%= link_to('List and Maintain Analyser Class'.html_safe, analyser_classes_path)  %></li>
+	  <li class="divider"></li>
+      <li class="nav-header">Test Codes</li>
+	  <li><li><%= link_to('Test Code Maintenance'.html_safe, test_codes_path)  %></li>
+	  <ul><li><%= link_to('Import Test Codes'.html_safe, new_test_code_import_path)  %></li></ul>
+	  <li class="divider"></li>
+      <li class="nav-header">Application</li>
+	  <li><%= link_to('Log Files'.html_safe, change_loggings_path)  %></li>
+      <li><%= link_to('Configure EQA Forms'.html_safe, form_builders_path)  %></li>
+    </ul>
+  </li>
