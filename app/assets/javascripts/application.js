@@ -19,4 +19,6 @@
 //= require analyser_types.js.coffee
 //= require eqas.js.coffee
 //= require iqcs.js.coffee
+//= require jquery.ui.all
 //= require_tree .
+

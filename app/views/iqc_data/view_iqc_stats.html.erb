@@ -1,0 +1,15 @@
+<% unless @iqc_data.nil? || @iqc_data == []%>
+	Statistics for: <%= @testname.testCodeText%></br>
+	Mean Value = <%= @mean%></br>
+	Median Value = <%= @median%></br>
+	SD = <%= @sd %></br>
+	Min = <%= @min%></br>
+	Max = <%= @max%></br>	
+	%CV = <%= @cv %></br>
+	<%= render_chart(@chart, 'chart') %>
+	<div id='chart'></div>
+	<%= render_chart(@chart2, 'chart2') %>
+	<div id='chart2'></div>
+<%else%>
+No IQC results for that test on that analyser using that IQC material
+<%end%>

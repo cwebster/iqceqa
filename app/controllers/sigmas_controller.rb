@@ -168,7 +168,7 @@ class SigmasController < ApplicationController
     
     count=0
     @sigmas_optimal.each do |x,y|
-      data_table.set_cell( count, 0, x  )
+      data_table.set_cell( count, 0, x.to_s  )
       data_table.set_cell( count, 1, y  )
       count+=1
     end

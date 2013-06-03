@@ -12,8 +12,8 @@ gem "google_visualr", "~> 2.1.0"
 gem 'simple_form'
 gem 'thin'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'activesupport'
-# gem 'reportable', :require => 'saulabs/reportable'
 gem "therubyracer"
 gem "less-rails"
 gem "dynamic_form"
@@ -21,16 +21,9 @@ gem "paperclip", "~> 3.0"
 gem "mysql2"
 gem "stathat"
 gem "oa-openid", :require => "omniauth/openid"
-
-#gem 'omniauth-twitter'
-#gem 'omniauth-facebook'
-
-
 gem 'devise', '1.4.5'
-# gem 'omniauth',  :tag => 'v0.3.0.rc3'
+gem 'descriptive-statistics'
 
-
-# gem 'by_star', :git => "git://github.com/radar/by_star"
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -35,6 +35,17 @@ class Sigma < ActiveRecord::Base
 			@iqcs.each do |iqc| 
 				@results = Hash.new
 				
+				#calculate %CV for group
+				result = @iqcs.map {|i| i.result.to_f }
+        stats = DescriptiveStatistics::Stats.new(result)
+        @mean = stats.mean
+        @sd = stats.standard_deviation
+        if @sd.nil?
+          @cv = 0
+        else
+          @cv = (@sd /@mean)*100
+        end
+				
 				#Get Testname
 				@testname = TestCode.find(iqc.test_code_id).testExpansion
 				
@@ -61,9 +72,9 @@ class Sigma < ActiveRecord::Base
           @desirableTE =@qs.desirableTE
           @optimalTE = @qs.optimalTE
 
-          @sigmaScoreOptimal = (@optimalTE.to_f - eqa.bias.to_f)/iqc.result.to_f
-          @sigmaScoreDesirable = (@desirableTE.to_f - eqa.bias.to_f)/iqc.result.to_f
-          @sigmaScoreMinimum = (@minimumTE.to_f - eqa.bias.to_f)/iqc.result.to_f
+          @sigmaScoreOptimal = (@optimalTE.to_f - eqa.bias.to_f)/@cv.to_f
+          @sigmaScoreDesirable = (@desirableTE.to_f - eqa.bias.to_f)/@cv.to_f
+          @sigmaScoreMinimum = (@minimumTE.to_f - eqa.bias.to_f)/@cv.to_f
 
 
           #Build hash of sigma results
@@ -102,7 +113,7 @@ class Sigma < ActiveRecord::Base
           @results["eqaresult"] = eqa.bias
           @results["dateOfEQA"] = eqa.dateOfEQA
           @results["desirableTE"] = @qs.desirableTE
-          @results["sigmaScoreDesirable"] = (@qs.desirableTE.to_f - eqa.bias.to_f)/iqc.result.to_f
+          @results["sigmaScoreDesirable"] = (@qs.desirableTE.to_f - eqa.bias.to_f)/@cv.result.to_f
           @calcsigmas.push(@results)
           
           # mark all EQA and IQCs used as used in calculations

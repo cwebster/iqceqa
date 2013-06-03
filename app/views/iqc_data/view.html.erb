@@ -1,0 +1,29 @@
+<%= form_tag('/iqc_data/view_iqc_stats') do -%>
+<legend>View IQC Results </legend>
+<fieldset>
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_test_code_id, "Test Name", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("iqc_datum", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_iqc_id, "IQC Material", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("iqc_datum", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'})%>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_analyser_id, "Analyser", :class =>"control-label") %>
+		<div class="controls">
+			<%= select("iqc_datum", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
+		</div>
+	</div>
+
+	<div class="form-actions">
+	<%= submit_tag 'Submit', :class => 'btn-primary'  %>
+	</div>
+	<fieldset>
+<% end %>

@@ -9,9 +9,9 @@ class HomeController < ApplicationController
     #calculate sigma scores
     @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
-      @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
+    @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
-       @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
+    @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
 
      data_table = GoogleVisualr::DataTable.new
 
@@ -28,7 +28,7 @@ class HomeController < ApplicationController
 
      count=0
      @sigmas_optimal.each do |x,y|
-       data_table.set_cell( count, 0, x  )
+       data_table.set_cell( count, 0, x.to_s  )
        data_table.set_cell( count, 1, y  )
        count+=1
      end
