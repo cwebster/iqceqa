@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="span6">
+		<span class="badge badge-info">Analysers Running This QC</span><hr>
+		<% @analyser.each do |t|%>
+			<%= form_tag(iqc_data_show_analyser_path, :class => "form-inline", :style =>"margin:0;padding:0") do%>
+				<%=hidden_field_tag(:iqc_id, t.iqc_id)%>
+				<%=hidden_field_tag(:test_code_id, t.test_code_id)%>
+				<%=hidden_field_tag(:analyser_id, t.analyser_id)%>
+				<%= submit_tag(Analyser.find(t.analyser_id).AnalyserName, :class => "btn btn-mini btn-primary") %>
+			<%end%>
+		<%end%>
+		
+	</div>
+
+	<div class="span6">
+		<span class="badge badge-info">Tests on this QC:</span><hr>
+		<div class="btn-group">
+		<% @tests.each do |t|%>
+			<%= form_tag("/iqc_data/test_view", :class => "form-inline", :style =>"margin:0;padding:0") do%>
+				<%=hidden_field_tag(:iqc_id, t.iqc_id)%>
+				<%=hidden_field_tag(:test_code_id, t.test_code_id)%>
+				
+				<%= submit_tag(TestCode.find(t.test_code_id).testCodeText, :class => "btn btn-mini btn-primary") %>
+			<%end%>
+		<%end%>
+		</div>
+	</div>

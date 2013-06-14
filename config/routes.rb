@@ -34,14 +34,31 @@ Performance::Application.routes.draw do
   match 'alltestssigma' => 'sigmas#allTestsSigmaPlot'
   resources :sigmas
   
-  post ':iqc_data/:view_iqc_stats/:id/:test_code_id/:analyser_id' => 'iqc_data#view_iqc_stats'
-  post ':iqc_data/:view_iqc_stats' => 'iqc_data#view_iqc_stats'
-  match ':iqc_data/:view' => 'iqc_data#view'
-  match 'transfer_qc' => 'iqc_data#transfer'
+  get 'iqc_data/analyser_iqc', to: 'iqc_data#analyser_iqc'
+  get 'iqc_data/view', to: 'iqc_data#view'
+  get 'iqc_data/show_analyser/', to: 'iqc_data#show_analyser_view'
+  post 'iqc_data/show_analyser/', to: 'iqc_data#show_analyser_view'
+  get 'iqc_data/show_iqc_material_view', to: 'iqc_data#show_iqc_material_view'
+  get 'iqc_data/show_test_view', to: 'iqc_data#show_test_view'
+  
   resources :iqc_data
-  resources :targets
-  match 'qc_generate' => 'iqcs#generate'
+  
+  get 'iqcs/add_ams_qc', to: 'iqcs#add_ams_qc'
+  get 'iqcs/ams_qc', to: 'iqcs#ams_qc'
+  
   resources :iqcs
+  resources :targets
+  
+  match 'transfer_qc' => 'iqc_data#transfer'
+  
+  match 'iqc_data/test_view' => 'iqc_data#test_view'
+  match 'iqc_data/view_iqc_stats' => 'iqc_data#view_iqc_stats'
+  match 'iqc_data/view_iqc_stats' => 'iqc_data#view_iqc_stats'
+  match 'iqc_data/view_analyser_stats' => 'iqc_data#view_analyser_stats'
+  
+  
+  match 'qc_generate' => 'iqcs#generate'
+  
   
   match 'analyser_generate' => 'analysers#generate'
   resources :analysers

@@ -13,6 +13,21 @@ class IqcsController < ApplicationController
       format.json { render json: @iqc }
     end
   end
+  
+  def ams_qc
+    @iqc = Iqc.all
+    @ams = ImportedQc.group("qclot")
+    
+    ids = @iqc.map{|x| x.lotno}
+    @diffs = @ams.reject{|x| ids.include? x.qclot}
+    puts @diffs
+    puts ids
+  end
+  
+  def add_ams_qc
+    @iqc = Iqc.add_imported_qc(params[:qc_lot])
+  
+  end
 
   # GET /iqc/1
   # GET /iqc/1.json
@@ -98,7 +113,7 @@ class IqcsController < ApplicationController
     changeLogging.save
 
     respond_to do |format|
-      format.html { redirect_to iqc_url }
+      format.html { redirect_to iqcs_url }
       format.json { head :no_content }
     end
   end

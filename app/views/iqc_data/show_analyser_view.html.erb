@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="span4">
+		<span class="badge badge-info">Analyser: <%=@analyser.AnalyserName %></span></br>
+		<%=@analyser.AnalyserLocation %>
+		<%=@analyser.AnalyserName %>
+	</div>
+	<div class="span4">
+		<% @analyser_type.analyser_type_name %>
+		<%= image_tag @analyser_type.analyser_picture.url(:medium) %>
+	</div>
+	<div class="span4">
+		<span class="badge badge-info">Test Menu:</span><hr>
+		<div class="btn-group">
+		<% @tests.each do |t|%>
+			<%= form_tag("/iqc_data/view_iqc_stats", :class => "form-inline", :style =>"margin:0;padding:0") do%>
+				<%=hidden_field_tag(:iqc_id, t.iqc_id)%>
+				<%=hidden_field_tag(:test_code_id, t.test_code_id)%>
+				<%=hidden_field_tag(:analyser_id, @analyser.id)%>
+				<%= submit_tag(TestCode.find(t.test_code_id).testCodeText, :class => "btn btn-mini btn-primary") %>
+			<%end%>
+		<%end%>
+		</div>
+	</div>

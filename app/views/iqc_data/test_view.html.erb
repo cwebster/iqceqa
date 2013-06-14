@@ -5,8 +5,7 @@
 	SD = <%= @sd %></br>
 	Min = <%= @min%></br>
 	Max = <%= @max%></br>	
-	%CV = <%= @cv %></br>
-	
+	%CV = <%= @cv %> 
 	<% if @quality_specification.empty? != true %>
 		<% if @cv < @quality_specification[0].allowableCVoptimal %>
 			<div class="alert alert-success">
@@ -24,6 +23,7 @@
 			
 		
 	<%end%>
+	</br>
 	<%= render_chart(@chart, 'chart') %>
 	<div id='chart'></div>
 	<%= render_chart(@chart2, 'chart2') %>

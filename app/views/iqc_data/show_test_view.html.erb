@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="span4">
+		<span class="badge badge-info">Test: <%=@tests[0].testCodeText %></span></br>
+	</div>
+	<div class="span4">
+		<% @iqc_data.each do |t|%>
+			<%= form_tag("/iqc_data/test_view", :class => "form-inline", :style =>"margin:0;padding:0") do%>
+				<%=hidden_field_tag(:test_code_id, t.test_code_id)%>
+				<%=hidden_field_tag(:iqc_id, t.iqc_id)%>
+				<%= submit_tag(TestCode.find(t.test_code_id).testCodeText + "    " + Iqc.find(t.iqc_id).lotno, :class => "btn btn-mini btn-primary") %>
+			<%end%>
+		<%end%>
+		
+	</div>
+	<div class="span4">
+		<span class="badge badge-info">Test Menu:</span><hr>
+		<div class="btn-group">
+		<% @analyser.each do |t|%>
+		<%= image_tag AnalyserType.find(Analyser.find(t.analyser_id).analyser_types_id).analyser_picture.url(:medium) %>
+			<%= form_tag("/iqc_data/test_view", :class => "form-inline", :style =>"margin:0;padding:0") do%>
+				<%=hidden_field_tag(:analyser_id, t.analyser_id)%>
+				<%=hidden_field_tag(:iqc_id, t.iqc_id)%>
+				<%= submit_tag(Analyser.find(t.analyser_id).AnalyserName + " " + Analyser.find(t.analyser_id).AnalyserName, :class => "btn btn-mini btn-primary") %>
+			<%end%>
+		<%end%>
+		</div>
+	</div>

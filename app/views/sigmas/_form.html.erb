@@ -1,24 +1,41 @@
-<%= form_for(@sigma) do |f| %>
-  <% if @sigma.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sigma.errors.count, "error") %> prohibited this sigma from being saved:</h2>
+<%= form_for @sigma, :html => {:class => "form-horizontal well"} do |f| %>
+<% if @sigma.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@iqc_datum.errors.count, "error") %> prohibited this Sigma from being saved:</h2>
 
-      <ul>
-      <% @sigma.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<ul>
+		<% @sigma.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<legend>Add new Sigma Value </legend>
+<fieldset>
+	
 
-  <div class="field">
-<%= select("sigma", "test_code_id", TestCode.all.collect {|p| [ p.testExpansion, p.id ] }, {:include_blank => 'None'}) %>
-  </div>
-  <div class="field">
-    Calculated Sigma Score<br />
-    <%= f.text_field :sigma %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="control-group">
+		<%= label_tag(:sigma_sigmaScoreOptimal, "Optimal Sigma Score", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :sigmaScoreOptimal %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:sigma_sigmaScoreDesirable, "Desirable Sigma Score", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :sigmaScoreDesirable%>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= label_tag(:sigma_sigmaScoreMinimum, "Minimum Sigma Score", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.text_field :sigmaScoreMinimum %>
+		</div>
+	</div>
+	<div class="form-actions">
+		<%= f.submit :class => "btn-primary" %>
+	</div>
+	<fieldset>
 <% end %>

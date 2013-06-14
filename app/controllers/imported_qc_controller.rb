@@ -82,7 +82,7 @@ class ImportedQcController < ApplicationController
        @imported_file.destroy
 
        respond_to do |format|
-         format.html { redirect_to imported_files_url }
+         format.html { redirect_to imported_qc_url }
          format.json { head :no_content }
        end
      end

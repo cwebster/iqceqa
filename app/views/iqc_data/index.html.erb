@@ -1,7 +1,30 @@
 <h1>Listing IQC Data Points</h1>
+<div class="row">
+	<div class="span4">
+		<span class="label label-info">	There are results on the following QC Lots</span>
+			<% @qc_lots.each do |lot| %>
+			<%= link_to Iqc.find(lot.iqc_id).name, iqc_data_show_iqc_material_view_path(:iqc_id => lot.iqc_id) %>
+				</br>
+			<%end%>
 
+	</div>
+	<div class="span4">
+			<span class="label label-info">	There are results on the following Analysers</span>
+			<% @analyser_results.each do |analyser| %>
+			<%= link_to Analyser.find(analyser.analyser_id).AnalyserName, iqc_data_show_analyser_path(:analyser_id => analyser.analyser.id) %>
+				</br>
+			<%end%>
 
-
+	</div>
+	<div class="span4">
+			<span class="label label-info">	There are results on the following Tests</span>
+			<% @test_results.each do |test| %>
+				<%= link_to TestCode.find(test.test_code_id).testCodeText, iqc_data_show_test_view_path(:test_code_id => test.test_code_id) %>
+			,
+			<%end%>
+			</div>
+	</div>
+</div>
 <div id="articles">
   <h2 id="month">
     <%= link_to "<", date: @date.prev_month %>
@@ -18,43 +41,5 @@
   <% end %>
 </div>
 <hr>
-<table class="table table-bordered table-striped table-condensed table-hover">
-<thead>
-  <tr>
-    <th>Telepath Test Code</th>
-    <th>Notes</th>
-    <th>IQC Material</th>
-    <th>Analyser</th>
-    <th>Date /Time of IQC</th>
-    <th>Result</th>
-	<th>Used in Calculation of Sigma?</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
 
-<tbody>
-<% @iqc_data.each do |iqc_datum| %>
-  <tr>
-    <td><%= render 'common/test_code_id', :object => iqc_datum.test_code_id %></td>
-    <td><%= iqc_datum.notes %></td>
-    
-    <td><%= render 'common/iqcmaterial', :object => iqc_datum.iqc_id %></td>
-    <td><%= render 'common/analyser', :object => iqc_datum.analyser_id  %></td>
-    
-    <td><%= iqc_datum.dateOfIQC.to_formatted_s(:long) %></td>
-    <td><%= iqc_datum.result %></td>
-	<td><% if iqc_datum.usedInCalculation == 1%>
-			Yes	</td>
-		<% else %>
-			No	</td>
-		<% end%>
-    <td><%= link_to 'Show', iqc_datum, :class => "btn btn-info btn-small" %></td>
-    <td><%= link_to 'Edit', edit_iqc_datum_path(iqc_datum), :class => "btn btn-primary btn-small" %></td>
-    <td><%= link_to 'Destroy', iqc_datum, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
-  </tr>
-<% end %>
-</tbody>
-</table>
 <%= link_to 'New IQC Data point', new_iqc_datum_path, :class => "btn btn-primary" %></td>

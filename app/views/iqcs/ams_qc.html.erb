@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="span6">
+	<span class="label label-success">IQC Materials In System</span></br>
+	<ul>
+  	<% @iqc.each do |iqc| %>
+		<li><%=iqc.lotno%></li>
+	<%end%>
+	</ul>
+  </div>
+
+<div class="span6">
+	<span class="label label-success">IQC Materials in AMS</span></br>
+	<ul>
+  	<% @ams.each do |ams| %>
+		<li><%=ams.qclot%></li>
+	<%end%>
+	</ul>
+  </div>
+</div>
+<div class="row">
+	<% if @diffs.empty? %>
+	<div class="alert alert-success">
+		No differences found
+		</div>
+		<%else%>
+		Differences: <%=@diffs%>
+		<%= link_to "Add unimported IQC Material", iqcs_add_ams_qc_path(:qc_lot => @diffs[0].qclot) %>
+		<%end%>	
+</div>

@@ -51,7 +51,7 @@ class HomeController < ApplicationController
        count+=1
      end
     
-    option = { width: 640, height: 360, title: 'Average Sigma Performance per day',    colors:['#1c9bc8','#71dbff','#ffcf3d','#fd6770','#8c8c8c','#00A5C6','#DEBDDE','#000000'],
+    option = { width: 460, height: 360, title: 'Average Sigma Performance per day',    colors:['#1c9bc8','#71dbff','#ffcf3d','#fd6770','#8c8c8c','#00A5C6','#DEBDDE','#000000'],
       :focusTarget => 'category',
       :series => [{areaOpacity: 0.9},{areaOpacity: 0.9},{areaOpacity: 0.5},{areaOpacity: 0.6}] }
     @chart = GoogleVisualr::Interactive::SteppedAreaChart.new(data_table, option)

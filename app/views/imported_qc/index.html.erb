@@ -6,6 +6,9 @@
 	<th>QC Date</th>
 	<th>QC Time</th>
 	<th>Result</th>
+	<th></th>
+    <th></th>
+    <th></th>
   </tr>
 
 <% @imported_qcs.each do |qc| %>
@@ -16,6 +19,8 @@
 	<td><%= qc.qcdate %> </td>
 	<td><%= qc.qctime %> </td>
 	<td><%= qc.result %> </td>
+	<td><%= link_to 'Edit', edit_imported_qc_path(qc), :class => "btn btn-primary btn-small" %></td>
+    <td><%= link_to 'Destroy', qc, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-small" %></td>
   </tr>
 <% end %>
 </table>

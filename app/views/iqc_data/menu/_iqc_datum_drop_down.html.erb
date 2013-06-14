@@ -1,7 +1,10 @@
 <li class="dropdown">
     <a href="/iqcs" class="dropdown-toggle" data-toggle="dropdown">IQC datapoints<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <a href="/iqc_data/new?"><strong>New IQC</strong> <span>Create a new IQC data point</span></a>
+	  <li><%= link_to('List All IQC Values'.html_safe, iqc_data_path)  %></li>
+      <li><a href="/iqc_data/new?"><strong>New IQC</strong> <span>Create a new IQC data point</span></a></li>
       <li><a href="/transfer_qc">Import AMS Data</a></li>
+	  <li><a href="/iqc_data/view">View IQC for test & analyser</a></li>
+	  <li><a href="/iqc_data/analyser_iqc">View IQC for test across all analysers</a></li>
     </ul>
   </li>

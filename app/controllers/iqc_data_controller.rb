@@ -6,6 +6,11 @@ class IqcDataController < ApplicationController
   # GET /iqc_data.json
   def index
     @iqc_data = IqcDatum.all
+    @qc_lots= IqcDatum.all(:group => :iqc_id)
+    @analyser_results = IqcDatum.all(:group => :analyser_id)
+    @test_results = IqcDatum.all(:group => :test_code_id)
+    
+    
     @iqc_by_date = @iqc_data.group_by{ |item| item.dateOfIQC.to_date }
     
     
@@ -21,6 +26,28 @@ class IqcDataController < ApplicationController
     @transferred = IqcDatum.transfer_ams_qc
   end
 
+
+ 
+  def show_analyser_view
+    @iqc_data = IqcDatum.where("analyser_id = ?", params[:analyser_id])
+    @analyser = Analyser.find(params[:analyser_id])
+    @analyser_type = AnalyserType.find(@analyser.analyser_types_id)
+    @tests = IqcDatum.where("analyser_id = ?", params[:analyser_id]).group(:test_code_id)
+  end
+  
+  def show_iqc_material_view
+    @iqc_data = Iqc.where("id = ?", params[:iqc_id])
+    @tests = IqcDatum.where("iqc_id = ?", params[:iqc_id]).group(:test_code_id)
+    @analyser = IqcDatum.where("iqc_id = ?", params[:iqc_id]).group(:analyser_id)
+    
+  end
+  
+  def show_test_view
+    @tests = TestCode.where("id = ?", params[:test_code_id])
+    @analyser = IqcDatum.where("test_code_id = ?", params[:test_code_id]).group(:analyser_id)
+    @iqc_data = IqcDatum.where("test_code_id = ?", params[:test_code_id]).group(:iqc_id)
+  end
+ 
   # GET /iqc_data/1
   # GET /iqc_data/1.json
   def show
@@ -33,16 +60,147 @@ class IqcDataController < ApplicationController
     end
   end
  
-  def view
+  def test_view
+    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ?", params[:iqc_id], params[:test_code_id]).order("dateOfIQC")
+    @quality_specification = QualitySpecification.where("test_code_id = ?", params[:test_code_id])
+    
+    unless @iqc_data.nil? || @iqc_data == []
+      @testname = TestCode.find(params[:test_code_id])
+      result = @iqc_data.map {|i| i.result.to_f }
+      stats = DescriptiveStatistics::Stats.new(result)
+      @mean = stats.mean
+      @median = stats.median
+      @range = stats.range
+      @min = stats.min
+      @max = stats.max
+      @sd = stats.standard_deviation
+      if @sd.nil?
+        @sd = @mean
+      else
+        @cv = (@sd /@mean)*100
+      end
+      data_table = GoogleVisualr::DataTable.new
+      results_table = GoogleVisualr::DataTable.new
+
+     # Add Column Headers 
+     data_table.new_column('datetime', 'Date and Time' ) 
+     data_table.new_column('number', 'QC Result') 
+     data_table.new_column('number', '-2 SD') 
+     data_table.new_column('number', '+2 SD') 
+     
+     results_table.new_column('datetime', 'Date and Time' ) 
+     results_table.new_column('number', 'QC Result')
+     results_table.new_column('string', 'Analyser')
+
+     # Add Rows and Values 
+
+     data_table.add_rows(@iqc_data.size)
+     results_table.add_rows(@iqc_data.size)
+
+     count=0
+     @iqc_data.each do |data_point|
+       data_table.set_cell( count, 0, data_point.dateOfIQC )
+       data_table.set_cell( count, 1, data_point.result.to_f  )
+       data_table.set_cell( count, 2, (@mean-(@sd*2)).to_f)
+       data_table.set_cell( count, 3, (@mean+(@sd*2)).to_f)
+       
+       results_table.set_cell( count, 0, data_point.dateOfIQC )
+       results_table.set_cell( count, 1, data_point.result.to_f  )
+       results_table.set_cell( count, 2, Analyser.find(data_point.analyser_id).AnalyserName )
+       count+=1
+     end
+
+     
+    
+     opts   = { :width => 640, :height => 360, :title => 'IQC Over Time',
+                  :hAxis => { :title => 'Date/Time' },
+                  :vAxis => { :title => 'Result' , :minValue => (@mean - (@sd*4)), :maxValue => (@mean + (@sd*4)) },
+                  :lineWidth => 1,
+                  :series => {2 => {color: 'red', visibleInLegend: false, pointSize:0}, 1 =>{color: 'red', visibleInLegend: false, pointSize:0}},
+                  :legend => 'none' }
+
+     @chart = GoogleVisualr::Interactive::ScatterChart.new(data_table, opts)
+    
+      opts   = { :width => 600, :showRowNumber => true, :alternatingRowStyle => true }
+      @chart2 = GoogleVisualr::Interactive::Table.new(results_table, opts)
+    
+    end #end of unless
   
   
   end
 
   def view_iqc_stats
-    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ? and analyser_id = ?", params[:iqc_datum][:iqc_id], params[:iqc_datum][:test_code_id], params[:iqc_datum][:analyser_id]).order("dateOfIQC")
+    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ? and analyser_id = ?", params[:iqc_id], params[:test_code_id], params[:analyser_id]).order("dateOfIQC")
+    @quality_specification = QualitySpecification.where("test_code_id = ?", params[:test_code_id])
     
     unless @iqc_data.nil? || @iqc_data == []
-      @testname = TestCode.find(params[:iqc_datum][:test_code_id])
+      @testname = TestCode.find(params[:test_code_id])
+      result = @iqc_data.map {|i| i.result.to_f }
+      stats = DescriptiveStatistics::Stats.new(result)
+      @mean = stats.mean
+      @median = stats.median
+      @range = stats.range
+      @min = stats.min
+      @max = stats.max
+      @sd = stats.standard_deviation
+      if @sd.nil?
+        @sd = @mean
+      else
+        @cv = (@sd /@mean)*100
+      end
+      data_table = GoogleVisualr::DataTable.new
+      results_table = GoogleVisualr::DataTable.new
+
+     # Add Column Headers 
+     data_table.new_column('datetime', 'Date and Time' ) 
+     data_table.new_column('number', 'QC Result') 
+     data_table.new_column('number', '-2 SD') 
+     data_table.new_column('number', '+2 SD') 
+     
+     results_table.new_column('datetime', 'Date and Time' ) 
+     results_table.new_column('number', 'QC Result')
+
+     # Add Rows and Values 
+
+     data_table.add_rows(@iqc_data.size)
+     results_table.add_rows(@iqc_data.size)
+
+     count=0
+     @iqc_data.each do |data_point|
+       data_table.set_cell( count, 0, data_point.dateOfIQC )
+       data_table.set_cell( count, 1, data_point.result.to_f  )
+       data_table.set_cell( count, 2, (@mean-(@sd*2)).to_f)
+       data_table.set_cell( count, 3, (@mean+(@sd*2)).to_f)
+       
+       results_table.set_cell( count, 0, data_point.dateOfIQC )
+       results_table.set_cell( count, 1, data_point.result.to_f  )
+       count+=1
+     end
+
+     
+    
+     opts   = { :width => 640, :height => 360, :title => 'IQC Over Time',
+                  :hAxis => { :title => 'Date/Time' },
+                  :vAxis => { :title => 'Result' , :minValue => (@mean - (@sd*4)), :maxValue => (@mean + (@sd*4)) },
+                  :lineWidth => 1,
+                  :series => {2 => {color: 'red', visibleInLegend: false, pointSize:0}, 1 =>{color: 'red', visibleInLegend: false, pointSize:0}},
+                  :legend => 'none' }
+
+     @chart = GoogleVisualr::Interactive::ScatterChart.new(data_table, opts)
+    
+      opts   = { :width => 600, :showRowNumber => true, :alternatingRowStyle => true }
+      @chart2 = GoogleVisualr::Interactive::Table.new(results_table, opts)
+    
+    end #end of unless
+  
+  end
+
+  def view_analyser_stats
+    @iqc_data = IqcDatum.where("test_code_id = ? and analyser_id = ?", params[:test_code_id], params[:analyser_id]).order("dateOfIQC")
+    @quality_specification = QualitySpecification.where("test_code_id = ?", [:test_code_id])
+    
+    unless @iqc_data.nil? || @iqc_data == []
+      @testname = TestCode.find(params[:test_code_id])
       result = @iqc_data.map {|i| i.result.to_f }
       stats = DescriptiveStatistics::Stats.new(result)
       @mean = stats.mean

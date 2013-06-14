@@ -90,7 +90,7 @@ class EqasController < ApplicationController
 
     respond_to do |format|
       if @eqa.update_attributes(params[:eqa])
-        changeLogging = ChangeLogging.new(:logRecord => 'EQA Scheme updated: '+ params[:eqa], :users_id => current_user.id)
+        changeLogging = ChangeLogging.new(:logRecord => 'EQA Scheme updated: '+ params[:eqa].to_s, :users_id => current_user.id)
         changeLogging.save
         format.html { redirect_to @eqa, notice: 'Eqa was successfully updated.' }
         format.json { head :no_content }

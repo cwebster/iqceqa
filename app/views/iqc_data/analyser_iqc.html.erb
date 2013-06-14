@@ -1,4 +1,4 @@
-<%= form_tag('/iqc_data/view_iqc_stats') do -%>
+<%= form_tag('/iqc_data/test_view') do -%>
 <legend>View IQC Results </legend>
 <fieldset>
 	<div class="control-group">
@@ -12,13 +12,6 @@
 		<%= label_tag(:iqc_datum_iqc_id, "IQC Material", :class =>"control-label") %>
 		<div class="controls">
 			<%= select("", "iqc_id", Iqc.all.collect {|p| [ p.name, p.id ] }, {:include_blank => 'None'})%>
-		</div>
-	</div>
-
-	<div class="control-group">
-		<%= label_tag(:iqc_datum_analyser_id, "Analyser", :class =>"control-label") %>
-		<div class="controls">
-			<%= select("", "analyser_id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:include_blank => 'None'}) %>
 		</div>
 	</div>
 

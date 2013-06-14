@@ -1,4 +1,5 @@
-	<div id='amsqc'>
+<div class="row">
+<div id='amsqc'>
 		<p>
 	<table class="table table-bordered table-striped table-condensed table-hover">
   		<tr>
@@ -17,9 +18,11 @@
   		</tr>
 	</table>
 </div>
+<div class="span6">
 <%= render_chart(@chart, 'chart') %>
 <div id='chart'></div>
-<p>
+</div>
+<div class="span6">
   <b>Select test code to view performance:</b>
   	<%= form_tag("sigmaplot", :method => "post", :class => ".form-inline") do %>		
 		
@@ -28,3 +31,14 @@
 		</fieldset>
 		<%= submit_tag("View Performance", :class => "btn btn-primary") %>
 	<% end %>
+
+  <b>Select Analyser to view performance:</b>
+  	<%= form_tag("sigmaplotanalyser", :method => "post", :class => ".form-inline") do %>		
+
+		<fieldset>
+		<%=select("test_code_id", "id", Analyser.all.collect {|p| [ p.AnalyserName, p.id ] }, {:prompt => 'Select Test'}) %>
+		</fieldset>
+		<%= submit_tag("View Performance", :class => "btn btn-primary") %>
+	<% end %>
+</div>
+</div>

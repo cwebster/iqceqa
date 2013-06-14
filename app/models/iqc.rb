@@ -14,4 +14,10 @@ class Iqc < ActiveRecord::Base
     
   end
   
+  def self.add_imported_qc(qclot)
+    qc = Iqc.new(:name => qclot, :notes => "Auto generated", :lotno => qclot) 
+    qc.save
+  
+  end
+  
 end

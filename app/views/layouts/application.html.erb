@@ -46,6 +46,7 @@
           <%= link_to('HEFT Pathology Six Sigma'.html_safe, root_url, :class=>'brand')  %>
           <div class="nav-collapse collapse">
             <ul class="nav">
+			  <li><%= render 'iqc_data/menu/iqc_datum_drop_down'%>
               <li><%= render 'iqcs/menu/iqc_drop_down' %></li>
 			  <li><%= render 'eqas/menu/eqa_drop_down' %></li>
               <li><%= render 'sigmas/menu/sigma_drop_down' %></li>

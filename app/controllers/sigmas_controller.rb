@@ -99,42 +99,32 @@ class SigmasController < ApplicationController
   
   def allTestsSigmaPlot
      Sigma.calculateSigmas
-     @sigmas_optimal = Sigma.average(:sigmaScoreOptimal, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
-
-       @sigmas_desirable = Sigma.average(:sigmaScoreDesirable, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
-
-        @sigmas_minimum = Sigma.average(:sigmaScoreMinimum, :group => "YEARWEEK(dateOfEQA)", :order => ('dateOfEQA ASC'))
+     @sigmas = Sigma.all
 
      data_table = GoogleVisualr::DataTable.new
 
      # Add Column Headers 
-     data_table.new_column('string', 'Week Number & Year' ) 
+     data_table.new_column('string', 'Test' ) 
+     data_table.new_column('date', 'Week Number & Year' ) 
      data_table.new_column('number', 'Sigma Score Optimal') 
      data_table.new_column('number', 'Sigma Score Desirable') 
      data_table.new_column('number', 'Sigma Score Minimum') 
 
      # Add Rows and Values 
 
-     data_table.add_rows(@sigmas_minimum.size)
+     data_table.add_rows(@sigmas.size)
 
      count=0
-     @sigmas_optimal.each do |x,y|
-       data_table.set_cell( count, 0, x  )
-       data_table.set_cell( count, 1, y  )
+     @sigmas.each do |s|
+       data_table.set_cell( count, 0, s.testname  )
+       data_table.set_cell( count, 1, s.dateOfEQA  )
+       data_table.set_cell( count, 2, s.sigmaScoreOptimal  )
+       data_table.set_cell( count, 3, s.sigmaScoreDesirable  )
+       data_table.set_cell( count, 4, s.sigmaScoreMinimum  )
        count+=1
      end
 
-     count=0
-     @sigmas_desirable.each do |x,y|
-       data_table.set_cell( count, 2, y  )
-       count+=1
-     end
-
-     count=0
-     @sigmas_minimum.each do |x,y|
-       data_table.set_cell( count, 3, y  )
-       count+=1
-     end
+     
       
       opts   = { :width => 600, :height => 300 }
       @chart = GoogleVisualr::Interactive::MotionChart.new(data_table, opts)

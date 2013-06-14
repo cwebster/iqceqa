@@ -31,20 +31,26 @@ class Sigma < ActiveRecord::Base
   	@eqas.each do |eqa| 
   	
   		@iqcs = IqcDatum.by_month(eqa.dateOfEQA.month, :year => eqa.dateOfEQA.year).where("test_code_id = ? and analyser_id = ? and usedInCalculation =0", eqa.test_code_id, eqa.analyser_id).order("dateOfIQC ASC")
-			
-			@iqcs.each do |iqc| 
-				@results = Hash.new
-				
-				#calculate %CV for group
-				result = @iqcs.map {|i| i.result.to_f }
-        stats = DescriptiveStatistics::Stats.new(result)
+  		
+  		#calculate %CV for group
+			result = @iqcs.map {|i| i.result.to_f }
+      stats = DescriptiveStatistics::Stats.new(result)
+        puts result
+        
         @mean = stats.mean
         @sd = stats.standard_deviation
         if @sd.nil?
           @cv = 0
         else
           @cv = (@sd /@mean)*100
+          
+          puts @cv
+          puts @sd
+          puts @mean
         end
+			
+			@iqcs.each do |iqc| 
+				@results = Hash.new
 				
 				#Get Testname
 				@testname = TestCode.find(iqc.test_code_id).testExpansion
