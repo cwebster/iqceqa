@@ -48,11 +48,19 @@
 	</div>
 
 	<div class="control-group">
-		<%= label_tag(:iqc_datum_result, "%CV", :class =>"control-label") %>
+		<%= label_tag(:iqc_datum_result, "Result", :class =>"control-label") %>
 		<div class="controls">
 			<%= f.text_field :result %>
 		</div>
 	</div>
+	
+	<div class="control-group">
+		<%= label_tag(:iqc_datum_exclude_point, "Exclude from stats", :class =>"control-label") %>
+		<div class="controls">
+			<%= f.check_box(:exclude_point) %>
+		</div>
+	</div>
+	
 	<div class="form-actions">
 		<%= f.submit :class => "btn-primary" %>
 	</div>

@@ -1,6 +1,6 @@
 class AddTransfrimportedQcs2 < ActiveRecord::Migration
   def up
-        add_column :imported_qcs, :transferred, :integer
+        add_column :iqc_data, :exclude_result, :integer
   end
 
   def down

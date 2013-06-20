@@ -61,7 +61,8 @@ class IqcDataController < ApplicationController
   end
  
   def test_view
-    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ?", params[:iqc_id], params[:test_code_id]).order("dateOfIQC")
+    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ? and exclude_point =0", params[:iqc_id], params[:test_code_id]).order("dateOfIQC")
+    @iqc_data_all = IqcDatum.where("iqc_id = ? and test_code_id = ?", params[:iqc_id], params[:test_code_id]).order("dateOfIQC")
     @quality_specification = QualitySpecification.where("test_code_id = ?", params[:test_code_id])
     
     unless @iqc_data.nil? || @iqc_data == []
@@ -79,8 +80,24 @@ class IqcDataController < ApplicationController
       else
         @cv = (@sd /@mean)*100
       end
+
+      untrimmed_result = @iqc_data_all.map {|i| i.result.to_f }
+      untrimmed_stats = DescriptiveStatistics::Stats.new(untrimmed_result)
+      @untrimmed_mean = untrimmed_stats.mean
+      @untrimmed_median = untrimmed_stats.median
+      @untrimmed_range = untrimmed_stats.range
+      @untrimmed_min = untrimmed_stats.min
+      @untrimmed_max = untrimmed_stats.max
+      @untrimmed_sd = untrimmed_stats.standard_deviation
+      if @untrimmed_sd.nil?
+        @untrimmed_sd = @mean
+      else
+        @untrimmed_cv = (@untrimmed_sd /@untrimmed_mean)*100
+      end
+
       data_table = GoogleVisualr::DataTable.new
-      results_table = GoogleVisualr::DataTable.new
+      untrimmed_results_table = GoogleVisualr::DataTable.new
+
 
      # Add Column Headers 
      data_table.new_column('datetime', 'Date and Time' ) 
@@ -88,14 +105,15 @@ class IqcDataController < ApplicationController
      data_table.new_column('number', '-2 SD') 
      data_table.new_column('number', '+2 SD') 
      
-     results_table.new_column('datetime', 'Date and Time' ) 
-     results_table.new_column('number', 'QC Result')
-     results_table.new_column('string', 'Analyser')
+     untrimmed_results_table.new_column('datetime', 'Date and Time' ) 
+     untrimmed_results_table.new_column('number', 'QC Result')
+	 untrimmed_results_table.new_column('number', '-2 SD') 
+     untrimmed_results_table.new_column('number', '+2 SD') 
 
-     # Add Rows and Values 
+         # Add Rows and Values 
 
      data_table.add_rows(@iqc_data.size)
-     results_table.add_rows(@iqc_data.size)
+     untrimmed_results_table.add_rows(@iqc_data_all.size)
 
      count=0
      @iqc_data.each do |data_point|
@@ -103,16 +121,21 @@ class IqcDataController < ApplicationController
        data_table.set_cell( count, 1, data_point.result.to_f  )
        data_table.set_cell( count, 2, (@mean-(@sd*2)).to_f)
        data_table.set_cell( count, 3, (@mean+(@sd*2)).to_f)
-       
-       results_table.set_cell( count, 0, data_point.dateOfIQC )
-       results_table.set_cell( count, 1, data_point.result.to_f  )
-       results_table.set_cell( count, 2, Analyser.find(data_point.analyser_id).AnalyserName )
        count+=1
      end
 
+	 count=0
+    
+	 @iqc_data_all.each do |data_point|
+        untrimmed_results_table.set_cell( count, 0, data_point.dateOfIQC )
+		untrimmed_results_table.set_cell( count, 1, data_point.result.to_f  )
+		untrimmed_results_table.set_cell( count, 2, (@untrimmed_mean-(@untrimmed_sd*2)).to_f)
+		untrimmed_results_table.set_cell( count, 3, (@untrimmed_mean+(@untrimmed_sd*2)).to_f)
+		count+=1
+	 end
      
     
-     opts   = { :width => 640, :height => 360, :title => 'IQC Over Time',
+	 opts   = { :width => 512, :height => 360, :title => 'IQC Over Time: Trimmed Results',
                   :hAxis => { :title => 'Date/Time' },
                   :vAxis => { :title => 'Result' , :minValue => (@mean - (@sd*4)), :maxValue => (@mean + (@sd*4)) },
                   :lineWidth => 1,
@@ -120,9 +143,14 @@ class IqcDataController < ApplicationController
                   :legend => 'none' }
 
      @chart = GoogleVisualr::Interactive::ScatterChart.new(data_table, opts)
-    
-      opts   = { :width => 600, :showRowNumber => true, :alternatingRowStyle => true }
-      @chart2 = GoogleVisualr::Interactive::Table.new(results_table, opts)
+     
+     opts   = { :width => 512, :height => 360, :title => 'IQC Over Time: Untrimmed Results',
+                  :hAxis => { :title => 'Date/Time' },
+                  :vAxis => { :title => 'Result' , :minValue => (@mean - (@sd*4)), :maxValue => (@mean + (@sd*4)) },
+                  :lineWidth => 1,
+                  :series => {2 => {color: 'red', visibleInLegend: false, pointSize:0}, 1 =>{color: 'red', visibleInLegend: false, pointSize:0}},
+                  :legend => 'none' }
+     @chart2 = GoogleVisualr::Interactive::ScatterChart.new(untrimmed_results_table, opts)
     
     end #end of unless
   
@@ -130,7 +158,9 @@ class IqcDataController < ApplicationController
   end
 
   def view_iqc_stats
-    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ? and analyser_id = ?", params[:iqc_id], params[:test_code_id], params[:analyser_id]).order("dateOfIQC")
+    @iqc_data = IqcDatum.where("iqc_id = ? and test_code_id = ? and analyser_id = ? and exclude_point =0", params[:iqc_id], params[:test_code_id], params[:analyser_id]).order("dateOfIQC")
+    @iqc_data_all = IqcDatum.where("iqc_id = ? and test_code_id = ? and analyser_id = ?", params[:iqc_id], params[:test_code_id], params[:analyser_id]).order("dateOfIQC")
+    
     @quality_specification = QualitySpecification.where("test_code_id = ?", params[:test_code_id])
     
     unless @iqc_data.nil? || @iqc_data == []
@@ -148,8 +178,25 @@ class IqcDataController < ApplicationController
       else
         @cv = (@sd /@mean)*100
       end
+      
+      untrimmed_result = @iqc_data_all.map {|i| i.result.to_f }
+      untrimmed_stats = DescriptiveStatistics::Stats.new(untrimmed_result)
+      @untrimmed_mean = untrimmed_stats.mean
+      @untrimmed_median = untrimmed_stats.median
+      @untrimmed_range = untrimmed_stats.range
+      @untrimmed_min = untrimmed_stats.min
+      @untrimmed_max = untrimmed_stats.max
+      @untrimmed_sd = untrimmed_stats.standard_deviation
+      if @untrimmed_sd.nil?
+        @untrimmed_sd = @mean
+      else
+        @untrimmed_cv = (@untrimmed_sd /@untrimmed_mean)*100
+      end
+
+     
+      
       data_table = GoogleVisualr::DataTable.new
-      results_table = GoogleVisualr::DataTable.new
+      untrimmed_results_table = GoogleVisualr::DataTable.new
 
      # Add Column Headers 
      data_table.new_column('datetime', 'Date and Time' ) 
@@ -157,13 +204,15 @@ class IqcDataController < ApplicationController
      data_table.new_column('number', '-2 SD') 
      data_table.new_column('number', '+2 SD') 
      
-     results_table.new_column('datetime', 'Date and Time' ) 
-     results_table.new_column('number', 'QC Result')
+     untrimmed_results_table.new_column('datetime', 'Date and Time' ) 
+     untrimmed_results_table.new_column('number', 'QC Result')
+	 untrimmed_results_table.new_column('number', '-2 SD') 
+     untrimmed_results_table.new_column('number', '+2 SD') 
 
      # Add Rows and Values 
 
      data_table.add_rows(@iqc_data.size)
-     results_table.add_rows(@iqc_data.size)
+     untrimmed_results_table.add_rows(@iqc_data_all.size)
 
      count=0
      @iqc_data.each do |data_point|
@@ -171,15 +220,20 @@ class IqcDataController < ApplicationController
        data_table.set_cell( count, 1, data_point.result.to_f  )
        data_table.set_cell( count, 2, (@mean-(@sd*2)).to_f)
        data_table.set_cell( count, 3, (@mean+(@sd*2)).to_f)
-       
-       results_table.set_cell( count, 0, data_point.dateOfIQC )
-       results_table.set_cell( count, 1, data_point.result.to_f  )
        count+=1
      end
 
-     
+	 count=0
     
-     opts   = { :width => 640, :height => 360, :title => 'IQC Over Time',
+	 @iqc_data_all.each do |data_point|
+        untrimmed_results_table.set_cell( count, 0, data_point.dateOfIQC )
+		untrimmed_results_table.set_cell( count, 1, data_point.result.to_f  )
+		untrimmed_results_table.set_cell( count, 2, (@untrimmed_mean-(@untrimmed_sd*2)).to_f)
+		untrimmed_results_table.set_cell( count, 3, (@untrimmed_mean+(@untrimmed_sd*2)).to_f)
+		count+=1
+	 end
+    
+     opts   = { :width => 512, :height => 360, :title => 'IQC Over Time: Trimmed Results',
                   :hAxis => { :title => 'Date/Time' },
                   :vAxis => { :title => 'Result' , :minValue => (@mean - (@sd*4)), :maxValue => (@mean + (@sd*4)) },
                   :lineWidth => 1,
@@ -187,9 +241,14 @@ class IqcDataController < ApplicationController
                   :legend => 'none' }
 
      @chart = GoogleVisualr::Interactive::ScatterChart.new(data_table, opts)
-    
-      opts   = { :width => 600, :showRowNumber => true, :alternatingRowStyle => true }
-      @chart2 = GoogleVisualr::Interactive::Table.new(results_table, opts)
+     
+     opts   = { :width => 512, :height => 360, :title => 'IQC Over Time: Untrimmed Results',
+                  :hAxis => { :title => 'Date/Time' },
+                  :vAxis => { :title => 'Result' , :minValue => (@mean - (@sd*4)), :maxValue => (@mean + (@sd*4)) },
+                  :lineWidth => 1,
+                  :series => {2 => {color: 'red', visibleInLegend: false, pointSize:0}, 1 =>{color: 'red', visibleInLegend: false, pointSize:0}},
+                  :legend => 'none' }
+     @chart2 = GoogleVisualr::Interactive::ScatterChart.new(untrimmed_results_table, opts)
     
     end #end of unless
   

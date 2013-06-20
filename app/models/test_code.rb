@@ -24,4 +24,10 @@ class TestCode < ActiveRecord::Base
     end
   end
   
+  def self.add_test_codes_ams(testname)
+    qc = TestCode.new(:testCodeText => testname, :notes => "Auto generated", :active => 1, :testExpansion => testname) 
+    qc.save
+  
+  end
+  
 end

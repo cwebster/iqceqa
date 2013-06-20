@@ -23,6 +23,10 @@ Performance::Application.routes.draw do
   resources :quality_specifications 
   resources :quality_specification_imports
   
+  
+  
+  get 'test_codes/add_ams_test_codes', to: 'test_codes#add_ams_test_codes'
+  get 'test_codes/ams_test_codes', to: 'test_codes#ams_test_codes'
   get "test_codes/new"
   get "test_codes/create"
   match 'test_generate' => 'test_codes#generate'
@@ -59,7 +63,8 @@ Performance::Application.routes.draw do
   
   match 'qc_generate' => 'iqcs#generate'
   
-  
+  get 'analysers/add_ams_analyser', to: 'analysers#add_ams_analyser'
+  get 'analysers/ams_analyser', to: 'analysers#ams_analyser'
   match 'analyser_generate' => 'analysers#generate'
   resources :analysers
   

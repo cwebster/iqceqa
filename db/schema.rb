@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529211353) do
+ActiveRecord::Schema.define(:version => 20130619094558) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(:version => 20130529211353) do
     t.integer  "usedInCalculation",     :default => 0
     t.date     "usedInCalculationDate"
     t.integer  "users_id"
+    t.integer  "exclude_point"
   end
 
   add_index "iqc_data", ["analyser_id"], :name => "index_iqc_data_on_analyser_id"

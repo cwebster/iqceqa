@@ -1,12 +1,36 @@
 <% unless @iqc_data.nil? || @iqc_data == []%>
-	Statistics for: <%= @testname.testCodeText%></br>
-	Mean Value = <%= @mean%></br>
-	Median Value = <%= @median%></br>
-	SD = <%= @sd %></br>
-	Min = <%= @min%></br>
-	Max = <%= @max%></br>	
-	%CV = <%= @cv %> 
-	<% if @quality_specification.empty? != true %>
+	<table class="table table-bordered table-striped">
+	<thead>
+	<tr><th colspan=2>Statistics for: <%= @testname.testCodeText%></th></tr>
+		<tr>
+		  <th>Trimmed Results</th>
+		  <th>Untrimmed Results</th>
+		</tr>
+	</thead>
+	<tr>
+		<td>Mean Value = <%= @mean%></td>
+		<td><%= @untrimmed_mean%></td>
+	</tr>
+	<tr>
+		<td>Median Value = <%= @median%></td>
+		<td><%= @untrimmed_median%></td>
+	</tr>
+	<tr>
+		<td>SD = <%= @sd %></td>
+		<td><%= @untrimmed_sd %></td>
+	</tr>
+	<tr>
+		<td>Min = <%= @min%></td>
+		<td><%= @untrimmed_min%></td>
+	</tr>
+	<tr>
+		<td>Max = <%= @max%></td>
+		<td><%= @untrimmed_max%></td>
+	</tr>
+	<tr>
+		<td>%CV = <%= @cv %>
+		<% if @quality_specification.empty? != true %>
+		<% if @cv != nil%>
 		<% if @cv < @quality_specification[0].allowableCVoptimal %>
 			<div class="alert alert-success">
 				%CV < than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal %>
@@ -16,6 +40,11 @@
 	%CV > than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal%>
 			</div>
 		<%end%>
+	<% else%>
+	<div class="alert alert-error">
+Not enough values to calculate %CV
+	</div>
+	<% end%>
 	<%else%>
 		<span class="label label-warning">No Quality Specification Set</br>
 			</span>
@@ -23,11 +52,80 @@
 			
 		
 	<%end%>
-	</br>
-	<%= render_chart(@chart, 'chart') %>
-	<div id='chart'></div>
-	<%= render_chart(@chart2, 'chart2') %>
-	<div id='chart2'></div>
+	</td>
+	<td>
+	%CV = <%= @untrimmed_cv %>
+		<% if @quality_specification.empty? != true %>
+		<% if @untrimmed_cv != nil%>
+		<% if @untrimmed_cv < @quality_specification[0].allowableCVoptimal %>
+			<div class="alert alert-success">
+				%CV < than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal %>
+			</div>
+		<%else%>
+			<div class="alert alert-error">
+	%CV > than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal%>
+			</div>
+		<%end%>
+	<% else%>
+	<div class="alert alert-error">
+Not enough values to calculate %CV
+	</div>
+	<% end%>
+	<%else%>
+		<span class="label label-warning">No Quality Specification Set</br>
+			</span>
+			<%= link_to "Create one now", new_quality_specification_path %>
+			
+		
+	<%end%>
+	</td>
+	</tr>
+</table>
+	<div class='row'>
+	 <div class="span6">
+		 <%= render_chart(@chart, 'chart') %>
+		 <div id='chart'></div>
+	 </div>
+	 <div class="span6">
+		 <%= render_chart(@chart2, 'chart2') %>
+		 <div id='chart2'></div>
+	 </div>
+	</div>
+
+	
+	
+<table class="table table-bordered table-striped">
+<thead>
+  <tr>
+    <th>Test Name</th>
+    <th>Result</th>
+    <th>Date of IQC</th>
+    <th>Analyser</th>
+
+    <th>Editing Functions</th>
+
+  </tr>
+</thead>
+<tfoot>
+    	<tr>
+        	<td colspan="9"><em>Quality specifications</em></td>
+        </tr>
+ </tfoot>
+
+<% @iqc_data_all.each do |iqc_data| %>
+	<% if iqc_data.exclude_point ==1 %>
+	<tr class="warning">
+	<% else %>
+	<tr class="success">
+	<%end%>
+    	<td><%= render  'common/test_code_id', :object => iqc_data.test_code_id %></td>
+		<td><%= iqc_data.result %></td>
+		<td><%= iqc_data.dateOfIQC %></td>
+		<td><%= Analyser.find(iqc_data.analyser_id).AnalyserName %></td>
+		<td><%= link_to 'Edit', edit_iqc_datum_path(iqc_data), :class => "btn btn-primary btn-small" %></td>
+	</tr>
+<% end %>
+</table>
 <%else%>
 No IQC results for that test on that analyser using that IQC material
 <%end%>

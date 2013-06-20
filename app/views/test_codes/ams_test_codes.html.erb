@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="span6">
+	<span class="label label-success">Test Codes In System</span></br>
+	<ul>
+  	<% @iqc.each do |iqc| %>
+		<li><%=iqc.testCodeText%></li>
+	<%end%>
+	</ul>
+  </div>
+
+<div class="span6">
+	<span class="label label-success">Test Codes in AMS</span></br>
+	<ul>
+  	<% @ams.each do |ams| %>
+		<li><%=ams.testname%></li>
+	<%end%>
+	</ul>
+  </div>
+</div>
+<div class="row">
+	<% if @diffs.empty? %>
+	<div class="alert alert-success">
+		No differences found
+		</div>
+		<%else%>
+		Differences: <%=@diffs%>
+		<%= link_to "Add unimported Test",  test_codes_add_ams_test_codes_path(:testname => @diffs[0].testname) %>
+		<%end%>	
+</div>

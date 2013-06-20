@@ -13,6 +13,22 @@ class AnalysersController < ApplicationController
     end
   end
 
+def ams_analyser
+    @iqc = Analyser.all
+    @ams = ImportedQc.group("analyser")
+    
+    ids = @iqc.map{|x| x.AnalyserName}
+    @diffs = @ams.reject{|x| ids.include? x.analyser}
+    puts @diffs
+    puts ids
+end
+
+def add_ams_analyser
+    @analyser = Analyser.add_imported_analyser(params[:analyser])
+  
+end
+
+
   # GET /analysers/1
   # GET /analysers/1.json
   def show

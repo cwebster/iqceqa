@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="span6">
+	<span class="label label-success">Analysers In System</span></br>
+	<ul>
+  	<% @iqc.each do |iqc| %>
+		<li><%=iqc.AnalyserName%></li>
+	<%end%>
+	</ul>
+  </div>
+
+<div class="span6">
+	<span class="label label-success">Analysers in AMS</span></br>
+	<ul>
+  	<% @ams.each do |ams| %>
+		<li><%=ams.analyser%></li>
+	<%end%>
+	</ul>
+  </div>
+</div>
+<div class="row">
+	<% if @diffs.empty? %>
+	<div class="alert alert-success">
+		No differences found
+		</div>
+		<%else%>
+		Differences: <%=@diffs%>
+		<%= link_to "Add unimported Analyser",  analysers_add_ams_analyser_path(:analyser => @diffs[0].analyser) %>
+		<%end%>	
+</div>

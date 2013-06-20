@@ -15,4 +15,10 @@ class Analyser < ActiveRecord::Base
     
   end
   
+  def self.add_imported_analyser(analyser)
+    qc = Analyser.new(:AnalyserName => analyser, :AnalyserNote => "Auto generated", :analyser_types_id => 1) 
+    qc.save
+  
+  end
+  
 end

@@ -14,6 +14,22 @@ class TestCodesController < ApplicationController
       format.xls # { send_data @TestCode.to_csv(col_sep: "\t")}
     end
   end
+  
+  
+  def ams_test_codes
+    @iqc = TestCode.all
+    @ams = ImportedQc.group("testname")
+    
+    ids = @iqc.map{|x| x.testCodeText}
+    @diffs = @ams.reject{|x| ids.include? x.testname}
+    puts @diffs
+    puts ids
+end
+
+def add_ams_test_codes
+    @testcodes = TestCode.add_test_codes_ams(params[:testname])
+  
+end
 
   # GET /test_codes/1
   # GET /test_codes/1.json
