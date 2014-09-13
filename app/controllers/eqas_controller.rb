@@ -92,6 +92,7 @@ class EqasController < ApplicationController
       if @eqa.update_attributes(params[:eqa])
         changeLogging = ChangeLogging.new(:logRecord => 'EQA Scheme updated: '+ params[:eqa].to_s, :users_id => current_user.id)
         changeLogging.save
+        Sigma.calculateSigmas
         format.html { redirect_to @eqa, notice: 'Eqa was successfully updated.' }
         format.json { head :no_content }
       else

@@ -30,15 +30,18 @@
 	<tr>
 		<td>%CV = <%= @cv %>
 		<% if @quality_specification.empty? != true %>
+		
 		<% if @cv != nil%>
-		<% if @cv < @quality_specification[0].allowableCVoptimal %>
+		<% if @quality_specification[0].allowableCVdesirable != nil%>
+		<% if @cv < @quality_specification[0].allowableCVdesirable %>
 			<div class="alert alert-success">
-				%CV < than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal %>
+				%CV < than allowable minimum specification of: <%=@quality_specification[0].allowableCVdesirable %>
 			</div>
 		<%else%>
 			<div class="alert alert-error">
-	%CV > than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal%>
+	%CV > than allowable minimum specification of: <%=@quality_specification[0].allowableCVdesirable%>
 			</div>
+		<%end%>
 		<%end%>
 	<% else%>
 	<div class="alert alert-error">
@@ -57,14 +60,16 @@ Not enough values to calculate %CV
 	%CV = <%= @untrimmed_cv %>
 		<% if @quality_specification.empty? != true %>
 		<% if @untrimmed_cv != nil%>
-		<% if @untrimmed_cv < @quality_specification[0].allowableCVoptimal %>
+		<% if @quality_specification[0].allowableCVdesirable != nil%>
+		<% if @untrimmed_cv < @quality_specification[0].allowableCVdesirable %>
 			<div class="alert alert-success">
-				%CV < than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal %>
+				%CV < than allowable minimum specification of: <%=@quality_specification[0].allowableCVdesirable %>
 			</div>
 		<%else%>
 			<div class="alert alert-error">
-	%CV > than allowable minimum specification of: <%=@quality_specification[0].allowableCVoptimal%>
+	%CV > than allowable minimum specification of: <%=@quality_specification[0].allowableCVdesirable%>
 			</div>
+		<%end%>
 		<%end%>
 	<% else%>
 	<div class="alert alert-error">
